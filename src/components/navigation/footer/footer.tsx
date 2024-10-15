@@ -1,14 +1,20 @@
+"use client";
 import FooterList from "@/components/navigation/footer/footerList/footerList";
 import Link from "next/link";
 
 const Footer = () => {
   return (
-    <footer className="bg-djungleBlack text-white py-24 relative">
-      <div className="grid grid-flow-col auto-cols-fr container gap-12">
+    <footer className="bg-djungleBlack mt-16 text-white py-24 relative">
+      <div className="grid md:grid-flow-col auto-cols-fr container gap-12">
         <FooterList title={"Länkar"}>
           <li className="text-sm">
             <Link className="underline" href={"/integritetspolicy"}>
               Integritetspolicy
+            </Link>
+          </li>
+          <li className="text-sm">
+            <Link className="underline" href={"/cookies"}>
+              Hur vi hanterar cookies
             </Link>
           </li>
         </FooterList>

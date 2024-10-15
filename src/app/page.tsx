@@ -5,16 +5,17 @@ import BaseLink from "@/components/navigation/link/base/baseLink";
 import FeedItem from "@/components/navigation/feedItem/feedItem";
 
 const POSTS_QUERY = `*[
-  _type == "post"
+  _type in ["post", "category"]
   && defined(slug.current)
-]|order(modifiedAt desc)[0...10]{_id, title, slug, modifiedAt, image, category->, authors[]->}`;
+]|order(modifiedAt desc)[0...10]{_id, title, slug, modifiedAt, description, image, parent->, authors[]->}`;
 
 const options = { next: { revalidate: 30 } };
+import { getPostDataById } from "@/utils/dataFetcher/getPageData";
 
 export default async function IndexPage() {
   const posts = await client.fetch<SanityDocument[]>(POSTS_QUERY, {}, options);
   return (
-    <main className="min-h-screen  container mt-12">
+    <main className="min-h-screen container mt-12">
       <div className="grid grid-cols-2 gap-2">
         <div className="flex flex-col items-start gap-4">
           <h1 className="text-6xl font-bold">Allt för dig och dina djur.</h1>
@@ -54,97 +55,24 @@ export default async function IndexPage() {
           Senaste nytt
         </h2>
         <div>
-          {posts.map((post) => {
-            return (
-              <FeedItem
-                title={post.title}
-                image={post.image}
-                description={""}
-                slug={post.slug.current}
-                category={post.category}
-                modifiedAt={post.modifiedAt}
-                authors={post.authors}
-              />
-            );
-          })}
-          {posts.map((post) => {
-            return (
-              <FeedItem
-                title={post.title}
-                image={post.image}
-                description={""}
-                slug={post.slug.current}
-                category={post.category}
-                modifiedAt={post.modifiedAt}
-                authors={post.authors}
-              />
-            );
-          })}
-          {posts.map((post) => {
-            return (
-              <FeedItem
-                title={post.title}
-                image={post.image}
-                description={""}
-                slug={post.slug.current}
-                category={post.category}
-                modifiedAt={post.modifiedAt}
-                authors={post.authors}
-              />
-            );
-          })}
-          {posts.map((post) => {
-            return (
-              <FeedItem
-                title={post.title}
-                image={post.image}
-                description={""}
-                slug={post.slug.current}
-                category={post.category}
-                modifiedAt={post.modifiedAt}
-                authors={post.authors}
-              />
-            );
-          })}
-          {posts.map((post) => {
-            return (
-              <FeedItem
-                title={post.title}
-                image={post.image}
-                description={""}
-                slug={post.slug.current}
-                category={post.category}
-                modifiedAt={post.modifiedAt}
-                authors={post.authors}
-              />
-            );
-          })}
-          {posts.map((post) => {
-            return (
-              <FeedItem
-                title={post.title}
-                image={post.image}
-                description={""}
-                slug={post.slug.current}
-                category={post.category}
-                modifiedAt={post.modifiedAt}
-                authors={post.authors}
-              />
-            );
-          })}
-          {posts.map((post) => {
-            return (
-              <FeedItem
-                title={post.title}
-                image={post.image}
-                description={""}
-                slug={post.slug.current}
-                category={post.category}
-                modifiedAt={post.modifiedAt}
-                authors={post.authors}
-              />
-            );
-          })}
+          {await Promise.all(
+            posts.map(async (post) => {
+              const t = await getPostDataById(post._id);
+              return (
+                t?.path && (
+                  <FeedItem
+                    title={post.title}
+                    image={post.image}
+                    description={post.description}
+                    slug={t.path}
+                    category={post.parent}
+                    modifiedAt={post.modifiedAt}
+                    authors={post.authors}
+                  />
+                )
+              );
+            })
+          )}
         </div>
       </section>
     </main>

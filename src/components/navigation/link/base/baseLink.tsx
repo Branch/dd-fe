@@ -8,7 +8,7 @@ interface IBaseLink {
 }
 const BaseLink = ({ text, url, rel = "noopener nofollow" }: IBaseLink) => {
   const styles =
-    "rounded-full bg-djungleGreen px-4 py-2 text-white hover:bg-djungleGreen/90 duration-200";
+    "rounded-md bg-djungleGreen px-4 py-2 text-white hover:bg-djungleGreen/90 duration-200";
   return isExternalUrl(url) ? (
     <a className={styles} rel={rel} target="_blank" href={url}>
       {text}
