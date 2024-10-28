@@ -19,7 +19,10 @@ export const metadata: Metadata = {
   description: "Allt för dig och dina husdjur",
   applicationName: process.env.SITE_NAME,
   publisher: process.env.SITE_NAME,
-  robots: "index, follow",
+  robots:
+    !process.env?.NO_INDEX || process.env?.NO_INDEX === "true"
+      ? "noindex, nofollow"
+      : "index, follow",
   alternates: { canonical: "https://djurdjungeln.se" },
   openGraph: {
     url: "https://djurdjungeln.se",

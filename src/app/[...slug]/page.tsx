@@ -55,7 +55,10 @@ export async function generateMetadata({
     authors: page.authors?.map((a: IAuthor) => a.fullName),
     creator: page.authors?.map((a: IAuthor) => a.fullName),
     publisher: process.env.SITE_NAME,
-    robots: "index, follow",
+    robots:
+      !process.env?.NO_INDEX || process.env?.NO_INDEX === "true"
+        ? "noindex, nofollow"
+        : "index, follow",
     alternates: { canonical: pagePath },
     openGraph: {
       url: pagePath,
