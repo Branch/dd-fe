@@ -3,31 +3,87 @@ import { client } from "@/sanity/client";
 import Image from "next/image";
 import BaseLink from "@/components/navigation/link/base/baseLink";
 import FeedItem from "@/components/navigation/feedItem/feedItem";
-
-const POSTS_QUERY = `*[
-  _type in ["post", "category"]
-  && defined(slug.current)
-]|order(modifiedAt desc)[0...10]{_id, title, slug, modifiedAt, description, image, parent->, authors[]->}`;
-
+import { Graph } from "schema-dts";
 const options = { next: { revalidate: 30 } };
 import { getPostDataById } from "@/utils/dataFetcher/getPageData";
+import { POSTS_CATS_QUERY, LATEST_CATS_QUERY } from "@/sanity/queries/queries";
+import { oswald } from "@/utils/fonts/fonts";
+import Slider from "@/components/navigation/slider/slider";
+import { websiteData } from "@/utils/jsonld/jsonld";
 
 export default async function IndexPage() {
-  const posts = await client.fetch<SanityDocument[]>(POSTS_QUERY, {}, options);
+  const graph: Graph = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": `${process.env.BASE_URL}/#page`,
+        url: process.env.BASE_URL,
+        name: process.env.SITE_NAME,
+        inLanguage: "sv-SE",
+        mainEntityOfPage: `${process.env.BASE_URL}/#page`,
+        breadcrumb: {
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              item: {
+                "@type": "Thing",
+                "@id": process.env.BASE_URL,
+                name: process.env.SITE_NAME,
+              },
+            },
+          ],
+        },
+        isPartOf: websiteData,
+      },
+    ],
+  };
+
+  const posts = await client.fetch<SanityDocument[]>(
+    POSTS_CATS_QUERY,
+    {},
+    options
+  );
+  const cats = await client.fetch<SanityDocument[]>(
+    LATEST_CATS_QUERY,
+    {},
+    options
+  );
+  const cardsData = await Promise.all(
+    cats.map(async (cat) => {
+      const c = await getPostDataById(cat._id);
+      return {
+        title: cat.title,
+        image: cat.image,
+        description: cat.description,
+        slug: c?.path || "",
+      };
+    })
+  );
   return (
-    <main className="min-h-screen container mt-12">
-      <div className="grid grid-cols-2 gap-2">
-        <div className="flex flex-col items-start gap-4">
-          <h1 className="text-6xl font-bold">Allt för dig och dina djur.</h1>
+    <main className="min-h-screen mt-6 md:mt-12 overflow-x-clip">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(graph) }}
+      />
+      <div className="grid md:grid-cols-2 gap-2 container">
+        <div className="flex flex-col gap-4">
+          <h1 className={`text-6xl font-bold ${oswald.className}`}>
+            Allt för dig och dina djur.
+          </h1>
           <p>
             Djur djungeln är din bästa resurs för allt kring husdjur. Vi
             erbjuder expertrecensioner om foder, leksaker och tillbehör. Vi
             strävar efter att hjälpa djurägare att göra välgrundade val och
             säkerställa det bästa för deras pälsiga följeslagare.
           </p>
-          <BaseLink text={"Se kampanjer"} url={"/kampanjer"} />
+          <div className="grid grid-cols-2 gap-4">
+            <BaseLink text={"Om oss"} url={"/om-djurdjungeln"} />
+          </div>
         </div>
-        <div className="flex relative">
+        <div className="hidden relative md:flex">
           <svg
             className="absolute -top-12"
             viewBox="0 0 200 200"
@@ -50,14 +106,38 @@ export default async function IndexPage() {
           />
         </div>
       </div>
-      <section className="grid grid-flow-col gap-12 my-48 relative">
-        <h2 className="text-4xl font-bold sticky top-4 self-start">
+      <section className="bg-djungleOrange-200">
+        <div className="container mt-12 md:mt-48 py-12 md:py-24">
+          <h2 className={`text-4xl font-bold ${oswald.className}`}>
+            Därför kan du lista på oss
+          </h2>
+          <p className="mt-4">
+            Djurdjungeln.se är en av Sveriges ledande sajter inom jämförelse av
+            husdjursprodukter. Alla recensioner skrivs av erfarna djurägare där
+            vår samlade erfarenhet överskrider 50 år! Våra recensioner baseras
+            på egna upplevelser och tester som vi gjort. Vi strävar alltid efter
+            att erbjuda våra besökare unika, innehållsrika och opartiska
+            jämförelser.
+          </p>
+          <h3 className={`text-3xl mt-12 mb-4 font-bold ${oswald.className}`}>
+            Ett axplock av vårt innehåll
+          </h3>
+          <div className="-mb-32 md:-mb-60">
+            <Slider cards={cardsData} />
+          </div>
+        </div>
+      </section>
+      <section className="grid mt-56 container sm:grid-flow-col sm:gap-12 mb-20 relative">
+        <h2
+          className={`text-4xl font-bold sm:sticky sm:top-4 sm:self-start ${oswald.className}`}
+        >
           Senaste nytt
         </h2>
         <div>
           {await Promise.all(
             posts.map(async (post) => {
               const t = await getPostDataById(post._id);
+              const parent = await getPostDataById(post._id);
               return (
                 t?.path && (
                   <FeedItem
@@ -65,7 +145,12 @@ export default async function IndexPage() {
                     image={post.image}
                     description={post.description}
                     slug={t.path}
-                    category={post.parent}
+                    categoryTitle={post.parent.title}
+                    categorySlug={
+                      post.parent.title === "Index page"
+                        ? undefined
+                        : parent?.path
+                    }
                     modifiedAt={post.modifiedAt}
                     authors={post.authors}
                   />

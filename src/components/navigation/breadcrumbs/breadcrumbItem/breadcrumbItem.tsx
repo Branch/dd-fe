@@ -1,21 +1,18 @@
-import { client } from "@/sanity/client";
-import { getPostDataByPath } from "@/utils/dataFetcher/getPageData";
-import { SanityDocument } from "next-sanity";
 import Link from "next/link";
 import { ReactNode } from "react";
 
 export default async function Breadcrumbs({
-  slug,
+  path,
   name,
   includeSeparator = true,
 }: {
-  slug?: string;
+  path?: string;
   includeSeparator?: boolean;
   name: string;
 }) {
   const ListItem = ({ children }: { children?: ReactNode }) => {
     return (
-      <li className="space-x-3 first-letter:capitalize group first:ml-0">
+      <li className="space-x-3 last:pr-4 text-nowrap first-letter:capitalize group first:ml-0">
         {children}
         {includeSeparator && (
           <span className="text-djungleBlack-100/50">/</span>
@@ -23,12 +20,9 @@ export default async function Breadcrumbs({
       </li>
     );
   };
-  return slug ? (
+  return path ? (
     <ListItem>
-      <Link
-        className="hover:text-djungleBlack-100/50 duration-200"
-        href={`/${slug}`}
-      >
+      <Link className="hover:text-djungleBlack-100/50 duration-200" href={path}>
         {name}
       </Link>
     </ListItem>

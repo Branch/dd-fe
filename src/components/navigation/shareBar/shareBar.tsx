@@ -1,5 +1,4 @@
 "use client";
-
 import { Facebook, Mail, Twitter } from "lucide-react";
 
 export default function ShareBar({ title }: { title: string }) {

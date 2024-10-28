@@ -1,4 +1,5 @@
 "use client";
+import { oswald } from "@/utils/fonts/fonts";
 import { ChevronUp, ChevronDown } from "lucide-react";
 import { ReactNode, useState } from "react";
 
@@ -10,14 +11,14 @@ interface ICollapsible {
 export default function Collapsible({ children, title, styles }: ICollapsible) {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className={`py-4 cursor-pointer ${styles}`}>
-      <h2
-        className="text-xl font-bold mb-2 flex justify-between"
+    <div className={`py-4 ${styles}`}>
+      <div
+        className="text-xl cursor-pointer font-bold flex items-center justify-between"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <span>{title}</span>
+        <span className={oswald.className}>{title}</span>
         {isOpen ? <ChevronUp /> : <ChevronDown />}
-      </h2>
+      </div>
       <div className={isOpen ? "h-auto" : "h-0 overflow-hidden"}>
         {children}
       </div>

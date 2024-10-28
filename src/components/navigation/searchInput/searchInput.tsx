@@ -21,7 +21,7 @@ export default function SearchInput({ styles, onSubmit }: ISearchInput) {
   return (
     <div className={`z-50 ${styles}`}>
       <input
-        className="pl-4 pr-12 w-full outline-none py-2 text-sm bg-djungleGreen-100/50 rounded-md placeholder:text-djungleGreen"
+        className="pl-4 pr-12 w-full outline-none py-2 text-sm bg-djungleGreen-100/40 border border-djungleGreen rounded-md placeholder:text-djungleGreen"
         onKeyDown={handleKeyDown}
         placeholder="Sök bland innehållet..."
       />

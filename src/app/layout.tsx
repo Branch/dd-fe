@@ -7,39 +7,30 @@ import { client } from "@/sanity/client";
 import { SanityDocument } from "next-sanity";
 import { getPostDataById } from "@/utils/dataFetcher/getPageData";
 import dynamic from "next/dynamic";
+import { NAV_QUERY } from "@/sanity/queries/queries";
+import { istok } from "@/utils/fonts/fonts";
 const CookieConsentCmp = dynamic(
   () => import("@/components/navigation/cookieConsent/cookieConsent"),
   { ssr: false }
 );
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
 
 export const metadata: Metadata = {
-  title: "Djur djungeln",
-  description: "Allt för dig och ditt husdjur.",
+  title: process.env.SITE_NAME,
+  description: "Allt för dig och dina husdjur",
+  applicationName: process.env.SITE_NAME,
+  publisher: process.env.SITE_NAME,
+  robots: "index, follow",
+  alternates: { canonical: "https://djurdjungeln.se" },
+  openGraph: {
+    url: "https://djurdjungeln.se",
+    images: [{ url: "/assets/images/share.webp", width: 1200, height: 630 }],
+    locale: "sv_SE",
+    type: "article",
+    siteName: process.env.SITE_NAME,
+    emails: ["kontakt@djurdjungeln.se"],
+    countryName: "Sweden",
+  },
 };
-
-const NAV_QUERY = `
-       *[_id == 'nav' && name == 'headerNav'][0] {
-        ...,
-        sections[]{
-          ...,
-          target->{title, slug, _id, image},
-          links[]{
-            ...,
-            target->{title, slug, _id, image, modifiedAt, image, parent->, authors[]->, description},
-          }
-        }
-      }
-      `;
 
 export default async function RootLayout({
   children,
@@ -67,9 +58,7 @@ export default async function RootLayout({
   );
   return (
     <html lang="sv-SE">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${istok.className} overflow-x-clip`}>
         <Header sections={navSections} />
         {children}
         <Footer />

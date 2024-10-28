@@ -3,22 +3,22 @@ import BreadcrumbItem from "@/components/navigation/breadcrumbs/breadcrumbItem/b
 export default function Breadcrumbs({
   items,
 }: {
-  items: { title: string; slug: string }[];
+  items: { title: string; fullPath: string }[];
 }) {
   return items.length > 1 ? (
-    <nav className="mb-12 mx-break-out border-y border-djungleBlack">
-      <ul className="flex container items-center  space-x-3 py-2">
+    <nav className="mb-4 md:mb-12 mx-break-out border-y border-djungleBlack overflow-x-auto relative">
+      <ul className="flex container items-center space-x-3 py-2">
         {items.map((i, index: number) => {
           return (
             <BreadcrumbItem
               key={index}
-              name={i?.title === "Index page" ? "Djur djungeln" : i?.title}
+              name={index === 0 ? "Djur djungeln" : i?.title}
               includeSeparator={index !== items.length - 1}
-              slug={
+              path={
                 i?.title === "Index page"
                   ? "/"
                   : index !== items.length - 1
-                    ? i?.slug
+                    ? i?.fullPath
                     : undefined
               }
             />

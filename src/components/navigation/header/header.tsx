@@ -75,7 +75,7 @@ export default function Header({ sections }: { sections: any[] }) {
                               )}
                               <div className="flex justify-between flex-col">
                                 <div>
-                                  <div className="font-bold mb-1">
+                                  <div className={`font-bold mb-1`}>
                                     {l.target.title}
                                   </div>
                                   <div className="line-clamp-2">

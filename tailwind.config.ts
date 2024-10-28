@@ -26,6 +26,7 @@ const config: Config = {
       },
     },
     colors: {
+      transparent: "transparent",
       white: {
         DEFAULT: "#FFFFFF",
       },
@@ -50,6 +51,7 @@ const config: Config = {
       },
       djungleOrange: {
         "100": "#faf3de",
+        "200": "#fade7d",
         DEFAULT: "#FCCD2A",
       },
       djunglePurple: {

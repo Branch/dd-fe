@@ -27,7 +27,7 @@ const Footer = () => {
             tillbehör till dig och dina husdjur.
           </li>
           <li className="text-sm">
-            <Link className="underline" href={"/om-oss"}>
+            <Link className="underline" href={"/om-djurdjungeln"}>
               Läs mer
             </Link>
           </li>

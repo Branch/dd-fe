@@ -2,15 +2,8 @@ import { type SanityDocument } from "next-sanity";
 import { client } from "@/sanity/client";
 import FeedItem from "@/components/navigation/feedItem/feedItem";
 import { getPostDataById } from "@/utils/dataFetcher/getPageData";
+import { SEARCH_QUERY } from "@/sanity/queries/queries";
 
-const POST_QUERY = `*[
-        _type in ["post", 'author', 'category']
-        && (
-            title match $queryString + '*' ||
-            pt::text(body) match $queryString + '*'
-        )
-        ]|order(modifiedAt desc){_id, title, slug, modifiedAt, description, image, parent->, authors[]->}
-`;
 export default async function SearchPage({
   searchParams,
 }: {
@@ -19,7 +12,7 @@ export default async function SearchPage({
   const queryString = searchParams.q;
   const posts =
     (queryString &&
-      (await client.fetch<SanityDocument[]>(POST_QUERY, {
+      (await client.fetch<SanityDocument[]>(SEARCH_QUERY, {
         queryString,
       }))) ||
     [];

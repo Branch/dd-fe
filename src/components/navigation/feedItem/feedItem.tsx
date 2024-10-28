@@ -1,7 +1,10 @@
+import post from "@/app/[...slug]/_pageTypes/post/post";
 import Author from "@/components/navigation/author/author";
 import Tag from "@/components/navigation/tag/tag";
 import { pageTreeClient } from "@/sanity/pageTreeClient";
 import { IAuthor } from "@/types/types";
+import { getPostDataById } from "@/utils/dataFetcher/getPageData";
+import { oswald } from "@/utils/fonts/fonts";
 import sanityImageBuilder from "@/utils/sanityImageBuilder";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,9 +13,9 @@ interface IFeedItem {
   title: string;
   image: string;
   description: string;
-  tags?: string[];
   slug: string;
-  category?: any;
+  categoryTitle?: any;
+  categorySlug?: any;
   modifiedAt: string;
   authors?: IAuthor[];
 }
@@ -20,8 +23,8 @@ export default async function FeedItem({
   title,
   image,
   description,
-  category,
-  tags,
+  categoryTitle,
+  categorySlug,
   slug,
   modifiedAt,
   authors,
@@ -30,22 +33,25 @@ export default async function FeedItem({
 
   return (
     <article className="group border-b block border-djungleBlack-50 last:border-0 py-4 w-full">
-      {authors?.map((a: IAuthor, i: number) => {
-        return (
+      {authors?.map(async (a: IAuthor, i: number) => {
+        const aData = await getPostDataById(a._id);
+        return aData ? (
           <Author
             key={i}
-            slug={a?.slug?.current}
+            slug={aData.path}
             name={a.fullName}
             headshot={a.headshot}
-            categorySlug={category?.slug?.current}
-            categoryTitle={category.title}
+            categorySlug={categorySlug}
+            categoryTitle={categoryTitle}
           />
-        );
+        ) : null;
       })}
       <Link href={slug}>
-        <div className="grid grid-flow-col justify-between mt-2 gap-12">
-          <div>
-            <p className="font-bold text-2xl mb-1">{title}</p>
+        <div className="grid grid-cols-3 md:grid-cols-none md:grid-flow-col justify-between mt-2 gap-12">
+          <div className="col-span-2">
+            <p className={`font-bold text-2xl mb-1 ${oswald.className}`}>
+              {title}
+            </p>
             <p className="text-djungleBlack-100 text-sm max-w-prose line-clamp-2">
               {description}
             </p>
