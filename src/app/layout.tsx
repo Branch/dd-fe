@@ -13,28 +13,6 @@ const CookieConsentCmp = dynamic(
   { ssr: false }
 );
 
-export const metadata: Metadata = {
-  title: process.env.SITE_NAME,
-  metadataBase: new URL(process.env.BASE_URL || "http://localhost:3000"),
-  description: "Allt för dig och dina husdjur",
-  applicationName: process.env.SITE_NAME,
-  publisher: process.env.SITE_NAME,
-  robots:
-    !process.env?.NO_INDEX || process.env?.NO_INDEX === "true"
-      ? "noindex, nofollow"
-      : "index, follow",
-  alternates: { canonical: "https://djurdjungeln.se" },
-  openGraph: {
-    url: "https://djurdjungeln.se",
-    images: [{ url: "/assets/images/share.webp", width: 1200, height: 630 }],
-    locale: "sv_SE",
-    type: "article",
-    siteName: process.env.SITE_NAME,
-    emails: ["kontakt@djurdjungeln.se"],
-    countryName: "Sweden",
-  },
-};
-
 export default async function RootLayout({
   children,
 }: Readonly<{
