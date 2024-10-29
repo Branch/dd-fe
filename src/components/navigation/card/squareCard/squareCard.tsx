@@ -13,6 +13,7 @@ export default function SquareCard({ title, image, slug }: ICard) {
       >
         <Image
           src={imgSrc}
+          priority
           fill
           alt={title}
           className="object-cover rounded-md"

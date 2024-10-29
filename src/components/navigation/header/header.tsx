@@ -21,6 +21,7 @@ export default function Header({ sections }: { sections: any[] }) {
             <Image
               src={"/assets/images/logo.png"}
               alt={""}
+              priority
               width={100}
               height={10}
               className="z-10 relative block"
@@ -66,6 +67,7 @@ export default function Header({ sections }: { sections: any[] }) {
                             >
                               {imgSrc && (
                                 <Image
+                                  priority
                                   src={imgSrc}
                                   width={150}
                                   height={50}

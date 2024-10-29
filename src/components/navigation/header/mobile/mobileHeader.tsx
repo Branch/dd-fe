@@ -48,6 +48,7 @@ export default function MobileHeader({ sections }: { sections: any[] }) {
                           {imgSrc && (
                             <div className="relative w-[50px] h-[50px]">
                               <Image
+                                priority
                                 src={imgSrc}
                                 layout={"fill"}
                                 objectFit="cover"
