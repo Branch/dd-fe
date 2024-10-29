@@ -49,6 +49,7 @@ export async function generateMetadata({
   const pagePath = `${process.env.BASE_URL}${pageMeta?.path}`;
   const src = sanityImageBuilder(page.image, 1200, 630);
   return {
+    metadataBase: new URL(process.env.BASE_URL || "http://localhost:3000"),
     title: page.metaTitle || page.title,
     description: page.metaDescription || page.description,
     applicationName: process.env.SITE_NAME,
