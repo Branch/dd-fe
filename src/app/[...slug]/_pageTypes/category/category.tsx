@@ -154,7 +154,7 @@ export default function CategoryType({
           return (
             <Author
               key={i}
-              slug={`${process.env.BASE_URL}/${authData?.path}`}
+              slug={`${process.env.BASE_URL}${authData?.path}`}
               name={a.fullName}
               headshot={a.headshot}
               {...(categoryPath
