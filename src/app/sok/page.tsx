@@ -41,7 +41,10 @@ export default async function SearchPage({
                   image={post.image}
                   description={post.description}
                   slug={t.path}
-                  category={post.parent}
+                  categoryTitle={post.parent.title}
+                  categorySlug={
+                    post.parent.title === "Index page" ? undefined : t?.path
+                  }
                   modifiedAt={post.modifiedAt}
                   authors={post.authors}
                 />
