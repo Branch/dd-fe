@@ -15,6 +15,7 @@ const CookieConsentCmp = dynamic(
 
 export const metadata: Metadata = {
   title: process.env.SITE_NAME,
+  metadataBase: new URL(process.env.BASE_URL || "http://localhost:3000"),
   description: "Allt för dig och dina husdjur",
   applicationName: process.env.SITE_NAME,
   publisher: process.env.SITE_NAME,
