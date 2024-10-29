@@ -85,7 +85,7 @@ interface IPageHandler {
   pageMetadata: PageMetadata;
 }
 
-export async function PageHandler({ pageMetadata }: IPageHandler) {
+async function PageHandler({ pageMetadata }: IPageHandler) {
   const query = getQueryByType(pageMetadata.type);
   const page = await client.fetch<SanityDocument>(
     query,
