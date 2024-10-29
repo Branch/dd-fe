@@ -1,5 +1,5 @@
 import Collapsible from "@/components/dataDisplay/collapsible/collapsible";
-import { IHeading, IToc } from "@/types/types";
+import { IToc } from "@/types/types";
 
 import Link from "next/link";
 

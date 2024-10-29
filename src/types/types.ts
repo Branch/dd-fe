@@ -1,5 +1,3 @@
-import { SanityImageSource } from "@sanity/image-url/lib/types/types";
-import { SanityDocument } from "next-sanity";
 import { Graph } from "schema-dts";
 
 export interface IAuthor {

@@ -197,7 +197,7 @@ export default function CategoryType({
       <article className="grid grid-cols-1 md:grid-cols-7 gap-4">
         <section className="md:col-span-5">
           {imgUrl && (
-            <img
+            <Image
               src={imgUrl}
               alt={title}
               className="aspect-video rounded-xl col-span-2 w-full my-4"

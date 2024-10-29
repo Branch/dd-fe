@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import SearchInput from "@/components/navigation/searchInput/searchInput";
-import { ChevronDown, ChevronUp, MoveRight, Sheet } from "lucide-react";
+import { ChevronDown, ChevronUp, MoveRight } from "lucide-react";
 import sanityImageBuilder from "@/utils/sanityImageBuilder";
 import Author from "@/components/navigation/author/author";
 import { IAuthor } from "@/types/types";

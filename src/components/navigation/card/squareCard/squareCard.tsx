@@ -1,6 +1,5 @@
 import { ICard } from "@/types/types";
 import { oswald } from "@/utils/fonts/fonts";
-import { Waves } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import sanityImageBuilder from "@/utils/sanityImageBuilder";

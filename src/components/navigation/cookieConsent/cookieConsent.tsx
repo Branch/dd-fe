@@ -6,9 +6,6 @@ import { getCookie } from "cookies-next";
 import { useEffect } from "react";
 export default function CookieConsentCmp() {
   const consent = getCookie("cookieconsent");
-  if (!!consent) {
-    return null;
-  }
   const { toast } = useToast();
   useEffect(() => {
     toast({
@@ -19,6 +16,6 @@ export default function CookieConsentCmp() {
       className: "bg-white",
       onSwipeEnd: () => setConsentCloseCookie(),
     });
-  }, []);
-  return <Toaster />;
+  }, [toast]);
+  return !!consent ? null : <Toaster />;
 }

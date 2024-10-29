@@ -16,24 +16,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       return {
         url: `${process.env.BASE_URL}${pData?.path}` || "/",
         lastModified: new Date(p.modifiedAt),
-        changeFrequency: "daily" as "daily",
+        changeFrequency: "daily" as const, // eslint-disable-line
         priority: 1,
       };
     })
   );
 
-  // Static pages not created in the CMS
+  // Static pages not created in the CMS TODO:FIx
   const staticPages = [
     {
       url: process.env.BASE_URL as string,
       lastModified: new Date(),
-      changeFrequency: "daily" as "daily",
+      changeFrequency: "daily" as "daily", // eslint-disable-line
       priority: 1,
     },
     {
       url: `${process.env.BASE_URL}/sok`,
       lastModified: new Date(),
-      changeFrequency: "daily" as "daily",
+      changeFrequency: "daily" as "daily", // eslint-disable-line
       priority: 1,
     },
   ];

@@ -18,7 +18,6 @@ import Collapsible from "@/components/dataDisplay/collapsible/collapsible";
 import { oswald } from "@/utils/fonts/fonts";
 
 export default function MobileHeader({ sections }: { sections: any[] }) {
-  const [isHovered, setIsHovered] = useState(-1);
   const [isOpen, setIsOpen] = useState(false);
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>

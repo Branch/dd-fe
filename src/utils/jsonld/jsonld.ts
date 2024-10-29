@@ -1,6 +1,4 @@
-import page from "@/app/page";
 import { IAuthor, IFaq } from "@/types/types";
-import { getPostDataById } from "@/utils/dataFetcher/getPageData";
 import { Graph } from "schema-dts";
 
 const publisher = {
@@ -38,19 +36,6 @@ export const websiteData = {
   isPartOf: `${process.env.BASE_URL}/#organization`,
   publisher: publisher,
 };
-
-interface IBaseGraph {
-  pagePath: string;
-  createdAt: string;
-  modifiedAt: string;
-  headline: string;
-  shareImage: string;
-  about: string;
-  faq: IFaq[];
-  authors: IAuthor[];
-  articleSection?: string;
-  breadcrumbs?: any[];
-}
 
 export function baseGraph(
   pagePath: string,

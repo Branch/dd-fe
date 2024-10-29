@@ -168,7 +168,7 @@ export default function PostType({
           <ShareBar title={title} />
         </div>
         {imgUrl && (
-          <img
+          <Image
             src={imgUrl}
             alt={title}
             className="aspect-video rounded-xl w-full my-4"

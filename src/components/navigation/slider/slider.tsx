@@ -20,7 +20,7 @@ export default function Slider({ cards }: ISlider) {
     >
       {cards.map((c, i) => {
         return (
-          <SwiperSlide className="!w-auto">
+          <SwiperSlide key={i} className="!w-auto">
             <IndexCard {...c} key={i} />
           </SwiperSlide>
         );

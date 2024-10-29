@@ -1,7 +1,4 @@
-import post from "@/app/[...slug]/_pageTypes/post/post";
 import Author from "@/components/navigation/author/author";
-import Tag from "@/components/navigation/tag/tag";
-import { pageTreeClient } from "@/sanity/pageTreeClient";
 import { IAuthor } from "@/types/types";
 import { getPostDataById } from "@/utils/dataFetcher/getPageData";
 import { oswald } from "@/utils/fonts/fonts";

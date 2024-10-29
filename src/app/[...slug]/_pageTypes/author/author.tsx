@@ -1,5 +1,3 @@
-import { faqHeading } from "@/constants/constants";
-import Collapsible from "@/components/dataDisplay/collapsible/collapsible";
 import Author from "@/components/navigation/author/author";
 import ShareBar from "@/components/navigation/shareBar/shareBar";
 import DesktopToc from "@/components/navigation/toc/desktopToc";
@@ -172,7 +170,7 @@ export default async function AuthorType({
           <ShareBar title={title} />
         </div>
         {imgUrl && (
-          <img
+          <Image
             src={imgUrl}
             alt={title}
             className="aspect-video rounded-xl w-full my-4"
