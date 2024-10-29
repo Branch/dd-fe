@@ -81,7 +81,9 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
   }
   return <PageHandler pageMetadata={pageMeta} />;
 }
-
+export async function generateStaticParams() {
+  return [];
+}
 interface IPageHandler {
   pageMetadata: PageMetadata;
 }
