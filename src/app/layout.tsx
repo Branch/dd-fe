@@ -7,6 +7,7 @@ import { getPostDataById } from "@/utils/dataFetcher/getPageData";
 import dynamic from "next/dynamic";
 import { NAV_QUERY } from "@/sanity/queries/queries";
 import { istok } from "@/utils/fonts/fonts";
+import { GoogleTagManager } from "@next/third-parties/google";
 const CookieConsentCmp = dynamic(
   () => import("@/components/navigation/cookieConsent/cookieConsent"),
   { ssr: false }
@@ -38,6 +39,7 @@ export default async function RootLayout({
   );
   return (
     <html lang="sv-SE">
+      <GoogleTagManager gtmId="GTM-KGXK3JMC" />
       <body className={`${istok.className} overflow-x-clip`}>
         <Header sections={navSections} />
         {children}

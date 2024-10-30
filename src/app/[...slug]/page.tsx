@@ -18,7 +18,7 @@ const PostType = dynamic(() => import("@/app/[...slug]/_pageTypes/post/post"));
 import { faqHeading } from "@/constants/constants";
 import CategoryType from "@/app/[...slug]/_pageTypes/category/category";
 import AuthorType from "@/app/[...slug]/_pageTypes/author/author";
-const options = { next: { revalidate: 30 } };
+const options = { next: { revalidate: 3600 } };
 
 const getQueryByType = (type: string) => {
   return type === "post"
