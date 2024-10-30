@@ -1,13 +1,17 @@
 "use client";
 import { Facebook, Mail, Twitter } from "lucide-react";
-
+import { useEffect, useState } from "react";
 export default function ShareBar({ title }: { title: string }) {
+  const [currentUrl, setCurrentUrl] = useState<string>("");
+  useEffect(() => {
+    setCurrentUrl(window.location.href);
+  }, []);
   const iconSize = 18;
-  const href = typeof window !== "undefined" ? window?.location?.href : "";
+
   return (
     <div className="flex gap-6 items-center">
       <a
-        href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURI(href)}`}
+        href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURI(currentUrl)}`}
         target="_blank"
         rel="noopener noreferrer nofollow"
       >
@@ -16,14 +20,14 @@ export default function ShareBar({ title }: { title: string }) {
       <a
         target="_blank"
         rel="noopener noreferrer nofollow"
-        href={`https://twitter.com/intent/tweet?text=${encodeURI(title)}&url=${encodeURI(href)}`}
+        href={`https://twitter.com/intent/tweet?text=${encodeURI(title)}&url=${encodeURI(currentUrl)}`}
       >
         <Twitter size={iconSize} />
       </a>
       <a
         target="_blank"
         rel="noopener noreferrer nofollow"
-        href={`mailto:?subject=${encodeURI(title)}&body=${encodeURI(`Läs mer på ${href}`)}`}
+        href={`mailto:?subject=${encodeURI(title)}&body=${encodeURI(`Läs mer på ${currentUrl}`)}`}
       >
         <Mail size={iconSize} />
       </a>
