@@ -171,11 +171,13 @@ export default async function AuthorType({
         </div>
         {imgUrl && (
           <Image
+            priority
             src={imgUrl}
             alt={title}
             className="aspect-video rounded-xl w-full my-4"
             width="550"
             height="310"
+            sizes="(max-width: 768px) 100vw, 33vw"
           />
         )}
         {tocHeadings?.length > 0 && <MobileToc headings={tocHeadings} />}

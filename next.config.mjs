@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
+    deviceSizes: [640, 750, 828],
     remotePatterns: [
       {
         protocol: "https",

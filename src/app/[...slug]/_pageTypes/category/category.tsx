@@ -200,6 +200,8 @@ export default function CategoryType({
             <Image
               src={imgUrl}
               alt={title}
+              priority
+              sizes="(max-width: 768px) 100vw, 33vw"
               className="aspect-video rounded-xl col-span-2 w-full my-4"
               width="550"
               height="310"

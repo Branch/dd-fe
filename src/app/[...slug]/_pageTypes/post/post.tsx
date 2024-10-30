@@ -169,13 +169,13 @@ export default function PostType({
         </div>
         {imgUrl && (
           <Image
-            quality={100}
             src={imgUrl}
             alt={title}
-            className="aspect-video rounded-xl w-full my-4"
+            className="rounded-xl w-full my-4"
             width="550"
             height="310"
             priority
+            sizes="(max-width: 768px) 100vw, 33vw"
           />
         )}
         {tocHeadings?.length > 0 && <MobileToc headings={tocHeadings} />}

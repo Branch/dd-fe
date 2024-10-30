@@ -34,6 +34,7 @@ export default function Author({
           alt={""}
           width={imageWidth}
           height={imageWidth}
+          priority
           className={`rounded-full self-start ${size !== "small" ? "border-2 border-djungleOrange" : ""}`}
         />
       ) : null}
