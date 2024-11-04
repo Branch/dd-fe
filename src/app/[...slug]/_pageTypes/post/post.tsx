@@ -130,9 +130,14 @@ export default function PostType({
           </a>
         );
       },
-      internalLink: ({ value, children }) => (
-        <Link href={value.href}>{children}</Link>
-      ),
+      internalLink: async ({ value, children }) => {
+        const refData = await getPostDataById(value.reference._ref);
+        return refData?.path ? (
+          <Link href={refData?.path}>{children}</Link>
+        ) : (
+          <span>{children}</span>
+        );
+      },
     },
   };
 

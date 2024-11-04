@@ -31,7 +31,7 @@ export default function Author({
       {headshotSrc ? (
         <Image
           src={headshotSrc}
-          alt={""}
+          alt={name}
           width={imageWidth}
           height={imageWidth}
           priority

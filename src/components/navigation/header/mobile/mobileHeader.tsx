@@ -53,7 +53,7 @@ export default function MobileHeader({ sections }: { sections: any[] }) {
                                 layout={"fill"}
                                 objectFit="cover"
                                 className="rounded-md aspect-square"
-                                alt={""}
+                                alt={"Djur djungeln"}
                               />
                             </div>
                           )}
