@@ -174,7 +174,7 @@ export default function CategoryType({
       <div className="bg-djungleGreen-100 mx-break-out my-12">
         <div className="container py-12">
           <h2 className={`${oswald.className} font-bold text-3xl`}>
-            Populärat inom {title}
+            Populärt inom {title}
           </h2>
           <section className="grid grid-cols-2 lg:grid-cols-5 py-4 items-center  gap-4">
             {Promise.all(
