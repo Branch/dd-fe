@@ -120,7 +120,7 @@ const AUTHOR_QUERY = `*[_id == $id][0]{
      },
    ],
  },
- "posts": *[_type == "post" && author._ref in authors[]->author._id]|order(modifiedAt desc)[0..2]{
+ "posts": *[_type in ["post", "category"] && $id in authors[]._ref]|order(modifiedAt desc)[0..2]{
     parent->,
     _id,
     title,
