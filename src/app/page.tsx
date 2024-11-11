@@ -13,11 +13,11 @@ import { websiteData } from "@/utils/jsonld/jsonld";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: process.env.SITE_NAME,
+  title: process.env.SITENAME,
   metadataBase: new URL(process.env.BASE_URL || "http://localhost:3000"),
   description: "Allt för dig och dina husdjur",
-  applicationName: process.env.SITE_NAME,
-  publisher: process.env.SITE_NAME,
+  applicationName: process.env.SITENAME,
+  publisher: process.env.SITENAME,
   robots:
     !process.env?.NO_INDEX || process.env?.NO_INDEX === "true"
       ? "noindex, nofollow"
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     images: [{ url: "/assets/images/share.webp", width: 1200, height: 630 }],
     locale: "sv_SE",
     type: "article",
-    siteName: process.env.SITE_NAME,
+    siteName: process.env.SITENAME,
     emails: ["kontakt@djurdjungeln.se"],
     countryName: "Sweden",
   },
@@ -41,7 +41,7 @@ export default async function IndexPage() {
         "@type": "WebPage",
         "@id": `${process.env.BASE_URL}/#page`,
         url: process.env.BASE_URL,
-        name: process.env.SITE_NAME,
+        name: process.env.SITENAME,
         inLanguage: "sv-SE",
         mainEntityOfPage: `${process.env.BASE_URL}/#page`,
         breadcrumb: {
@@ -53,7 +53,7 @@ export default async function IndexPage() {
               item: {
                 "@type": "Thing",
                 "@id": process.env.BASE_URL,
-                name: process.env.SITE_NAME,
+                name: process.env.SITENAME,
               },
             },
           ],

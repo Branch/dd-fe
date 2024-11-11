@@ -4,7 +4,7 @@ import { Graph } from "schema-dts";
 const publisher = {
   "@type": "Organization",
   "@id": `${process.env.BASE_URL}/#organization`,
-  name: process.env.SITE_NAME,
+  name: process.env.SITENAME,
   url: process.env.BASE_URL,
   description: "Allt för dig och dina husdjur",
   email: "kontakt@djurdjungeln.se",
@@ -31,7 +31,7 @@ export const websiteData = {
   "@type": "WebSite",
   "@id": `${process.env.BASE_URL}/#website`,
   url: process.env.BASE_URL,
-  name: process.env.SITE_NAME,
+  name: process.env.SITENAME,
   inLanguage: "sv-SE",
   isPartOf: `${process.env.BASE_URL}/#organization`,
   publisher: publisher,
@@ -142,7 +142,7 @@ export function baseGraph(
           "@type": "WebPage",
           "@id": `${pagePath}/#page`,
           url: process.env.BASE_URL,
-          name: process.env.SITE_NAME,
+          name: process.env.SITENAME,
           primaryImageOfPage: {
             "@type": "ImageObject",
             "@id": `${pagePath}/#image`,
@@ -164,7 +164,7 @@ export function baseGraph(
                 item: {
                   "@type": "Thing",
                   "@id": i !== 0 ? b.fullPath : process.env.BASE_URL,
-                  name: i !== 0 ? b.title : process.env.SITE_NAME,
+                  name: i !== 0 ? b.title : process.env.SITENAME,
                 },
               };
             }),
@@ -263,7 +263,7 @@ export function aboutGraph(
           "@type": "WebPage",
           "@id": `${pagePath}/#page`,
           url: process.env.BASE_URL,
-          name: process.env.SITE_NAME,
+          name: process.env.SITENAME,
           primaryImageOfPage: {
             "@type": "ImageObject",
             "@id": `${pagePath}/#image`,
@@ -285,7 +285,7 @@ export function aboutGraph(
                 item: {
                   "@type": "Thing",
                   "@id": i !== 0 ? b.fullPath : process.env.BASE_URL,
-                  name: i !== 0 ? b.title : process.env.SITE_NAME,
+                  name: i !== 0 ? b.title : process.env.SITENAME,
                 },
               };
             }),
@@ -335,7 +335,7 @@ export function authorGraph(
             "@type": "WebPage",
             "@id": `${pagePath}/#page`,
             url: process.env.BASE_URL,
-            name: process.env.SITE_NAME,
+            name: process.env.SITENAME,
             primaryImageOfPage: {
               "@type": "ImageObject",
               "@id": `${pagePath}/#image`,
@@ -359,7 +359,7 @@ export function authorGraph(
                   item: {
                     "@type": "Thing",
                     "@id": i !== 0 ? b.fullPath : process.env.BASE_URL,
-                    name: i !== 0 ? b.title : process.env.SITE_NAME,
+                    name: i !== 0 ? b.title : process.env.SITENAME,
                   },
                 };
               }),

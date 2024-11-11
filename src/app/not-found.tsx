@@ -4,8 +4,8 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "404: Sidan hittades inte",
   metadataBase: new URL(process.env.BASE_URL || "http://localhost:3000"),
-  applicationName: process.env.SITE_NAME,
-  publisher: process.env.SITE_NAME,
+  applicationName: process.env.SITENAME,
+  publisher: process.env.SITENAME,
   robots:
     !process.env?.NO_INDEX || process.env?.NO_INDEX === "true"
       ? "noindex, nofollow"
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     images: [{ url: "/assets/images/share.webp", width: 1200, height: 630 }],
     locale: "sv_SE",
     type: "article",
-    siteName: process.env.SITE_NAME,
+    siteName: process.env.SITENAME,
     emails: ["kontakt@djurdjungeln.se"],
     countryName: "Sweden",
   },
