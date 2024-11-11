@@ -97,11 +97,11 @@ export default function PostType({
                   <tr key={i} className={" odd:bg-djungleGreen-50"}>
                     {row.cells.map((cell, j: number) => {
                       return i === 0 ? (
-                        <th className="p-2" key={j}>
+                        <th className="p-2 text-left" key={j}>
                           {cell}
                         </th>
                       ) : (
-                        <td className="p-2" key={j}>
+                        <td className="p-2 text-left" key={j}>
                           {cell}
                         </td>
                       );
@@ -180,6 +180,7 @@ export default function PostType({
             width="550"
             height="310"
             priority
+            quality={100}
             sizes="(max-width: 768px) 100vw, 33vw"
           />
         )}
