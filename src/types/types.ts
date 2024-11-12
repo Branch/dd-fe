@@ -81,7 +81,6 @@ export interface IDocument {
   parent: any;
   _createdAt: string;
   _updatedAt: string;
-  _updatedAt: string;
   estimatedReadingTime: string;
   headings: any[];
   authors: any[];
