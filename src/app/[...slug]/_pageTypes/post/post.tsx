@@ -34,15 +34,15 @@ export default function PostType({
       // Define the LI element
       bullet: ({ children }: any) => (
         <li className="flex items-center gap-2">
-          <PawPrint size={14} />
-          {children}
+          <PawPrint size={14} className="self-start mt-1" />
+          <span>{children}</span>
         </li>
       ),
     },
     block: {
       blockquote: ({ children }) => (
         <figure>
-          <blockquote className="my-20 relative text-xl rounded-xl shadow-xl bg-white py-16 pb-12 md:py-24 px-8 md:px-14 font-serif italic">
+          <blockquote className="mb-6 mt-16 lg:mb-12 lg:mt-24 relative text-xl rounded-xl shadow-xl bg-white py-16 pb-12 md:py-24 px-8 md:px-14">
             <div className="bg-djungleGreen-100 flex items-center justify-center absolute md:left-12 -top-8 md:-top-12 h-16 w-16 md:h-24 md:w-24 rounded-full">
               <Image
                 src={"/assets/icons/quote.svg"}
@@ -110,6 +110,19 @@ export default function PostType({
                 );
               })}
             </tbody>
+            <tfoot>
+              <tr>
+                <td
+                  className="text-djungleBlack-100/70 text-sm"
+                  colSpan={value.rows[0].cells.length}
+                >
+                  Senast uppdaterad:{" "}
+                  {new Intl.DateTimeFormat("sv-SE", {
+                    dateStyle: "long",
+                  }).format(new Date(updatedAt))}
+                </td>
+              </tr>
+            </tfoot>
           </table>
         );
       },

@@ -39,7 +39,7 @@ const POST_QUERY = `*[_id == $id][0]{
      ..., 
      _type == "internalLink" => { "href": "/"+ @.reference-> slug.current },
      },
-},description, "pageType":_type, metaTitle, metaDescription, parent->, faq, _createdAt, _updatedAt, modifiedAt, authors[]->, "estimatedReadingTime": round(length(pt::text(body)) / 5 / 200 ), "headings": body[length(style) == 2 && string::startsWith(style, "h2")]}`;
+},description, "pageType":_type, metaTitle, metaDescription, parent->, faq, _createdAt, _updatedAt, authors[]->, "estimatedReadingTime": round(length(pt::text(body)) / 5 / 200 ), "headings": body[length(style) == 2 && string::startsWith(style, "h2")]}`;
 // Reading time estimate: https://www.sanity.io/schemas/word-count-and-reading-time-estimation-for-groq-and-portable-text-7470eab7
 
 const CAT_QUERY = `*[_id == $id][0]{
@@ -83,7 +83,7 @@ const CAT_QUERY = `*[_id == $id][0]{
      ..., 
      _type == "internalLink" => { "href": "/"+ @.reference-> slug.current },
      },
-},description, "pageType":_type, metaTitle, metaDescription, parent->, faq, _createdAt, _updatedAt, modifiedAt, authors[]->, popular[]->, "estimatedReadingTime": round(length(pt::text(body)) / 5 / 200 ), "headings": body[length(style) == 2 && string::startsWith(style, "h2")]}`;
+},description, "pageType":_type, metaTitle, metaDescription, parent->, faq, _createdAt, _updatedAt, _updatedAt, authors[]->, popular[]->, "estimatedReadingTime": round(length(pt::text(body)) / 5 / 200 ), "headings": body[length(style) == 2 && string::startsWith(style, "h2")]}`;
 
 const AUTHOR_QUERY = `*[_id == $id][0]{
   "breadcrumb": {
@@ -120,13 +120,13 @@ const AUTHOR_QUERY = `*[_id == $id][0]{
      },
    ],
  },
- "posts": *[_type in ["post", "category"] && $id in authors[]._ref]|order(modifiedAt desc)[0..2]{
+ "posts": *[_type in ["post", "category"] && $id in authors[]._ref]|order(_updatedAt desc)[0..2]{
     parent->,
     _id,
     title,
     description,
     image,
-    modifiedAt
+    _updatedAt
   },
  title, image, body[]{
  ...,
@@ -134,7 +134,7 @@ const AUTHOR_QUERY = `*[_id == $id][0]{
      ..., 
      _type == "internalLink" => { "href": "/"+ @.reference-> slug.current },
      },
-},description, "pageType":_type, metaTitle, metaDescription, parent->, _createdAt, _updatedAt, modifiedAt, authors[]->, "estimatedReadingTime": round(length(pt::text(body)) / 5 / 200 ), "headings": body[length(style) == 2 && string::startsWith(style, "h2")]}`;
+},description, "pageType":_type, metaTitle, metaDescription, parent->, _createdAt, _updatedAt, authors[]->, "estimatedReadingTime": round(length(pt::text(body)) / 5 / 200 ), "headings": body[length(style) == 2 && string::startsWith(style, "h2")]}`;
 
 const NAV_QUERY = `
 *[_id == 'nav' && name == 'headerNav'][0] {
@@ -144,7 +144,7 @@ const NAV_QUERY = `
    target->{title, slug, _id, image},
    links[]{
      ...,
-     target->{title, slug, _id, image, modifiedAt, image, parent->, authors[]->, description},
+     target->{title, slug, _id, image, _updatedAt, image, parent->, authors[]->, description},
    }
  }
 }
@@ -153,12 +153,12 @@ const NAV_QUERY = `
 const LATEST_CATS_QUERY = `*[
   _type in ["category"]
   && defined(slug.current)
-]|order(modifiedAt desc)[0...10]{_id, title, image, description}`;
+]|order(_updatedAt desc)[0...10]{_id, title, image, description}`;
 
 const POSTS_CATS_QUERY = `*[
     _type in ["post", "category"]
     && defined(slug.current)
-  ]|order(modifiedAt desc)[0...10]{_id, title, slug, modifiedAt, description, image, parent->, authors[]->}`;
+  ]|order(_updatedAt desc)[0...10]{_id, title, slug, _updatedAt, description, image, parent->, authors[]->}`;
 
 const SEARCH_QUERY = `*[
           _type in ["post", 'author', 'category']
@@ -166,11 +166,11 @@ const SEARCH_QUERY = `*[
               title match $queryString + '*' ||
               pt::text(body) match $queryString + '*'
           )
-          ]|order(modifiedAt desc){_id, title, slug, modifiedAt, description, image, parent->, authors[]->}
+          ]|order(_updatedAt desc){_id, title, slug, _updatedAt, description, image, parent->, authors[]->}
   `;
 
 const ALL_PAGES_QUERY = `*[defined(slug.current)
-]|order(modifiedAt desc){_id,modifiedAt}`;
+]|order(_updatedAt desc){_id,_updatedAt}`;
 
 export {
   POST_QUERY,

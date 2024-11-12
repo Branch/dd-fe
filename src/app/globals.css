@@ -14,13 +14,19 @@ body {
     @apply bg-background text-foreground;
   }
   article #content h2 {
-    @apply text-3xl mb-4 font-bold;
+    @apply text-3xl mb-4 pt-3 font-bold;
+  }
+  article #content h3 {
+    @apply text-2xl mb-4 pt-3 font-bold;
   }
   article #content p {
     @apply mb-4;
   }
   article #content a {
     @apply text-djungleBlue hover:text-djungleBlue/80 underline duration-200;
+  }
+  article #content ol {
+    @apply list-decimal;
   }
   article #content ul,
   article #content ol {

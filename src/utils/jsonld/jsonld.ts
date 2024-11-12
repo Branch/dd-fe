@@ -40,7 +40,7 @@ export const websiteData = {
 export function baseGraph(
   pagePath: string,
   createdAt: string,
-  modifiedAt: string,
+  _updatedAt: string,
   headline: string,
   about: string,
   faq: IFaq[],
@@ -57,7 +57,7 @@ export function baseGraph(
         "@id": `${pagePath}/#post`,
         datePublished: createdAt,
         dateCreated: createdAt,
-        dateModified: modifiedAt,
+        dateModified: _updatedAt,
         url: pagePath,
         headline: headline,
         image: {
@@ -179,7 +179,7 @@ export function baseGraph(
 export function aboutGraph(
   pagePath: string,
   createdAt: string,
-  modifiedAt: string,
+  _updatedAt: string,
   headline: string,
   about: string,
   faq: IFaq[],
@@ -196,7 +196,7 @@ export function aboutGraph(
         "@id": `${pagePath}/#webpage`,
         datePublished: createdAt,
         dateCreated: createdAt,
-        dateModified: modifiedAt,
+        dateModified: _updatedAt,
         url: pagePath,
         headline: headline,
         image: {

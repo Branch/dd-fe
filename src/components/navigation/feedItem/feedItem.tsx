@@ -13,7 +13,7 @@ interface IFeedItem {
   slug: string;
   categoryTitle?: any;
   categorySlug?: any;
-  modifiedAt: string;
+  _updatedAt: string;
   authors?: IAuthor[];
 }
 export default async function FeedItem({
@@ -23,7 +23,7 @@ export default async function FeedItem({
   categoryTitle,
   categorySlug,
   slug,
-  modifiedAt,
+  _updatedAt,
   authors,
 }: IFeedItem) {
   const imgSrc = sanityImageBuilder(image);
@@ -67,7 +67,7 @@ export default async function FeedItem({
       <div className="text-djungleBlack-100 capitalize text-sm mt-4">
         {new Intl.DateTimeFormat("sv-SE", {
           dateStyle: "full",
-        }).format(new Date(modifiedAt))}
+        }).format(new Date(_updatedAt))}
       </div>
     </article>
   );

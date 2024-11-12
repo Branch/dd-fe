@@ -4,7 +4,7 @@ import { SanityDocument } from "next-sanity";
 import { getPostDataById } from "@/utils/dataFetcher/getPageData";
 
 const PAGES_QUERY = `*[defined(slug.current)
-]|order(modifiedAt desc){_id,modifiedAt}`;
+]|order(_updatedAt desc){_id,_updatedAt}`;
 const options = { next: { revalidate: 30 } };
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -15,7 +15,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       const pData = await getPostDataById(p._id);
       return {
         url: `${process.env.BASE_URL}${pData?.path}` || "/",
-        lastModified: new Date(p.modifiedAt),
+        lastModified: new Date(p._updatedAt),
         changeFrequency: "daily" as const, // eslint-disable-line
         priority: 1,
       };

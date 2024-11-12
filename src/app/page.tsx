@@ -173,7 +173,7 @@ export default async function IndexPage() {
                         ? undefined
                         : parent?.path
                     }
-                    modifiedAt={post.modifiedAt}
+                    _updatedAt={post?._updatedAt}
                     authors={post.authors}
                   />
                 )

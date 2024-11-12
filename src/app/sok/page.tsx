@@ -66,7 +66,7 @@ export default async function SearchPage({
                   categorySlug={
                     post.parent.title === "Index page" ? undefined : t?.path
                   }
-                  modifiedAt={post.modifiedAt}
+                  _updatedAt={post._updatedAt}
                   authors={post.authors}
                 />
               )

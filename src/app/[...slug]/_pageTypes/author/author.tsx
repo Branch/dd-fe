@@ -206,7 +206,7 @@ export default async function AuthorType({
                       ? undefined
                       : parent?.path
                   }
-                  modifiedAt={post.modifiedAt}
+                  _updatedAt={post._updatedAt}
                   authors={post.authors}
                 />
               )
