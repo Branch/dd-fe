@@ -40,8 +40,8 @@ export default function CategoryType({
       // Define the LI element
       bullet: ({ children }: any) => (
         <li className="flex items-center gap-2">
-          <PawPrint size={14} />
-          {children}
+          <PawPrint size={14} className="self-start mt-1" />
+          <span>{children}</span>
         </li>
       ),
     },
