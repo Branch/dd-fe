@@ -12,6 +12,7 @@ import Image from "next/image";
 import Link from "next/link";
 import FeedItem from "@/components/navigation/feedItem/feedItem";
 import JsonLd from "@/components/dataDisplay/jsonld/jsonld";
+import PageComponents from "@/components/dataDisplay/portableText/portableText";
 
 interface IAuthorPage extends IBaseDocument {
   authorPages: any[];
@@ -31,113 +32,6 @@ export default async function AuthorType({
   authorPages,
   graph,
 }: IAuthorPage) {
-  const PageComponents: PortableTextComponents = {
-    // https://kittygiraudel.com/2022/05/19/table-of-contents-with-sanity-portable-text/
-    listItem: {
-      // Define the LI element
-      bullet: ({ children }: any) => (
-        <li className="flex items-center gap-2">
-          <PawPrint size={14} />
-          {children}
-        </li>
-      ),
-    },
-    block: {
-      blockquote: ({ children }) => (
-        <figure>
-          <blockquote className="my-20 relative text-xl rounded-xl shadow-xl bg-white py-16 pb-12 md:py-24 px-8 md:px-14 font-serif italic">
-            <div className="bg-djungleGreen-100 flex items-center justify-center absolute md:left-12 -top-8 md:-top-12 h-16 w-16 md:h-24 md:w-24 rounded-full">
-              <Image
-                src={"/assets/icons/quote.svg"}
-                alt={""}
-                width={40}
-                height={40}
-                className="w-[25px] md:w-[40px]"
-              />
-            </div>
-            {children}
-          </blockquote>
-        </figure>
-      ),
-      h2: ({ children }) => (
-        <h2
-          className={oswald.className}
-          id={children?.toString().toLowerCase().replace(/\s/g, "-")}
-        >
-          {children}
-        </h2>
-      ),
-      h3: ({ children }) => <h3 className={oswald.className}>{children}</h3>,
-      h4: ({ children }) => <h4 className={oswald.className}>{children}</h4>,
-    },
-    types: {
-      image: ({ value }) => {
-        const image = value.asset;
-        const src = sanityImageBuilder(image);
-        return src ? (
-          <figure className="mb-4">
-            <Image
-              src={src}
-              alt={value.alt}
-              className=" rounded-md"
-              width={767}
-              height={433}
-            />
-            {value.caption && (
-              <figcaption className="text-sm italic mt-1 text-djungleBlack/80">
-                {value.caption}
-              </figcaption>
-            )}
-          </figure>
-        ) : null;
-      },
-      table: ({ value }) => {
-        return (
-          <table className="w-full mb-4">
-            <tbody>
-              {value.rows.map((row: { cells: string[] }, i: number) => {
-                return (
-                  <tr key={i} className={" odd:bg-djungleGreen-50"}>
-                    {row.cells.map((cell, j: number) => {
-                      return i === 0 ? (
-                        <th className="p-2" key={j}>
-                          {cell}
-                        </th>
-                      ) : (
-                        <td className="p-2" key={j}>
-                          {cell}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        );
-      },
-    },
-    marks: {
-      externalLink: ({ value, children }) => {
-        return (
-          <a
-            href={value.href}
-            target={value.openInNewTab ? "_blank" : "_self"}
-            rel={
-              value.sponsored
-                ? "sponsored noopener noreferrer nofollow"
-                : "noopener noreferrer nofollow"
-            }
-          >
-            {children}
-          </a>
-        );
-      },
-      internalLink: ({ value, children }) => (
-        <Link href={value.href}>{children}</Link>
-      ),
-    },
-  };
   return (
     <article className="grid grid-cols-1 md:grid-cols-7 gap-4">
       <JsonLd graph={graph} />
@@ -183,7 +77,10 @@ export default async function AuthorType({
         {tocHeadings?.length > 0 && <MobileToc headings={tocHeadings} />}
         <div id="content" className="prose">
           {Array.isArray(body) && (
-            <PortableText value={body} components={PageComponents} />
+            <PortableText
+              value={body}
+              components={PageComponents({ updatedAt })}
+            />
           )}
         </div>
         <h2 className={`text-4xl font-bold mt-12 ${oswald.className}`}>
