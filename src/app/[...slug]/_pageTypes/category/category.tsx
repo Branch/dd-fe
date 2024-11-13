@@ -171,7 +171,7 @@ export default function CategoryType({
         })}
         <ShareBar title={title} />
       </div>
-      <div className="bg-djungleGreen-100 mx-break-out my-12">
+      <div className="bg-djungleOrange-200 mx-break-out my-12">
         <div className="container py-12">
           <h2 className={`${oswald.className} font-bold text-3xl`}>
             Populärt inom {title}

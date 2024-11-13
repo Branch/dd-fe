@@ -142,7 +142,7 @@ export default async function IndexPage() {
             jämförelser.
           </p>
           <h3 className={`text-3xl mt-12 mb-4 font-bold ${oswald.className}`}>
-            Ett axplock av vårt innehåll
+            Populära kategorier
           </h3>
           <div className="-mb-32 md:-mb-60">
             <Slider cards={cardsData} />

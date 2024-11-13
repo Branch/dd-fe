@@ -28,7 +28,7 @@ const Footer = () => {
           </li>
           <li className="text-sm">
             <Link className="underline" href={"/om-djurdjungeln"}>
-              Läs mer
+              Läs mer om Djur djungeln
             </Link>
           </li>
         </FooterList>
