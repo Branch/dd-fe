@@ -75,7 +75,7 @@ export default function PostType({
           <figure className="mb-4">
             <Image
               src={src}
-              alt={value.alt}
+              alt={value.alt || value.caption}
               className=" rounded-md"
               width={767}
               height={433}
