@@ -25,7 +25,7 @@ export default function SquareCard({ title, image, slug }: ICard) {
             {title}
           </div>
         </div>
-        <div className="h-2/4 w-full rounded-md absolute bottom-0 bg-gradient-to-t from-djungleBlack"></div>
+        <div className="h-3/4 w-full rounded-md absolute bottom-0 bg-gradient-to-t from-djungleBlack"></div>
       </Link>
     )
   );
