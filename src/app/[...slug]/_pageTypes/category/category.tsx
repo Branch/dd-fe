@@ -171,29 +171,31 @@ export default function CategoryType({
         })}
         <ShareBar title={title} />
       </div>
-      <div className="bg-djungleOrange-200 mx-break-out my-12">
-        <div className="container py-12">
-          <h2 className={`${oswald.className} font-bold text-3xl`}>
-            Populärt inom {title}
-          </h2>
-          <section className="grid grid-cols-2 lg:grid-cols-5 py-4 items-center  gap-4">
-            {Promise.all(
-              popular?.map(async (p, i) => {
-                const pData = await getPostDataById(p?._id || "");
-                return pData?.path ? (
-                  <SquareCard
-                    key={i}
-                    title={p.title}
-                    image={p.image}
-                    slug={pData.path}
-                    description={p.description}
-                  />
-                ) : null;
-              })
-            )}
-          </section>
+      {popular?.length > 0 ? (
+        <div className="bg-djungleOrange-200 mx-break-out my-12">
+          <div className="container py-12">
+            <h2 className={`${oswald.className} font-bold text-3xl`}>
+              Populärt inom {title}
+            </h2>
+            <section className="grid grid-cols-2 lg:grid-cols-5 py-4 items-center  gap-4">
+              {Promise.all(
+                popular?.map(async (p, i) => {
+                  const pData = await getPostDataById(p?._id || "");
+                  return pData?.path ? (
+                    <SquareCard
+                      key={i}
+                      title={p.title}
+                      image={p.image}
+                      slug={pData.path}
+                      description={p.description}
+                    />
+                  ) : null;
+                })
+              )}
+            </section>
+          </div>
         </div>
-      </div>
+      ) : null}
       <article className="grid grid-cols-1 md:grid-cols-7 gap-4">
         <section className="md:col-span-5">
           {imgUrl && (
