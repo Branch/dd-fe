@@ -13,9 +13,10 @@ import { websiteData } from "@/utils/jsonld/jsonld";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: process.env.SITENAME,
+  title: `${process.env.SITENAME} - Din kompletta guide för att ge dina husdjur ett lyckligt liv`,
   metadataBase: new URL(process.env.BASE_URL || "http://localhost:3000"),
-  description: "Allt för dig och dina husdjur",
+  description:
+    "Djur djungeln är en heltäckande webbplats dedikerad till att hjälpa djurägare att ge sina husdjur den bästa möjliga vården och omsorgen. Oavsett om du är en erfaren djurägare eller just tänkt skaffa ditt första husdjur, kan du hitta all nödvändig information på djurdjungeln.se.",
   applicationName: process.env.SITENAME,
   publisher: process.env.SITENAME,
   robots:
