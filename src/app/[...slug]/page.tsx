@@ -123,7 +123,7 @@ async function PageHandler({ pageMetadata }: IPageHandler) {
       return {
         name: a.fullName,
         url: `${process.env.BASE_URL}${authData?.path}` || "/",
-        worksFor: `${process.env.BASE_URL}/#organization`,
+        worksFor: `${process.env.BASE_URL}#organization`,
       };
     })
   );

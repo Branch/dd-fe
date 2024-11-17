@@ -3,14 +3,14 @@ import { Graph } from "schema-dts";
 
 const publisher = {
   "@type": "Organization",
-  "@id": `${process.env.BASE_URL}/#organization`,
+  "@id": `${process.env.BASE_URL}#organization`,
   name: process.env.SITENAME,
   url: process.env.BASE_URL,
   description: "Allt för dig och dina husdjur",
   email: "kontakt@djurdjungeln.se",
   logo: {
     "@type": "ImageObject",
-    "@id": `${process.env.BASE_URL}/#logo`,
+    "@id": `${process.env.BASE_URL}#logo`,
     url: `${process.env.BASE_URL}/assets/images/share.webp`,
     contentUrl: `${process.env.BASE_URL}/assets/images/share.webp`,
     inLanguage: "sv-SE",
@@ -19,7 +19,7 @@ const publisher = {
   },
   image: {
     "@type": "ImageObject",
-    "@id": `${process.env.BASE_URL}/#logo`,
+    "@id": `${process.env.BASE_URL}#logo`,
     url: `${process.env.BASE_URL}/assets/images/share.webp`,
     contentUrl: `${process.env.BASE_URL}/assets/images/share.webp`,
     inLanguage: "sv-SE",
@@ -29,11 +29,11 @@ const publisher = {
 };
 export const websiteData = {
   "@type": "WebSite",
-  "@id": `${process.env.BASE_URL}/#website`,
+  "@id": `${process.env.BASE_URL}#website`,
   url: process.env.BASE_URL,
   name: process.env.SITENAME,
   inLanguage: "sv-SE",
-  isPartOf: `${process.env.BASE_URL}/#organization`,
+  isPartOf: `${process.env.BASE_URL}#organization`,
   publisher: publisher,
 };
 
@@ -54,7 +54,7 @@ export function baseGraph(
     "@graph": [
       {
         "@type": "BlogPosting",
-        "@id": `${pagePath}/#post`,
+        "@id": `${pagePath}#post`,
         datePublished: createdAt,
         dateCreated: createdAt,
         dateModified: _updatedAt,
@@ -62,7 +62,7 @@ export function baseGraph(
         headline: headline,
         image: {
           "@type": "ImageObject",
-          "@id": `${pagePath}/#image`,
+          "@id": `${pagePath}#image`,
           url: shareImage || `${process.env.BASE_URL}/assets/images/share.webp`,
           contentUrl:
             shareImage || `${process.env.BASE_URL}/assets/images/share.webp`,
@@ -132,7 +132,7 @@ export function baseGraph(
             }
           : null),
         inLanguage: "sv-SE",
-        mainEntityOfPage: `${pagePath}/#post`,
+        mainEntityOfPage: `${pagePath}#post`,
         ...(articleSection
           ? {
               articleSection: articleSection,
@@ -140,12 +140,12 @@ export function baseGraph(
           : null),
         isPartOf: {
           "@type": "WebPage",
-          "@id": `${pagePath}/#page`,
+          "@id": `${pagePath}#page`,
           url: process.env.BASE_URL,
           name: process.env.SITENAME,
           primaryImageOfPage: {
             "@type": "ImageObject",
-            "@id": `${pagePath}/#image`,
+            "@id": `${pagePath}#image`,
             url:
               shareImage || `${process.env.BASE_URL}/assets/images/share.webp`,
             contentUrl:
@@ -193,7 +193,7 @@ export function aboutGraph(
     "@graph": [
       {
         "@type": "AboutPage",
-        "@id": `${pagePath}/#webpage`,
+        "@id": `${pagePath}#webpage`,
         datePublished: createdAt,
         dateCreated: createdAt,
         dateModified: _updatedAt,
@@ -201,7 +201,7 @@ export function aboutGraph(
         headline: headline,
         image: {
           "@type": "ImageObject",
-          "@id": `${pagePath}/#image`,
+          "@id": `${pagePath}#image`,
           url: shareImage || `${process.env.BASE_URL}/assets/images/share.webp`,
           contentUrl:
             shareImage || `${process.env.BASE_URL}/assets/images/share.webp`,
@@ -258,15 +258,15 @@ export function aboutGraph(
             }
           : null),
         inLanguage: "sv-SE",
-        mainEntityOfPage: `${pagePath}/#post`,
+        mainEntityOfPage: `${pagePath}#post`,
         isPartOf: {
           "@type": "WebPage",
-          "@id": `${pagePath}/#page`,
+          "@id": `${pagePath}#page`,
           url: process.env.BASE_URL,
           name: process.env.SITENAME,
           primaryImageOfPage: {
             "@type": "ImageObject",
-            "@id": `${pagePath}/#image`,
+            "@id": `${pagePath}#image`,
             url:
               shareImage || `${process.env.BASE_URL}/assets/images/share.webp`,
             contentUrl:
@@ -310,14 +310,14 @@ export function authorGraph(
     "@graph": [
       {
         "@type": "Person",
-        "@id": `${pagePath}/#person`,
+        "@id": `${pagePath}#person`,
         url: pagePath,
         worksFor: {
-          "@id": `${process.env.BASE_URL}/#organization`,
+          "@id": `${process.env.BASE_URL}#organization`,
         },
         image: {
           "@type": "ImageObject",
-          "@id": `${pagePath}/#image`,
+          "@id": `${pagePath}#image`,
           url: shareImage || `${process.env.BASE_URL}/assets/images/share.webp`,
           contentUrl:
             shareImage || `${process.env.BASE_URL}/assets/images/share.webp`,
@@ -327,18 +327,18 @@ export function authorGraph(
         },
         mainEntityOfPage: {
           "@type": "ProfilePage",
-          "@id": `${pagePath}/#webpage`,
+          "@id": `${pagePath}#webpage`,
           url: pagePath,
           name: headline,
           inLanguage: "sv-SE",
           isPartOf: {
             "@type": "WebPage",
-            "@id": `${pagePath}/#page`,
+            "@id": `${pagePath}#page`,
             url: process.env.BASE_URL,
             name: process.env.SITENAME,
             primaryImageOfPage: {
               "@type": "ImageObject",
-              "@id": `${pagePath}/#image`,
+              "@id": `${pagePath}#image`,
               url:
                 shareImage ||
                 `${process.env.BASE_URL}/assets/images/share.webp`,

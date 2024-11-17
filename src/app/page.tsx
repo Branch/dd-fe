@@ -40,11 +40,11 @@ export default async function IndexPage() {
     "@graph": [
       {
         "@type": "WebPage",
-        "@id": `${process.env.BASE_URL}/#page`,
+        "@id": `${process.env.BASE_URL}#page`,
         url: process.env.BASE_URL,
         name: process.env.SITENAME,
         inLanguage: "sv-SE",
-        mainEntityOfPage: `${process.env.BASE_URL}/#page`,
+        mainEntityOfPage: `${process.env.BASE_URL}#page`,
         breadcrumb: {
           "@type": "BreadcrumbList",
           itemListElement: [
