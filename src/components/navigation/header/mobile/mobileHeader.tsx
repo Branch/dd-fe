@@ -21,7 +21,7 @@ export default function MobileHeader({ sections }: { sections: any[] }) {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
-      <SheetTrigger className="xl:hidden" asChild>
+      <SheetTrigger aria-label="Öppna meny" className="xl:hidden" asChild>
         <button>
           <Menu />
         </button>
@@ -53,7 +53,7 @@ export default function MobileHeader({ sections }: { sections: any[] }) {
                                 layout={"fill"}
                                 objectFit="cover"
                                 className="rounded-md aspect-square"
-                                alt={"Djur djungeln"}
+                                alt={"Djurdjungeln"}
                               />
                             </div>
                           )}

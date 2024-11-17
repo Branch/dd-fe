@@ -12,7 +12,7 @@ export default function Breadcrumbs({
           return (
             <BreadcrumbItem
               key={index}
-              name={index === 0 ? "Djur djungeln" : i?.title}
+              name={index === 0 ? "Djurdjungeln" : i?.title}
               includeSeparator={index !== items.length - 1}
               path={
                 i?.title === "Index page"

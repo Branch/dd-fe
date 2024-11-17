@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   title: `${process.env.SITENAME} - Din kompletta guide för att ge dina husdjur ett lyckligt liv`,
   metadataBase: new URL(process.env.BASE_URL || "http://localhost:3000"),
   description:
-    "Djur djungeln är en heltäckande webbplats dedikerad till att hjälpa djurägare att ge sina husdjur den bästa möjliga vården och omsorgen. Oavsett om du är en erfaren djurägare eller just tänkt skaffa ditt första husdjur, kan du hitta all nödvändig information på djurdjungeln.se.",
+    "Djurdjungeln är en heltäckande webbplats dedikerad till att hjälpa djurägare att ge sina husdjur den bästa möjliga vården och omsorgen. Oavsett om du är en erfaren djurägare eller just tänkt skaffa ditt första husdjur, kan du hitta all nödvändig information på djurdjungeln.se.",
   applicationName: process.env.SITENAME,
   publisher: process.env.SITENAME,
   robots:
@@ -97,10 +97,10 @@ export default async function IndexPage() {
             Allt för dig och dina djur.
           </h1>
           <p>
-            Djur djungeln är din bästa resurs för allt kring husdjur. Vi
-            erbjuder expertrecensioner om foder, leksaker och tillbehör. Vi
-            strävar efter att hjälpa djurägare att göra välgrundade val och
-            säkerställa det bästa för deras pälsiga följeslagare.
+            Djurdjungeln är din bästa resurs för allt kring husdjur. Vi erbjuder
+            expertrecensioner om foder, leksaker och tillbehör. Vi strävar efter
+            att hjälpa djurägare att göra välgrundade val och säkerställa det
+            bästa för deras pälsiga följeslagare.
           </p>
           <div className="grid grid-cols-2 gap-4">
             <BaseLink text={"Om oss"} url={"/om-djurdjungeln"} />

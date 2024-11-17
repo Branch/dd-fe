@@ -20,7 +20,7 @@ export default function Header({ sections }: { sections: any[] }) {
           <Link href={"/"} className="mr-24">
             <Image
               src={"/assets/images/logo.png"}
-              alt={"Djur djungeln"}
+              alt={"Djurdjungeln"}
               priority
               width={100}
               height={10}

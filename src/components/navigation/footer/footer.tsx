@@ -20,7 +20,7 @@ const Footer = () => {
         </FooterList>
         <FooterList title={"Om oss"}>
           <li className="text-sm">
-            Djur djungeln är en oberoende hemsida byggd och underhållen av
+            Djurdjungeln är en oberoende hemsida byggd och underhållen av
             passionerade djurälskare som är dedikerade till att tillhandahålla
             pålitlig, djupgående information. Vi erbjuder allt ifrån tips på
             djurnamn till recensioner och förslag på foder, leksaker och
@@ -28,7 +28,7 @@ const Footer = () => {
           </li>
           <li className="text-sm">
             <Link className="underline" href={"/om-djurdjungeln"}>
-              Läs mer om Djur djungeln
+              Läs mer om Djurdjungeln
             </Link>
           </li>
         </FooterList>
@@ -44,7 +44,7 @@ const Footer = () => {
         </FooterList>
       </div>
       <div className="text-center text-xs mt-24 absolute left-0 right-0 mx-auto bottom-6">
-        © {new Date().getFullYear()} Djur djungeln
+        © {new Date().getFullYear()} Djurdjungeln
       </div>
     </footer>
   );
