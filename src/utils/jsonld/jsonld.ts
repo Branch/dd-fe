@@ -312,6 +312,7 @@ export function authorGraph(
         "@type": "Person",
         "@id": `${pagePath}#person`,
         url: pagePath,
+        name: headline,
         worksFor: {
           "@id": `${process.env.BASE_URL}#organization`,
         },

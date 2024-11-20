@@ -187,7 +187,7 @@ async function PageHandler({ pageMetadata }: IPageHandler) {
           authorPages={page.posts}
           graph={authorGraph(
             currPath,
-            page.metaTitle || page.title,
+            page.title,
             authorsMeta,
             postImageUrl,
             breadcrumbs
