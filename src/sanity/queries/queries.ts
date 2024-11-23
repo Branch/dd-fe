@@ -33,7 +33,7 @@ const POST_QUERY = `*[_id == $id][0]{
      },
    ],
  },
- title, image, body[]{
+ title, shortTitle, image, body[]{
  ...,
  markDefs[]{ 
      ..., 
@@ -49,35 +49,40 @@ const CAT_QUERY = `*[_id == $id][0]{
        "_id": parent->parent->parent->parent->_id,
        "_type": parent->parent->parent->parent->_type,
        "title": parent->parent->parent->parent->title,
+       "shortTitle": parent->parent->parent->parent->shortTitle,
        "slug": parent->parent->parent->parent->slug.current
      }),
      select(defined(parent->parent->parent->) => {
        "_id": parent->parent->parent->_id,
        "_type": parent->parent->parent->_type,
        "title": parent->parent->parent->title,
+       "shortTitle": parent->parent->parent->shortTitle,
        "slug": parent->parent->parent->slug.current
      }),
      select(defined(parent->parent->) => {
        "_id": parent->parent->_id,
        "_type": parent->parent->_type,
        "title": parent->parent->title,
+       "shortTitle": parent->parent->shortTitle,
        "slug": parent->parent->slug.current
      }),
      select(defined(parent) => {
        "_id": parent->_id,
        "_type": parent->_type,
        "title": parent->title,
+       "shortTitle": parent->shortTitle,
        "slug": parent->slug.current
      }),
      {
        _id,
        _type,
        title,
+       shortTitle,
        "slug": slug.current
      },
    ],
  },
- title, image, body[]{
+ title, shortTitle, image, body[]{
  ...,
  markDefs[]{ 
      ..., 
@@ -92,30 +97,35 @@ const AUTHOR_QUERY = `*[_id == $id][0]{
        "_id": parent->parent->parent->parent->_id,
        "_type": parent->parent->parent->parent->_type,
        "title": parent->parent->parent->parent->title,
+       "shortTitle": parent->parent->parent->parent->shortTitle,
        "slug": parent->parent->parent->parent->slug.current
      }),
      select(defined(parent->parent->parent->) => {
        "_id": parent->parent->parent->_id,
        "_type": parent->parent->parent->_type,
        "title": parent->parent->parent->title,
+       "shortTitle": parent->parent->parent->shortTitle,
        "slug": parent->parent->parent->slug.current
      }),
      select(defined(parent->parent->) => {
        "_id": parent->parent->_id,
        "_type": parent->parent->_type,
        "title": parent->parent->title,
+       "shortTitle": parent->parent->shortTitle,
        "slug": parent->parent->slug.current
      }),
      select(defined(parent) => {
        "_id": parent->_id,
        "_type": parent->_type,
        "title": parent->title,
+       "shortTitle": parent->shortTitle,
        "slug": parent->slug.current
      }),
      {
        _id,
        _type,
        title,
+       shortTitle,
        "slug": slug.current
      },
    ],
@@ -153,12 +163,12 @@ const NAV_QUERY = `
 const LATEST_CATS_QUERY = `*[
   _type in ["category"]
   && defined(slug.current)
-]|order(_updatedAt desc)[0...10]{_id, title, image, description}`;
+]|order(_updatedAt desc)[0...10]{_id, title, shortTitle, image, description}`;
 
 const POSTS_CATS_QUERY = `*[
     _type in ["post", "category"]
     && defined(slug.current)
-  ]|order(_updatedAt desc)[0...10]{_id, title, slug, _updatedAt, description, image, parent->, authors[]->}`;
+  ]|order(_updatedAt desc)[0...10]{_id, title, shortTitle, slug, _updatedAt, description, image, parent->, authors[]->}`;
 
 const SEARCH_QUERY = `*[
           _type in ["post", 'author', 'category']

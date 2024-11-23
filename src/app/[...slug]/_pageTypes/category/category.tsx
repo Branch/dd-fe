@@ -19,6 +19,7 @@ interface ICategory extends IBaseDocument {
 
 export default function CategoryType({
   title,
+  shortTitle,
   description,
   imgUrl,
   authors,
@@ -66,7 +67,7 @@ export default function CategoryType({
         <div className="bg-djungleOrange-200 mx-break-out my-12">
           <div className="container py-12">
             <h2 className={`${oswald.className} font-bold text-3xl`}>
-              Populärt inom {title}
+              Populärt inom {shortTitle || title}
             </h2>
             <section className="grid grid-cols-2 lg:grid-cols-5 py-4 items-center  gap-4">
               {Promise.all(
@@ -75,7 +76,7 @@ export default function CategoryType({
                   return pData?.path ? (
                     <SquareCard
                       key={i}
-                      title={p.title}
+                      title={p.shortTitle || p.title}
                       image={p.image}
                       slug={pData.path}
                       description={p.description}

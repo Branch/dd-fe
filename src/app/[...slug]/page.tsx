@@ -146,6 +146,7 @@ async function PageHandler({ pageMetadata }: IPageHandler) {
       {page.pageType === "post" ? (
         <PostType
           title={page.title}
+          shortTitle={page.shortTitle}
           description={page.description}
           authors={page.authors}
           parentTitle={page?.parent?.slug?.current}
@@ -160,6 +161,7 @@ async function PageHandler({ pageMetadata }: IPageHandler) {
       ) : page.pageType === "category" ? (
         <CategoryType
           title={page.title}
+          shortTitle={page.shortTitle}
           description={page.description}
           authors={page.authors}
           parentTitle={page?.parent?.slug?.current}

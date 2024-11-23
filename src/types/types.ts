@@ -21,6 +21,7 @@ export interface IFaq {
 export interface ICard {
   _id?: string;
   title: string;
+  shortTitle?: string;
   image: string;
   slug: string;
   description: string;
@@ -28,6 +29,7 @@ export interface ICard {
 
 export interface IBaseDocument {
   title: string;
+  shortTitle?: string;
   description: string;
   imgUrl?: string | null;
   authors: IAuthor[];

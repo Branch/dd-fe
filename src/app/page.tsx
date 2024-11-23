@@ -13,7 +13,7 @@ import { websiteData } from "@/utils/jsonld/jsonld";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: `${process.env.SITENAME} - Din kompletta guide för att ge dina husdjur ett lyckligt liv`,
+  title: `${process.env.SITENAME} - Guide & råd för husdjursägare`,
   metadataBase: new URL(process.env.BASE_URL || "http://localhost:3000"),
   description:
     "Djurdjungeln är en heltäckande webbplats dedikerad till att hjälpa djurägare att ge sina husdjur den bästa möjliga vården och omsorgen. Oavsett om du är en erfaren djurägare eller just tänkt skaffa ditt första husdjur, kan du hitta all nödvändig information på djurdjungeln.se.",
@@ -78,7 +78,7 @@ export default async function IndexPage() {
     cats.map(async (cat) => {
       const c = await getPostDataById(cat._id);
       return {
-        title: cat.title,
+        title: cat.shortTitle || cat.title,
         image: cat.image,
         description: cat.description,
         slug: c?.path || "",
@@ -168,7 +168,7 @@ export default async function IndexPage() {
                     image={post.image}
                     description={post.description}
                     slug={t.path}
-                    categoryTitle={post.parent.title}
+                    categoryTitle={post.parent.shortTitle || post.parent.title}
                     categorySlug={
                       post.parent.title === "Index page"
                         ? undefined
