@@ -160,7 +160,7 @@ export default async function IndexPage() {
           {await Promise.all(
             posts.map(async (post) => {
               const t = await getPostDataById(post._id);
-              const parent = await getPostDataById(post._id);
+              const parent = await getPostDataById(post.parent._id);
               return (
                 t?.path && (
                   <FeedItem
