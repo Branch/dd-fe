@@ -5,9 +5,9 @@ import { getPostDataById } from "@/utils/dataFetcher/getPageData";
 import { SEARCH_QUERY } from "@/sanity/queries/queries";
 import { Metadata } from "next";
 export const metadata: Metadata = {
-  title: "Sök",
+  title: "Djurdjungeln | Sök",
   metadataBase: new URL(process.env.BASE_URL || "http://localhost:3000"),
-  description: "",
+  description: "Djurdjungeln - Sök bland innehållet på hemsidan här.",
   applicationName: process.env.SITENAME,
   publisher: process.env.SITENAME,
   robots:
@@ -54,6 +54,7 @@ export default async function SearchPage({
         {await Promise.all(
           posts?.map(async (post, i: number) => {
             const t = await getPostDataById(post._id);
+            const parent = await getPostDataById(post.parent._id);
             return (
               t?.path && (
                 <FeedItem
@@ -64,7 +65,9 @@ export default async function SearchPage({
                   slug={t.path}
                   categoryTitle={post.parent.title}
                   categorySlug={
-                    post.parent.title === "Index page" ? undefined : t?.path
+                    post.parent.title === "Index page"
+                      ? undefined
+                      : parent?.path
                   }
                   _updatedAt={post._updatedAt}
                   authors={post.authors}
