@@ -132,7 +132,7 @@ export default async function IndexPage() {
       <section className="bg-djungleOrange-200">
         <div className="container mt-12 md:mt-48 py-12 md:py-24">
           <h2 className={`text-4xl font-bold ${oswald.className}`}>
-            Därför kan du lista på oss
+            Därför kan du lita på oss
           </h2>
           <p className="mt-4">
             Djurdjungeln.se är en av Sveriges ledande sajter inom jämförelse av
