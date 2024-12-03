@@ -29,6 +29,7 @@
     "swiper": "^11.1.14",
     "tailwind-container-break-out": "^2.0.9",
     "tailwind-merge": "^2.5.3",
+    "tailwind-scrollbar-hide": "^1.1.7",
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {

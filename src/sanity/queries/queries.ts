@@ -1,38 +1,44 @@
-const POST_QUERY = `*[_id == $id][0]{
-  "breadcrumb": {
+const crumbsFragment = `"breadcrumb": {
    "items": [
      select(defined(parent->parent->parent->parent->) => {
        "_id": parent->parent->parent->parent->_id,
        "_type": parent->parent->parent->parent->_type,
        "title": parent->parent->parent->parent->title,
+       "shortTitle": parent->parent->parent->parent->shortTitle,
        "slug": parent->parent->parent->parent->slug.current
      }),
      select(defined(parent->parent->parent->) => {
        "_id": parent->parent->parent->_id,
        "_type": parent->parent->parent->_type,
        "title": parent->parent->parent->title,
+       "shortTitle": parent->parent->parent->shortTitle,
        "slug": parent->parent->parent->slug.current
      }),
      select(defined(parent->parent->) => {
        "_id": parent->parent->_id,
        "_type": parent->parent->_type,
        "title": parent->parent->title,
+       "shortTitle": parent->parent->shortTitle,
        "slug": parent->parent->slug.current
      }),
      select(defined(parent) => {
        "_id": parent->_id,
        "_type": parent->_type,
        "title": parent->title,
+       "shortTitle": parent->shortTitle,
        "slug": parent->slug.current
      }),
      {
        _id,
        _type,
        title,
+       shortTitle,
        "slug": slug.current
      },
    ],
- },
+ },`;
+const POST_QUERY = `*[_id == $id][0]{
+  ${crumbsFragment}
  title, shortTitle, image, body[]{
  ...,
  markDefs[]{ 
@@ -43,45 +49,7 @@ const POST_QUERY = `*[_id == $id][0]{
 // Reading time estimate: https://www.sanity.io/schemas/word-count-and-reading-time-estimation-for-groq-and-portable-text-7470eab7
 
 const CAT_QUERY = `*[_id == $id][0]{
-  "breadcrumb": {
-   "items": [
-     select(defined(parent->parent->parent->parent->) => {
-       "_id": parent->parent->parent->parent->_id,
-       "_type": parent->parent->parent->parent->_type,
-       "title": parent->parent->parent->parent->title,
-       "shortTitle": parent->parent->parent->parent->shortTitle,
-       "slug": parent->parent->parent->parent->slug.current
-     }),
-     select(defined(parent->parent->parent->) => {
-       "_id": parent->parent->parent->_id,
-       "_type": parent->parent->parent->_type,
-       "title": parent->parent->parent->title,
-       "shortTitle": parent->parent->parent->shortTitle,
-       "slug": parent->parent->parent->slug.current
-     }),
-     select(defined(parent->parent->) => {
-       "_id": parent->parent->_id,
-       "_type": parent->parent->_type,
-       "title": parent->parent->title,
-       "shortTitle": parent->parent->shortTitle,
-       "slug": parent->parent->slug.current
-     }),
-     select(defined(parent) => {
-       "_id": parent->_id,
-       "_type": parent->_type,
-       "title": parent->title,
-       "shortTitle": parent->shortTitle,
-       "slug": parent->slug.current
-     }),
-     {
-       _id,
-       _type,
-       title,
-       shortTitle,
-       "slug": slug.current
-     },
-   ],
- },
+  ${crumbsFragment}
  title, shortTitle, image, body[]{
  ...,
  markDefs[]{ 
@@ -91,45 +59,7 @@ const CAT_QUERY = `*[_id == $id][0]{
 },description, "pageType":_type, metaTitle, metaDescription, parent->, faq, _createdAt, _updatedAt, _updatedAt, authors[]->, popular[]->, "estimatedReadingTime": round(length(pt::text(body)) / 5 / 200 ), "headings": body[length(style) == 2 && string::startsWith(style, "h2")]}`;
 
 const AUTHOR_QUERY = `*[_id == $id][0]{
-  "breadcrumb": {
-   "items": [
-     select(defined(parent->parent->parent->parent->) => {
-       "_id": parent->parent->parent->parent->_id,
-       "_type": parent->parent->parent->parent->_type,
-       "title": parent->parent->parent->parent->title,
-       "shortTitle": parent->parent->parent->parent->shortTitle,
-       "slug": parent->parent->parent->parent->slug.current
-     }),
-     select(defined(parent->parent->parent->) => {
-       "_id": parent->parent->parent->_id,
-       "_type": parent->parent->parent->_type,
-       "title": parent->parent->parent->title,
-       "shortTitle": parent->parent->parent->shortTitle,
-       "slug": parent->parent->parent->slug.current
-     }),
-     select(defined(parent->parent->) => {
-       "_id": parent->parent->_id,
-       "_type": parent->parent->_type,
-       "title": parent->parent->title,
-       "shortTitle": parent->parent->shortTitle,
-       "slug": parent->parent->slug.current
-     }),
-     select(defined(parent) => {
-       "_id": parent->_id,
-       "_type": parent->_type,
-       "title": parent->title,
-       "shortTitle": parent->shortTitle,
-       "slug": parent->slug.current
-     }),
-     {
-       _id,
-       _type,
-       title,
-       shortTitle,
-       "slug": slug.current
-     },
-   ],
- },
+  ${crumbsFragment}
  "posts": *[_type in ["post", "category"] && $id in authors[]._ref]|order(_updatedAt desc)[0..2]{
     parent->,
     _id,

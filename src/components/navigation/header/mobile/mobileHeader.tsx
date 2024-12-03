@@ -93,6 +93,7 @@ export default function MobileHeader({ sections }: { sections: any[] }) {
               </Collapsible>
             ) : (
               <Link
+                key={i}
                 className={`text-xl font-bold ${oswald.className} mb-2`}
                 href={s.fullPath}
                 onClick={() => setIsOpen(false)}

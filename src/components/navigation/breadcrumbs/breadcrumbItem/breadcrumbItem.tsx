@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ReactNode } from "react";
 
-export default async function Breadcrumbs({
+export default function BreadcrumbItem({
   path,
   name,
   includeSeparator = true,

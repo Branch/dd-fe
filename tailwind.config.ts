@@ -112,6 +112,7 @@ const config: Config = {
   plugins: [
     require("tailwindcss-animate"),
     require("tailwind-container-break-out"),
+    require("tailwind-scrollbar-hide"),
   ],
 };
 export default config;
