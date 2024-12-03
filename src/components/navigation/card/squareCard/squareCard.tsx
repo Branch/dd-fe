@@ -18,9 +18,9 @@ export default function SquareCard({ title, image, slug }: ICard) {
           alt={title}
           className="object-cover rounded-md"
         />
-        <div className="px-4 z-10 absolute bottom-8 text-white">
+        <div className="px-4 w-full z-10 absolute bottom-8 text-white">
           <div
-            className={`font-black uppercase text-2xl first-letter:capitalize ${oswald.className}`}
+            className={`font-black truncate uppercase text-2xl first-letter:capitalize ${oswald.className}`}
           >
             {title}
           </div>
