@@ -24,10 +24,15 @@ export interface ICard {
   shortTitle?: string;
   image: string;
   slug: string;
-  description: string;
+  description?: string;
+  brand?: string;
+  design?: "base" | "circular";
+  price?: number;
+  rating?: number;
 }
 
 export interface IBaseDocument {
+  pageId?: string;
   title: string;
   shortTitle?: string;
   description: string;

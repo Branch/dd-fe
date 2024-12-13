@@ -38,6 +38,9 @@ const config: Config = {
         "200": "#fff2ab",
         DEFAULT: "#fffbe6",
       },
+      djungleYellow: {
+        DEFAULT: "#FFD700",
+      },
       djungleBlack: {
         "50": "#e3e1e1",
         "100": "#474747",

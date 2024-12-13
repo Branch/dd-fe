@@ -58,6 +58,16 @@ const CAT_QUERY = `*[_id == $id][0]{
      },
 },description, "pageType":_type, metaTitle, metaDescription, parent->, faq, _createdAt, _updatedAt, _updatedAt, authors[]->, popular[]->, "estimatedReadingTime": round(length(pt::text(body)) / 5 / 200 ), "headings": body[length(style) == 2 && string::startsWith(style, "h2")]}`;
 
+const PRODUCT_CAT_QUERY = `*[_id == $id][0]{
+  ${crumbsFragment}
+ title, shortTitle, image, body[]{
+ ...,
+ markDefs[]{ 
+     ..., 
+     _type == "internalLink" => { "href": "/"+ @.reference-> slug.current },
+     },
+},description, "pageType":_type, metaTitle, metaDescription, parent->, faq, _createdAt, _updatedAt, _updatedAt, authors[]->, popularProducts[]->, "estimatedReadingTime": round(length(pt::text(body)) / 5 / 200 ), "headings": body[length(style) == 2 && string::startsWith(style, "h2")]}`;
+
 const AUTHOR_QUERY = `*[_id == $id][0]{
   ${crumbsFragment}
  "posts": *[_type in ["post", "category"] && $id in authors[]._ref]|order(_updatedAt desc)[0..2]{
@@ -109,16 +119,19 @@ const SEARCH_QUERY = `*[
           ]|order(_updatedAt desc){_id, title, slug, _updatedAt, description, image, parent->, authors[]->}
   `;
 
-const ALL_PAGES_QUERY = `*[defined(slug.current)
-]|order(_updatedAt desc){_id,_updatedAt}`;
+const ALL_PRODUCT_PAGES_QUERY = `*[
+  _type in ["product", 'productCategory']
+  && defined(slug.current)
+  ]|order(_updatedAt desc){_id,parent{_ref},title,shortTitle,slug,description,price,rating,brand,image,_updatedAt, _type}`;
 
 export {
   POST_QUERY,
   NAV_QUERY,
   POSTS_CATS_QUERY,
   SEARCH_QUERY,
-  ALL_PAGES_QUERY,
   LATEST_CATS_QUERY,
   CAT_QUERY,
   AUTHOR_QUERY,
+  ALL_PRODUCT_PAGES_QUERY,
+  PRODUCT_CAT_QUERY,
 };

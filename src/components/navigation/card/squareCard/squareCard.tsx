@@ -3,13 +3,19 @@ import { oswald } from "@/utils/fonts/fonts";
 import Link from "next/link";
 import Image from "next/image";
 import sanityImageBuilder from "@/utils/sanityImageBuilder";
-export default function SquareCard({ title, image, slug }: ICard) {
+export default function SquareCard({
+  title,
+  image,
+  slug,
+  design = "base",
+}: ICard) {
   const imgSrc = sanityImageBuilder(image);
-  return (
-    imgSrc && (
+  if (!imgSrc) return null;
+  const Card = () =>
+    design === "base" ? (
       <Link
         href={slug}
-        className="bg-white aspect-square hover:scale-[101%] duration-200 relative shadow-xl rounded-md"
+        className="aspect-square hover:scale-[101%] duration-200 relative shadow-xl rounded-md"
       >
         <Image
           src={imgSrc}
@@ -27,6 +33,21 @@ export default function SquareCard({ title, image, slug }: ICard) {
         </div>
         <div className="h-3/4 w-full rounded-md absolute bottom-0 bg-gradient-to-t from-djungleBlack"></div>
       </Link>
-    )
-  );
+    ) : (
+      <Link href={slug} className="hover:underline duration-200 relative">
+        <Image
+          src={imgSrc}
+          width={100}
+          height={100}
+          alt={title}
+          className="h-[100px] w-[100px] object-cover rounded-full mx-auto"
+        />
+        <div
+          className={`text-black mt-2 font-bold text-center first-letter:capitalize`}
+        >
+          {title}
+        </div>
+      </Link>
+    );
+  return <Card />;
 }

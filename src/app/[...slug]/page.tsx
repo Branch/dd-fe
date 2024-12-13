@@ -12,12 +12,18 @@ import { PageMetadata } from "@q42/sanity-plugin-page-tree/next";
 import Breadcrumbs from "@/components/navigation/breadcrumbs/breadcrumbs";
 import { Metadata } from "next";
 import dynamic from "next/dynamic";
-import { CAT_QUERY, POST_QUERY, AUTHOR_QUERY } from "@/sanity/queries/queries";
+import {
+  CAT_QUERY,
+  POST_QUERY,
+  AUTHOR_QUERY,
+  PRODUCT_CAT_QUERY,
+} from "@/sanity/queries/queries";
 import { aboutGraph, authorGraph, baseGraph } from "@/utils/jsonld/jsonld";
 const PostType = dynamic(() => import("@/app/[...slug]/_pageTypes/post/post"));
 import { faqHeading } from "@/constants/constants";
 import CategoryType from "@/app/[...slug]/_pageTypes/category/category";
 import AuthorType from "@/app/[...slug]/_pageTypes/author/author";
+import ProductCategoryType from "@/app/[...slug]/_pageTypes/productCategory/productCategory";
 const options = { next: { revalidate: 3600 } };
 
 const getQueryByType = (type: string) => {
@@ -27,7 +33,9 @@ const getQueryByType = (type: string) => {
       ? CAT_QUERY
       : type === "author"
         ? AUTHOR_QUERY
-        : POST_QUERY;
+        : type === "productCategory"
+          ? PRODUCT_CAT_QUERY
+          : POST_QUERY;
 };
 
 export async function generateMetadata({
@@ -172,6 +180,23 @@ async function PageHandler({ pageMetadata }: IPageHandler) {
           faq={page.faq}
           imgUrl={postImageUrl}
           popular={page.popular}
+          graph={graph}
+        />
+      ) : page.pageType === "productCategory" ? (
+        <ProductCategoryType
+          pageId={pageMetadata._id}
+          title={page.title}
+          shortTitle={page.shortTitle}
+          description={page.description}
+          authors={page.authors}
+          parentTitle={page?.parent?.slug?.current}
+          readingTime={page.estimatedReadingTime}
+          updatedAt={page._updatedAt}
+          tocHeadings={page.headings}
+          body={page.body}
+          faq={page.faq}
+          imgUrl={postImageUrl}
+          popular={page.popularProducts}
           graph={graph}
         />
       ) : page.pageType === "author" ? (

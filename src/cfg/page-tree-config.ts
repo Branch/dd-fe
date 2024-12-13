@@ -5,7 +5,15 @@ export const pageTreeConfig: PageTreeConfig = {
   /* Root page schema type name */
   rootSchemaType: "homePage",
   /* Array of all page schema type names */
-  pageSchemaTypes: ["homePage", "post", "category", "author", "about"],
+  pageSchemaTypes: [
+    "homePage",
+    "post",
+    "category",
+    "author",
+    "about",
+    "productCategory",
+    "product",
+  ],
   /* Optionally specify which document types can be the parent of a document type.
   If no allowed parents are specified for a type, all document types are allowed as a parent for that type.
   This config can also be used to prevent certain document types from having any children.*/
