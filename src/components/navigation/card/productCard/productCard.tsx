@@ -3,7 +3,6 @@ import { ICard } from "@/types/types";
 import { oswald } from "@/utils/fonts/fonts";
 import formatPrice from "@/utils/formatPrice";
 import sanityImageBuilder from "@/utils/sanityImageBuilder";
-import { Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
