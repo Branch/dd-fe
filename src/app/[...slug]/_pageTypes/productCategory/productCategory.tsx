@@ -82,7 +82,7 @@ export default async function ProductCategoryType({
             <h2 className={`${oswald.className} font-bold text-3xl`}>
               Populärt inom {shortTitle || title}
             </h2>
-            <section className="grid grid-cols-2 lg:grid-cols-5 py-4 items-center  gap-4">
+            <section className="grid grid-cols-2 lg:grid-cols-5 py-4 gap-4">
               {Promise.all(
                 popular?.map(async (p, i) => {
                   const pData = await getPostDataById(p?._id || "");
@@ -106,7 +106,7 @@ export default async function ProductCategoryType({
         <div className="my-12">
           <h2 className={`text-2xl font-bold ${oswald.className}`}>
             Produkter inom {title}
-            <div className="grid grid-cols-2 md:grid-cols-4 pt-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 pt-4 gap-4">
               {productsWithinCategory?.map(async (p, i) => {
                 const pData = await getPostDataById(p?._id || "");
                 return pData?.path ? (
