@@ -101,7 +101,7 @@ const NAV_QUERY = `
 `;
 
 const LATEST_CATS_QUERY = `*[
-  _type in ["category"]
+  _type in ["category", "productCategory"]
   && defined(slug.current)
 ]|order(_updatedAt desc)[0...10]{_id, title, shortTitle, image, description}`;
 
