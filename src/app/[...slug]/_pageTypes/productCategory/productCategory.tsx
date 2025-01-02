@@ -16,6 +16,7 @@ import { client } from "@/sanity/client";
 import { ALL_PRODUCT_PAGES_QUERY } from "@/sanity/queries/queries";
 import getPageDescendants from "@/utils/getPageDecendants";
 import ProductCard from "@/components/navigation/card/productCard/productCard";
+import { ChevronDown } from "lucide-react";
 
 interface ICategory extends IBaseDocument {
   popular: ICard[];
@@ -124,9 +125,10 @@ export default async function ProductCategoryType({
               })}
             </div>
           </h2>
-          <div className="h-1 bg-djungleBlack rounded-full mt-28 mb-24 relative">
-            <span className="bg-djungleBeige absolute mx-auto left-0 right-0 bottom-[-10px] text-center w-24">
+          <div className="h-[2px] bg-djungleBlack rounded-full mt-28 mb-24 relative flex items-center">
+            <span className="bg-djungleBeige flex flex-col items-center mx-auto text-center w-24">
               Läs mer
+              <ChevronDown className="animate-bounce mt-1" />
             </span>
           </div>
         </div>
