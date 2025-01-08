@@ -106,16 +106,13 @@ const LATEST_CATS_QUERY = `*[
 ]|order(_updatedAt desc)[0...10]{_id, title, shortTitle, image, description}`;
 
 const POSTS_CATS_QUERY = `*[
-    _type in ["post", "category", "product", "productCategory"]
+    _type in ["post", "category", "product", "productCategory", "dogYearCalculator"]
     && defined(slug.current)
   ]|order(_updatedAt desc)[0...10]{_id, title, shortTitle, slug, _updatedAt, description, image, parent->, authors[]->}`;
 
 const SEARCH_QUERY = `*[
-          _type in ["post", 'author', 'category']
-          && (
               title match $queryString + '*' ||
               pt::text(body) match $queryString + '*'
-          )
           ]|order(_updatedAt desc){_id, title, slug, _updatedAt, description, image, parent->, authors[]->}
   `;
 

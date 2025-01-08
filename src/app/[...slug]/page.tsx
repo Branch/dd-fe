@@ -24,6 +24,7 @@ import { faqHeading } from "@/constants/constants";
 import CategoryType from "@/app/[...slug]/_pageTypes/category/category";
 import AuthorType from "@/app/[...slug]/_pageTypes/author/author";
 import ProductCategoryType from "@/app/[...slug]/_pageTypes/productCategory/productCategory";
+import DogYearCalculatorType from "@/app/[...slug]/_pageTypes/tools/dogYearCalculator/dogYearCalculator";
 const options = { next: { revalidate: 3600 } };
 
 const getQueryByType = (type: string) => {
@@ -244,6 +245,20 @@ async function PageHandler({ pageMetadata }: IPageHandler) {
             page?.parent?.title,
             breadcrumbs
           )}
+        />
+      ) : page.pageType === "dogYearCalculator" ? (
+        <DogYearCalculatorType
+          title={page.title}
+          description={page.description}
+          authors={page.authors}
+          parentTitle={page?.parent?.slug?.current}
+          readingTime={page.estimatedReadingTime}
+          updatedAt={page._updatedAt}
+          tocHeadings={page.headings}
+          body={page.body}
+          faq={page.faq}
+          imgUrl={postImageUrl}
+          graph={graph}
         />
       ) : (
         <PostType
