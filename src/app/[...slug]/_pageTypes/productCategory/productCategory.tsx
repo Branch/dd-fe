@@ -142,8 +142,8 @@ export default async function ProductCategoryType({
               priority
               sizes="(max-width: 768px) 100vw, 33vw"
               className="aspect-video rounded-xl col-span-2 w-full"
-              width="550"
-              height="310"
+              width="1280"
+              height="720"
             />
           )}
           {tocHeadings?.length > 0 && <MobileToc headings={tocHeadings} />}
