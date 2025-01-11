@@ -62,8 +62,8 @@ export default function PostType({
             src={imgUrl}
             alt={title}
             className="rounded-xl w-full my-4"
-            width="550"
-            height="310"
+            width="1280"
+            height="720"
             priority
             quality={100}
             sizes="(max-width: 768px) 100vw, 33vw"
