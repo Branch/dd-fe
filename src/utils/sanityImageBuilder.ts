@@ -10,8 +10,8 @@ const urlFor = (source: SanityImageSource) =>
     : null;
 export default function sanityImageBuilder(
   image: string,
-  width = 550,
-  height = 310
+  width = 1280,
+  height = 720
 ) {
   const postImageUrl = image
     ? urlFor(image)?.width(width).height(height).url()
