@@ -30,7 +30,7 @@ body {
   }
   article #content ul,
   article #content ol {
-    @apply mb-4 ml-4;
+    @apply mb-4 pl-4;
   }
   article #content ul li {
     @apply list-none ml-2 mb-2;
