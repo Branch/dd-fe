@@ -158,12 +158,13 @@ export default async function IndexPage() {
         </h2>
         <div>
           {await Promise.all(
-            posts.map(async (post) => {
+            posts.map(async (post, i) => {
               const t = await getPostDataById(post._id);
               const parent = await getPostDataById(post.parent._id);
               return (
                 t?.path && (
                   <FeedItem
+                    key={i}
                     title={post.title}
                     image={post.image}
                     description={post.description}

@@ -1,7 +1,8 @@
 "use client";
 import FooterList from "@/components/navigation/footer/footerList/footerList";
+import { Instagram } from "lucide-react";
 import Link from "next/link";
-
+import Image from "next/image";
 const Footer = () => {
   return (
     <footer className="bg-djungleBlack mt-16 text-white py-24 relative">
@@ -16,6 +17,33 @@ const Footer = () => {
             <Link className="underline" href={"/cookies"}>
               Hur vi hanterar cookies
             </Link>
+          </li>
+          <li className="text-sm">
+            <a
+              href="https://instagram.com/djurdjungeln_sverige"
+              rel="noopener noreferrer nofollow"
+              className="underline flex gap-2 items-center"
+              target="_blank"
+            >
+              <Instagram />
+              <span>Instagram</span>
+            </a>
+          </li>
+          <li className="text-sm">
+            <a
+              href="https://se.trustpilot.com/review/djurdjungeln.se"
+              rel="noopener noreferrer nofollow"
+              className="underline flex gap-2 items-center"
+              target="_blank"
+            >
+              <Image
+                src={"/assets/icons/trustpilot.svg"}
+                alt={""}
+                width={40}
+                height={40}
+                className="w-1/4 md:w-2/3 lg:w-1/3"
+              />
+            </a>
           </li>
         </FooterList>
         <FooterList title={"Om oss"}>

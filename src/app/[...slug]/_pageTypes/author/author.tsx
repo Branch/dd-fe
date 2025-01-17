@@ -84,12 +84,13 @@ export default async function AuthorType({
           Senaste nytt från {title}
         </h2>
         {await Promise.all(
-          authorPages.map(async (post) => {
+          authorPages.map(async (post, i) => {
             const t = await getPostDataById(post._id);
             const parent = await getPostDataById(post._id);
             return (
               t?.path && (
                 <FeedItem
+                  key={i}
                   title={post.title}
                   image={post.image}
                   description={post.description}
