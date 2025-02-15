@@ -106,26 +106,23 @@ export default async function ProductCategoryType({
       ) : null}
       {productsWithinCategory?.length > 0 ? (
         <div className="my-12">
-          <h2 className={`text-2xl font-bold ${oswald.className}`}>
-            Produkter inom {title}
-            <div className="grid grid-cols-2 md:grid-cols-4 pt-4 gap-4">
-              {productsWithinCategory?.map(async (p, i) => {
-                const pData = await getPostDataById(p?._id || "");
-                return pData?.path ? (
-                  <ProductCard
-                    key={i}
-                    title={p.title}
-                    image={p.image}
-                    slug={pData.path}
-                    price={p.price}
-                    rating={p.rating}
-                    brand={p.brand}
-                    design="circular"
-                  />
-                ) : null;
-              })}
-            </div>
-          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 pt-4 gap-4">
+            {productsWithinCategory?.map(async (p, i) => {
+              const pData = await getPostDataById(p?._id || "");
+              return pData?.path ? (
+                <ProductCard
+                  key={i}
+                  title={p.title}
+                  image={p.image}
+                  slug={pData.path}
+                  price={p.price}
+                  rating={p.rating}
+                  brand={p.brand}
+                  design="circular"
+                />
+              ) : null;
+            })}
+          </div>
           <div className="h-[2px] bg-djungleBlack rounded-full mt-28 mb-24 relative flex items-center">
             <span className="bg-djungleBeige flex flex-col items-center mx-auto text-center w-24">
               Läs mer
@@ -135,7 +132,7 @@ export default async function ProductCategoryType({
         </div>
       ) : null}
       <article
-        className={`grid grid-cols-1 md:grid-cols-7 gap-4 ${productsWithinCategory.length === 0 || popular.length === 0 ? "mt-12" : "mt-0"}`}
+        className={`grid grid-cols-1 md:grid-cols-7 gap-4 ${productsWithinCategory?.length === 0 || popular?.length === 0 ? "mt-12" : "mt-0"}`}
       >
         <section className="md:col-span-5">
           {imgUrl && (
