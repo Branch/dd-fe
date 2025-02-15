@@ -34,7 +34,6 @@ const getNestedPages = async (pageId: string) => {
 export default async function ProductCategoryType({
   pageId,
   title,
-  shortTitle,
   description,
   imgUrl,
   authors,

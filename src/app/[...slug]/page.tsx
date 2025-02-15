@@ -1,3 +1,5 @@
+/** @format */
+
 import { type SanityDocument } from "next-sanity";
 import { client } from "@/sanity/client";
 import sanityImageBuilder from "@/utils/sanityImageBuilder";
@@ -187,7 +189,6 @@ async function PageHandler({ pageMetadata }: IPageHandler) {
         <ProductCategoryType
           pageId={pageMetadata._id}
           title={page.title}
-          shortTitle={page.shortTitle}
           description={page.description}
           authors={page.authors}
           parentTitle={page?.parent?.slug?.current}
