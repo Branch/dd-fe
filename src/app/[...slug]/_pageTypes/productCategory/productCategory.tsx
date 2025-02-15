@@ -1,3 +1,5 @@
+/** @format */
+
 import { faqHeading } from "@/constants/constants";
 import Collapsible from "@/components/dataDisplay/collapsible/collapsible";
 import Author from "@/components/navigation/author/author";
@@ -81,7 +83,7 @@ export default async function ProductCategoryType({
         <div className="bg-djungleOrange-200 mx-break-out mt-12">
           <div className="container py-12">
             <h2 className={`${oswald.className} font-bold text-3xl`}>
-              Populärt inom {shortTitle || title}
+              Kategorier
             </h2>
             <section className="grid grid-cols-2 lg:grid-cols-5 py-4 gap-4">
               {Promise.all(
@@ -133,7 +135,9 @@ export default async function ProductCategoryType({
           </div>
         </div>
       ) : null}
-      <article className="grid grid-cols-1 md:grid-cols-7 gap-4">
+      <article
+        className={`grid grid-cols-1 md:grid-cols-7 gap-4 ${productsWithinCategory.length === 0 || popular.length === 0 ? "mt-12" : "mt-0"}`}
+      >
         <section className="md:col-span-5">
           {imgUrl && (
             <Image
