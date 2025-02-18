@@ -1,3 +1,5 @@
+/** @format */
+
 import imageUrlBuilder from "@sanity/image-url";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { client } from "@/sanity/client";
@@ -15,6 +17,6 @@ export default function sanityImageBuilder(
 ) {
   const postImageUrl = image
     ? urlFor(image)?.width(width).height(height).url()
-    : null;
+    : `${process.env.BASE_URL}/assets/images/share.webp`;
   return postImageUrl;
 }

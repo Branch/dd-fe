@@ -1,3 +1,5 @@
+/** @format */
+
 import { IAuthor, IFaq } from "@/types/types";
 import { Graph } from "schema-dts";
 
@@ -37,6 +39,12 @@ export const websiteData = {
   publisher: publisher,
 };
 
+export interface IJsonLdImage {
+  url: string;
+  width: number;
+  height: number;
+}
+
 export function baseGraph(
   pagePath: string,
   createdAt: string,
@@ -45,10 +53,31 @@ export function baseGraph(
   about: string,
   faq: IFaq[],
   authors: IAuthor[],
-  shareImage?: string | null,
+  shareImage?: IJsonLdImage[],
   articleSection?: string,
   breadcrumbs?: any[]
 ) {
+  const images = shareImage?.map((img) => {
+    return img?.url
+      ? {
+          "@type": "ImageObject",
+          "@id": `${img.url}#image`,
+          url: img.url,
+          contentUrl: img.url,
+          inLanguage: "sv-SE",
+          width: img.width,
+          height: img.height,
+        }
+      : {
+          "@type": "ImageObject",
+          "@id": `${process.env.BASE_URL}/assets/images/share.webp#image`,
+          url: img.url,
+          contentUrl: img.url,
+          inLanguage: "sv-SE",
+          width: img.width,
+          height: img.height,
+        };
+  });
   const graph: Graph = {
     "@context": "https://schema.org",
     "@graph": [
@@ -60,16 +89,7 @@ export function baseGraph(
         dateModified: _updatedAt,
         url: pagePath,
         headline: headline,
-        image: {
-          "@type": "ImageObject",
-          "@id": `${pagePath}#image`,
-          url: shareImage || `${process.env.BASE_URL}/assets/images/share.webp`,
-          contentUrl:
-            shareImage || `${process.env.BASE_URL}/assets/images/share.webp`,
-          inLanguage: "sv-SE",
-          width: shareImage ? "550" : "1200",
-          height: shareImage ? "310" : "630",
-        },
+        image: images,
         about: about,
         subjectOf: {
           "@type": "FAQPage",
@@ -143,17 +163,7 @@ export function baseGraph(
           "@id": `${pagePath}#page`,
           url: process.env.BASE_URL,
           name: process.env.SITENAME,
-          primaryImageOfPage: {
-            "@type": "ImageObject",
-            "@id": `${pagePath}#image`,
-            url:
-              shareImage || `${process.env.BASE_URL}/assets/images/share.webp`,
-            contentUrl:
-              shareImage || `${process.env.BASE_URL}/assets/images/share.webp`,
-            inLanguage: "sv-SE",
-            width: shareImage ? "550" : "1200",
-            height: shareImage ? "310" : "630",
-          },
+          primaryImageOfPage: images,
           inLanguage: "sv-SE",
           breadcrumb: {
             "@type": "BreadcrumbList",

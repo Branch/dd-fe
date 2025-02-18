@@ -114,6 +114,30 @@ async function PageHandler({ pageMetadata }: IPageHandler) {
       : [];
   }
 
+  const jsonLdImageFormats = [
+    {
+      w: 320,
+      h: 180,
+    },
+    {
+      w: 280,
+      h: 210,
+    },
+    {
+      w: 225,
+      h: 225,
+    },
+  ];
+  // Set article metadata images for serp
+  const jsonLdImages = jsonLdImageFormats.map((f) => {
+    return {
+      url:
+        sanityImageBuilder(page.image, f.w, f.h) ||
+        `${process.env.BASE_URL}/assets/images/share.webp`,
+      width: f.w,
+      height: f.h,
+    };
+  });
   const postImageUrl = page?.image ? sanityImageBuilder(page.image) : "";
   const currPath = `${process.env.BASE_URL}${pageMetadata.path}`;
   const breadcrumbs = await Promise.all(
@@ -147,7 +171,7 @@ async function PageHandler({ pageMetadata }: IPageHandler) {
     page.metaDescription || page.description,
     page.faq,
     authorsMeta,
-    postImageUrl,
+    jsonLdImages,
     page?.parent?.title,
     breadcrumbs
   );
