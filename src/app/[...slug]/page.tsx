@@ -19,8 +19,14 @@ import {
   POST_QUERY,
   AUTHOR_QUERY,
   PRODUCT_CAT_QUERY,
+  PRODUCT_QUERY,
 } from "@/sanity/queries/queries";
-import { aboutGraph, authorGraph, baseGraph } from "@/utils/jsonld/jsonld";
+import {
+  aboutGraph,
+  authorGraph,
+  baseGraph,
+  productGraph,
+} from "@/utils/jsonld/jsonld";
 const PostType = dynamic(() => import("@/app/[...slug]/_pageTypes/post/post"));
 import { faqHeading } from "@/constants/constants";
 import CategoryType from "@/app/[...slug]/_pageTypes/category/category";
@@ -38,7 +44,9 @@ const getQueryByType = (type: string) => {
         ? AUTHOR_QUERY
         : type === "productCategory"
           ? PRODUCT_CAT_QUERY
-          : POST_QUERY;
+          : type === "product"
+            ? PRODUCT_QUERY
+            : POST_QUERY;
 };
 
 export async function generateMetadata({
@@ -242,7 +250,7 @@ async function PageHandler({ pageMetadata }: IPageHandler) {
             currPath,
             page.title,
             authorsMeta,
-            postImageUrl,
+            jsonLdImages,
             breadcrumbs
           )}
         />
@@ -266,7 +274,7 @@ async function PageHandler({ pageMetadata }: IPageHandler) {
             page.metaDescription || page.description,
             page.faq,
             authorsMeta,
-            postImageUrl,
+            jsonLdImages,
             page?.parent?.title,
             breadcrumbs
           )}
@@ -284,6 +292,35 @@ async function PageHandler({ pageMetadata }: IPageHandler) {
           faq={page.faq}
           imgUrl={postImageUrl}
           graph={graph}
+        />
+      ) : page.pageType === "product" ? (
+        <PostType
+          title={page.title}
+          description={page.description}
+          authors={page.authors}
+          parentTitle={page?.parent?.slug?.current}
+          readingTime={page.estimatedReadingTime}
+          updatedAt={page._updatedAt}
+          tocHeadings={page.headings}
+          body={page.body}
+          faq={page.faq}
+          imgUrl={postImageUrl}
+          graph={productGraph(
+            currPath,
+            page._createdAt,
+            page._updatedAt,
+            page.metaTitle || page.title,
+            page.metaDescription || page.description,
+            page.faq,
+            authorsMeta,
+            jsonLdImages,
+            page.brand,
+            page?.parent?.title,
+            page.price,
+            Boolean(page.inStock),
+            page.rating,
+            breadcrumbs
+          )}
         />
       ) : (
         <PostType

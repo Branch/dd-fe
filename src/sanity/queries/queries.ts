@@ -1,3 +1,5 @@
+/** @format */
+
 const crumbsFragment = `"breadcrumb": {
    "items": [
      select(defined(parent->parent->parent->parent->) => {
@@ -121,6 +123,16 @@ const ALL_PRODUCT_PAGES_QUERY = `*[
   && defined(slug.current)
   ]|order(_updatedAt desc){_id,parent{_ref},title,shortTitle,slug,description,price,rating,brand,image,_updatedAt, _type}`;
 
+const PRODUCT_QUERY = `*[_id == $id][0]{
+    ${crumbsFragment}
+   title, shortTitle, image, body[]{
+   ...,
+   markDefs[]{ 
+       ..., 
+       _type == "internalLink" => { "href": "/"+ @.reference-> slug.current },
+       },
+  },description, "pageType":_type, price, brand, rating, inStock, metaTitle, metaDescription, parent->, faq, _createdAt, _updatedAt, authors[]->, "estimatedReadingTime": round(length(pt::text(body)) / 5 / 200 ), "headings": body[length(style) == 2 && string::startsWith(style, "h2")]}`;
+
 export {
   POST_QUERY,
   NAV_QUERY,
@@ -131,4 +143,5 @@ export {
   AUTHOR_QUERY,
   ALL_PRODUCT_PAGES_QUERY,
   PRODUCT_CAT_QUERY,
+  PRODUCT_QUERY,
 };
