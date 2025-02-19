@@ -392,6 +392,7 @@ export function productGraph(
           availability: isAvailable
             ? "https://schema.org/InStock"
             : "https://schema.org/SoldOut",
+          itemCondition: "https://schema.org/NewCondition",
           url: pagePath,
         },
         subjectOf: {
