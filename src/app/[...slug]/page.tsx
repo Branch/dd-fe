@@ -309,6 +309,7 @@ async function PageHandler({ pageMetadata }: IPageHandler) {
             currPath,
             page._createdAt,
             page._updatedAt,
+            page.title,
             page.metaTitle || page.title,
             page.metaDescription || page.description,
             page.faq,

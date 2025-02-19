@@ -354,6 +354,7 @@ export function productGraph(
   pagePath: string,
   createdAt: string,
   _updatedAt: string,
+  productName: string,
   headline: string,
   about: string,
   faq: IFaq[],
@@ -381,7 +382,7 @@ export function productGraph(
         },
         category: productCategory,
         url: pagePath,
-        name: headline,
+        name: productName,
         image: images,
         description: about,
         offers: {
