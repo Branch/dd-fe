@@ -1,3 +1,5 @@
+/** @format */
+
 import { Graph } from "schema-dts";
 
 export interface IAuthor {
@@ -28,6 +30,7 @@ export interface ICard {
   brand?: string;
   design?: "base" | "circular";
   price?: number;
+  discountPrice?: number;
   rating?: number;
 }
 

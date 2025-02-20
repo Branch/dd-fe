@@ -1,3 +1,5 @@
+/** @format */
+
 import { faqHeading } from "@/constants/constants";
 import Collapsible from "@/components/dataDisplay/collapsible/collapsible";
 import Author from "@/components/navigation/author/author";

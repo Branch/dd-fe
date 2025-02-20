@@ -33,6 +33,7 @@ import CategoryType from "@/app/[...slug]/_pageTypes/category/category";
 import AuthorType from "@/app/[...slug]/_pageTypes/author/author";
 import ProductCategoryType from "@/app/[...slug]/_pageTypes/productCategory/productCategory";
 import DogYearCalculatorType from "@/app/[...slug]/_pageTypes/tools/dogYearCalculator/dogYearCalculator";
+import ProductType from "@/app/[...slug]/_pageTypes/product/product";
 const options = { next: { revalidate: 3600 } };
 
 const getQueryByType = (type: string) => {
@@ -121,7 +122,12 @@ async function PageHandler({ pageMetadata }: IPageHandler) {
       ? [...page.headings, { children: [{ text: faqHeading }] }]
       : [];
   }
-
+  // Add product "Buy now" heading to TOC
+  if (page.buyHeadline) {
+    page.headings = page.headings
+      ? [{ children: [{ text: "Köp nu" }] }, ...page.headings]
+      : [];
+  }
   const jsonLdImageFormats = [
     {
       w: 320,
@@ -294,7 +300,7 @@ async function PageHandler({ pageMetadata }: IPageHandler) {
           graph={graph}
         />
       ) : page.pageType === "product" ? (
-        <PostType
+        <ProductType
           title={page.title}
           description={page.description}
           authors={page.authors}
@@ -322,6 +328,13 @@ async function PageHandler({ pageMetadata }: IPageHandler) {
             page.rating,
             breadcrumbs
           )}
+          ctaUrl={page.ctaUrl}
+          ctaButtonText={page.ctaButtonText}
+          ctaDesc={page.buyDescription}
+          ctaTitle={page.buyHeadline}
+          price={page.price}
+          discountPrice={page?.discountedPrice}
+          discountCode={page?.discountCode}
         />
       ) : (
         <PostType
