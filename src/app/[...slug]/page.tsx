@@ -34,6 +34,7 @@ import AuthorType from "@/app/[...slug]/_pageTypes/author/author";
 import ProductCategoryType from "@/app/[...slug]/_pageTypes/productCategory/productCategory";
 import DogYearCalculatorType from "@/app/[...slug]/_pageTypes/tools/dogYearCalculator/dogYearCalculator";
 import ProductType from "@/app/[...slug]/_pageTypes/product/product";
+import PromotedProductsFeed from "@/app/[...slug]/_pageTypes/promotedProductsFeed/promotedProductsFeed";
 const options = { next: { revalidate: 3600 } };
 
 const getQueryByType = (type: string) => {
@@ -225,6 +226,22 @@ async function PageHandler({ pageMetadata }: IPageHandler) {
         />
       ) : page.pageType === "productCategory" ? (
         <ProductCategoryType
+          pageId={pageMetadata._id}
+          title={page.title}
+          description={page.description}
+          authors={page.authors}
+          parentTitle={page?.parent?.slug?.current}
+          readingTime={page.estimatedReadingTime}
+          updatedAt={page._updatedAt}
+          tocHeadings={page.headings}
+          body={page.body}
+          faq={page.faq}
+          imgUrl={postImageUrl}
+          popular={page.popularProducts}
+          graph={graph}
+        />
+      ) : page.pageType === "promotedProducts" ? (
+        <PromotedProductsFeed
           pageId={pageMetadata._id}
           title={page.title}
           description={page.description}

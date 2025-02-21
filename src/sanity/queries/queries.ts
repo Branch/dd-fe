@@ -123,6 +123,11 @@ const ALL_PRODUCT_PAGES_QUERY = `*[
   && defined(slug.current)
   ]|order(_updatedAt desc){_id,parent{_ref},title,shortTitle,slug,description,price,discountedPrice,rating,brand,image,_updatedAt, _type}`;
 
+const PROMOTED_PRODUCTS_QUERY = `*[
+    _type in ["product"] && isPromoted == true
+    && defined(slug.current)
+    ]|order(_updatedAt desc){_id,parent{_ref},title,shortTitle,slug,description,price,discountedPrice,rating,brand,image,_updatedAt, _type}`;
+
 const PRODUCT_QUERY = `*[_id == $id][0]{
     ${crumbsFragment}
    title, shortTitle, image, body[]{
@@ -144,4 +149,5 @@ export {
   ALL_PRODUCT_PAGES_QUERY,
   PRODUCT_CAT_QUERY,
   PRODUCT_QUERY,
+  PROMOTED_PRODUCTS_QUERY,
 };

@@ -1,3 +1,5 @@
+/** @format */
+
 import type { Config } from "tailwindcss";
 
 const config: Config = {
@@ -25,45 +27,52 @@ const config: Config = {
         "2xl": "1496px",
       },
     },
-    colors: {
-      transparent: "transparent",
-      white: {
-        DEFAULT: "#FFFFFF",
-      },
-      djungleBlue: {
-        DEFAULT: "#454bf7",
-      },
-      djungleBeige: {
-        "50": "#fffefa",
-        "200": "#fff2ab",
-        DEFAULT: "#fffbe6",
-      },
-      djungleYellow: {
-        DEFAULT: "#FFD700",
-      },
-      djungleBlack: {
-        "50": "#e3e1e1",
-        "100": "#474747",
-        DEFAULT: "#171717",
-      },
-      djungleGreen: {
-        "25": "#edf9e6",
-        "50": "#e2f6d6",
-        "100": "#C0EBA6",
-        DEFAULT: "#347928",
-      },
-      djungleOrange: {
-        "100": "#faf3de",
-        "200": "#fade7d",
-        DEFAULT: "#FCCD2A",
-      },
-      djunglePurple: {
-        "100": "#FEEBFC",
-        DEFAULT: "#C24FAE",
-      },
-    },
     extend: {
+      animation: {
+        border: "border 4s linear infinite",
+        borderFast: "border 1s linear infinite",
+      },
+      keyframes: {
+        border: {
+          to: { "--border-angle": "360deg" },
+        },
+      },
       colors: {
+        transparent: "transparent",
+        white: {
+          DEFAULT: "#FFFFFF",
+        },
+        djungleBlue: {
+          DEFAULT: "#454bf7",
+        },
+        djungleBeige: {
+          "50": "#fffefa",
+          "200": "#fff2ab",
+          DEFAULT: "#fffbe6",
+        },
+        djungleYellow: {
+          DEFAULT: "#FFD700",
+        },
+        djungleBlack: {
+          "50": "#e3e1e1",
+          "100": "#474747",
+          DEFAULT: "#171717",
+        },
+        djungleGreen: {
+          "25": "#edf9e6",
+          "50": "#e2f6d6",
+          "100": "#C0EBA6",
+          DEFAULT: "#347928",
+        },
+        djungleOrange: {
+          "100": "#faf3de",
+          "200": "#fade7d",
+          DEFAULT: "#FCCD2A",
+        },
+        djunglePurple: {
+          "100": "#FEEBFC",
+          DEFAULT: "#C24FAE",
+        },
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {

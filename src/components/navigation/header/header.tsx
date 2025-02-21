@@ -1,3 +1,5 @@
+/** @format */
+
 "use client";
 import Image from "next/image";
 import Link from "next/link";
@@ -115,10 +117,24 @@ export default function Header({ sections }: { sections: any[] }) {
                 </li>
               );
             })}
+            <Link
+              href="/kampanjer"
+              className={`font-bold ${isHovered === -1 ? "[background:linear-gradient(45deg,#FEFBE6,#FEFBE6,#FEFBE6)_padding-box,conic-gradient(from_var(--border-angle),#357829,#357829,#357829,#E5F4CC,#357829)_border-box]" : "z-50 [background:linear-gradient(45deg,#ffffff,#ffffff,#ffffff)_padding-box,conic-gradient(from_var(--border-angle),#357829,#357829,#357829,#E5F4CC,#357829)_border-box]"} rounded-full border-transparent animate-border py-2 px-4 border-2 shadow-md hover:animate-borderFast`}
+            >
+              Kampanjer
+            </Link>
           </ul>
         </div>
         <SearchInput styles="hidden xl:block" />
-        <MobileHeader sections={sections} />
+        <div className="flex items-center gap-4">
+          <Link
+            href="/kampanjer"
+            className={`font-bold self-end xl:hidden [background:linear-gradient(45deg,#FEFBE6,#FEFBE6,#FEFBE6)_padding-box,conic-gradient(from_var(--border-angle),#357829,#357829,#357829,#E5F4CC,#357829)_border-box] rounded-full border-transparent animate-border py-2 px-4 border-2 shadow-md md:hover:animate-borderFast`}
+          >
+            Kampanjer
+          </Link>
+          <MobileHeader sections={sections} />
+        </div>
       </nav>
     </header>
   );
