@@ -29,12 +29,22 @@ const config: Config = {
     },
     extend: {
       animation: {
+        wiggle: "wiggle 2s ease-in-out infinite",
         border: "border 4s linear infinite",
         borderFast: "border 1s linear infinite",
       },
       keyframes: {
         border: {
           to: { "--border-angle": "360deg" },
+        },
+        wiggle: {
+          "0%, 100%": { transform: "rotate(0deg)" }, // Start and end neutral
+          "10%": { transform: "rotate(-20deg)" }, // Wiggle left
+          "20%": { transform: "rotate(20deg)" }, // Wiggle right
+          "30%": { transform: "rotate(-10deg)" }, // Small wiggle left
+          "40%": { transform: "rotate(10deg)" }, // Small wiggle right
+          "50%": { transform: "rotate(0deg)" }, // Back to center
+          "100%": { transform: "rotate(0deg)" }, // Pause for rest of animation
         },
       },
       colors: {

@@ -12,6 +12,58 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.swiper-wrapper {
+  @apply mb-1;
+}
+.custom-bullet {
+  width: 40px !important;
+  height: 40px !important;
+  object-fit: cover;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.3s;
+  border-radius: 0% !important;
+}
+
+.custom-bullet:first-child {
+  margin-left: 0 !important;
+}
+
+.custom-bullet.swiper-pagination-bullet-active {
+  opacity: 1;
+  border: 2px solid #fff;
+}
+
+.product-description h3 {
+  @apply mb-2;
+}
+.product-description p,
+ol,
+ul {
+  @apply text-sm;
+}
+
+.product-description p {
+  @apply mb-4;
+}
+
+.product-description ol {
+  @apply list-decimal;
+}
+.product-description ul,
+.product-description ol {
+  @apply mb-2;
+}
+.product-description ul {
+  @apply pl-4;
+}
+.product-description ol {
+  @apply pl-12;
+}
+.product-description ul li {
+  @apply list-none ml-2;
+}
+
 @layer base {
   * {
     @apply border-border;

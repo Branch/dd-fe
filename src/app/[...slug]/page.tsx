@@ -116,7 +116,6 @@ async function PageHandler({ pageMetadata }: IPageHandler) {
     { id: pageMetadata._id },
     options
   );
-
   // Add FAQ heading to TOC
   if (page.faq) {
     page.headings = page.headings
@@ -319,6 +318,8 @@ async function PageHandler({ pageMetadata }: IPageHandler) {
       ) : page.pageType === "product" ? (
         <ProductType
           title={page.title}
+          brand={page.brand}
+          discountText={page.discountText}
           description={page.description}
           authors={page.authors}
           parentTitle={page?.parent?.slug?.current}
@@ -347,11 +348,10 @@ async function PageHandler({ pageMetadata }: IPageHandler) {
           )}
           ctaUrl={page.ctaUrl}
           ctaButtonText={page.ctaButtonText}
-          ctaDesc={page.buyDescription}
-          ctaTitle={page.buyHeadline}
           price={page.price}
           discountPrice={page?.discountedPrice}
           discountCode={page?.discountCode}
+          productImages={page.productImages}
         />
       ) : (
         <PostType

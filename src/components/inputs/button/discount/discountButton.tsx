@@ -19,7 +19,7 @@ export default function DiscountButton({ code }: IDiscountButton) {
     <>
       <button
         onClick={notify}
-        className="border-2 text-[12px] duration-200 text-djungleBlack border-dashed border-djungleGreen hover:bg-djungleGreen-100/20 !no-underline px-4 py-2 rounded-md mt-4 w-full md:w-1/2 text-center mx-auto font-bold items-center justify-center gap-2 flex"
+        className="border-2 text-[12px] duration-200 text-djungleBlack border-dashed border-djungleGreen hover:bg-djungleGreen-100/20 !no-underline px-4 py-2 rounded-md mt-4 w-full text-center mx-auto font-bold items-center justify-center gap-2 flex"
       >
         <div>{code}</div> <Copy size={14} />
       </button>
