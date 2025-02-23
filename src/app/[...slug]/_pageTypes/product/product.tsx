@@ -122,13 +122,16 @@ export default function ProductType({
           </Collapsible>
         </div>
         <div>
-          <div className="md:hidden">
+          <div className="md:hidden mb-2">
             <h1 className={`text-4xl font-bold ${oswald.className}`}>
               {title}
             </h1>
+            <div className="text-djungleBlack/60 text-sm uppercase mt-2">
+              {brand}
+            </div>
             {discountPrice && discountPrice > 0 ? (
               <>
-                <div className="text-3xl font-bold mt-4">
+                <div className="text-3xl font-bold mt-1">
                   {discountPrice} kr
                 </div>
                 <div className="font-bold text-sm">
@@ -139,7 +142,7 @@ export default function ProductType({
                 </div>
               </>
             ) : (
-              <div className="text-3xl font-bold mt-4">{price} kr</div>
+              <div className="text-3xl font-bold mt-1">{price} kr</div>
             )}
           </div>
           <BaseCarousel images={sliderImages} />
