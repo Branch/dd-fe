@@ -1,6 +1,8 @@
+/** @format */
+
 "use client";
 import FooterList from "@/components/navigation/footer/footerList/footerList";
-import { Instagram } from "lucide-react";
+import { Facebook, Instagram } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 const Footer = () => {
@@ -27,6 +29,17 @@ const Footer = () => {
             >
               <Instagram />
               <span>Instagram</span>
+            </a>
+          </li>
+          <li className="text-sm">
+            <a
+              href="https://www.facebook.com/people/Djurdjungeln/61573527694074/"
+              rel="noopener noreferrer nofollow"
+              className="underline flex gap-2 items-center"
+              target="_blank"
+            >
+              <Facebook />
+              <span>Facebook</span>
             </a>
           </li>
           <li className="text-sm">
