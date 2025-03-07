@@ -1,11 +1,16 @@
+/** @format */
+
 import Collapsible from "@/components/dataDisplay/collapsible/collapsible";
 import { IToc } from "@/types/types";
 
 import Link from "next/link";
 
-export default function MobileToc({ headings }: IToc) {
+export default function MobileToc({ headings, styles }: IToc) {
   return (
-    <Collapsible title={"Sidinnehåll"} styles="md:hidden">
+    <Collapsible
+      title={"Sidinnehåll"}
+      styles={`md:hidden ${styles ? styles : ""}`}
+    >
       <ul className="mt-2">
         {headings?.map((h: any, i: number) => {
           const text = h.children[0].text;

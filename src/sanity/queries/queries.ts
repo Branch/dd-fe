@@ -137,6 +137,99 @@ const PRODUCT_QUERY = `*[_id == $id][0]{
        _type == "internalLink" => { "href": "/"+ @.reference-> slug.current },
        },
   },description, "pageType":_type, productImages[], price, discountedPrice, discountCode, ctaUrl,ctaButtonText,discountText,isPromoted, brand, rating, inStock, metaTitle, metaDescription, parent->, faq, _createdAt, _updatedAt, authors[]->, "estimatedReadingTime": round(length(pt::text(body)) / 5 / 200 ), "headings": body[length(style) == 2 && string::startsWith(style, "h2")]}`;
+const INSURANCE_PRODUCT_QUERY = `*[_id == $id][0]{
+    ${crumbsFragment}
+   title, shortTitle, image, body[]{
+   ...,
+   markDefs[]{ 
+       ..., 
+       _type == "internalLink" => { "href": "/"+ @.reference-> slug.current },
+       },
+  },description, "pageType":_type,
+  cta{
+    ctaText,
+    ctaUrl
+  },
+  prosCons{
+    pros[],
+    cons[]
+  },
+  companyLogo,
+  productRatingMotivation,
+  ratingParameters{
+    priceAndDeductible,
+    compensationAndCoverage,
+    limitations,
+    service,
+    adaptability,
+  },
+  productOffering[]{
+    subProduct{
+      subProductTitle,
+      subProductDescription,
+      subProductOffer[]{
+        offer{
+          title,
+          description,
+          value
+        }
+      }
+    }
+  },
+  productRating, petType, aboutCompany, metaTitle, metaDescription, parent->, faq, _createdAt, _updatedAt, authors[]->, "estimatedReadingTime": round(length(pt::text(body)) / 5 / 200 ), "headings": body[length(style) == 2 && string::startsWith(style, "h2")]}`;
+const INSURANCE_COMPANY_QUERY = `*[_id == $id][0]{
+    ${crumbsFragment}
+   title, shortTitle, image, body[]{
+   ...,
+   markDefs[]{ 
+       ..., 
+       _type == "internalLink" => { "href": "/"+ @.reference-> slug.current },
+       },
+  },description, "pageType":_type,
+  prosCons{
+    pros[],
+    cons[]
+  },
+  companyLogo,
+  companyCircleLogo,
+  companyAbout {
+    aboutHeadline,
+    aboutDesc[]{
+    ...,
+    markDefs[]{ 
+        ..., 
+        _type == "internalLink" => { "href": "/"+ @.reference-> slug.current },
+        },
+    },
+  },
+  companyRating,
+  contactInfo{
+    phone,
+    contactEmail,
+    contactDesc,
+    openingHours,
+    orgNr,
+    address,
+  },
+  companyProducts[]{
+    title,
+    description,
+    productLink->
+  },
+  ratingMotivation[]{
+    ...,
+    markDefs[]{ 
+        ..., 
+        _type == "internalLink" => { "href": "/"+ @.reference-> slug.current },
+        },
+    },
+  ratingParameters{
+    customerSatisfaction,
+    customerSupport,
+    claimsProcess,
+    ux,
+  },
+  metaTitle, metaDescription, parent->, faq, _createdAt, _updatedAt, authors[]->, "estimatedReadingTime": round(length(pt::text(body)) / 5 / 200 )}`;
 
 export {
   POST_QUERY,
@@ -150,4 +243,6 @@ export {
   PRODUCT_CAT_QUERY,
   PRODUCT_QUERY,
   PROMOTED_PRODUCTS_QUERY,
+  INSURANCE_PRODUCT_QUERY,
+  INSURANCE_COMPANY_QUERY,
 };

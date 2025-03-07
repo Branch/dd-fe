@@ -1,3 +1,5 @@
+/** @format */
+
 import sanityImageBuilder from "@/utils/sanityImageBuilder";
 import Link from "next/link";
 import Image from "next/image";
@@ -11,6 +13,7 @@ interface IAuthorLink {
   size?: "small" | "medium" | "large";
   date?: string;
   readTime?: string;
+  styles?: string;
 }
 
 export default function Author({
@@ -22,12 +25,13 @@ export default function Author({
   size = "small",
   date,
   readTime,
+  styles,
 }: IAuthorLink) {
   const imageWidth = size === "small" ? 20 : 40;
   const srcWidth = size === "small" ? 20 : 80;
   const headshotSrc = sanityImageBuilder(headshot, srcWidth, srcWidth);
   return (
-    <div className={`flex gap-1 text-sm items-center`}>
+    <div className={`flex gap-1 text-sm items-center ${styles ? styles : ""}`}>
       {headshotSrc ? (
         <Image
           src={headshotSrc}
@@ -41,7 +45,10 @@ export default function Author({
       {size !== "small" ? (
         <div className="flex flex-col ml-2">
           {slug ? (
-            <Link href={slug} className="underline text-md mb-1">
+            <Link
+              href={slug}
+              className="underline !text-djungleBlack text-md mb-1"
+            >
               {name}
             </Link>
           ) : (

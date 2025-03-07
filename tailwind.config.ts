@@ -53,6 +53,7 @@ const config: Config = {
           DEFAULT: "#FFFFFF",
         },
         djungleBlue: {
+          "50": "#D6E6FF",
           DEFAULT: "#454bf7",
         },
         djungleBeige: {

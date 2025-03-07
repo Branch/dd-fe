@@ -20,11 +20,14 @@ import {
   AUTHOR_QUERY,
   PRODUCT_CAT_QUERY,
   PRODUCT_QUERY,
+  INSURANCE_PRODUCT_QUERY,
+  INSURANCE_COMPANY_QUERY,
 } from "@/sanity/queries/queries";
 import {
   aboutGraph,
   authorGraph,
   baseGraph,
+  insuranceProductGraph,
   productGraph,
 } from "@/utils/jsonld/jsonld";
 const PostType = dynamic(() => import("@/app/[...slug]/_pageTypes/post/post"));
@@ -35,6 +38,8 @@ import ProductCategoryType from "@/app/[...slug]/_pageTypes/productCategory/prod
 import DogYearCalculatorType from "@/app/[...slug]/_pageTypes/tools/dogYearCalculator/dogYearCalculator";
 import ProductType from "@/app/[...slug]/_pageTypes/product/product";
 import PromotedProductsFeed from "@/app/[...slug]/_pageTypes/promotedProductsFeed/promotedProductsFeed";
+import InsuranceProduct from "@/app/[...slug]/_pageTypes/insurance/productPage/insuranceProduct";
+import InsuranceCompany from "@/app/[...slug]/_pageTypes/insurance/companyPage/insuranceCompany";
 const options = { next: { revalidate: 3600 } };
 
 const getQueryByType = (type: string) => {
@@ -48,7 +53,11 @@ const getQueryByType = (type: string) => {
           ? PRODUCT_CAT_QUERY
           : type === "product"
             ? PRODUCT_QUERY
-            : POST_QUERY;
+            : type === "insuranceCompanyProductPage"
+              ? INSURANCE_PRODUCT_QUERY
+              : type === "insuranceCompanyPage"
+                ? INSURANCE_COMPANY_QUERY
+                : POST_QUERY;
 };
 
 export async function generateMetadata({
@@ -176,6 +185,7 @@ async function PageHandler({ pageMetadata }: IPageHandler) {
       };
     })
   );
+
   // Define graph for base pages
   const graph = baseGraph(
     currPath,
@@ -314,6 +324,79 @@ async function PageHandler({ pageMetadata }: IPageHandler) {
           faq={page.faq}
           imgUrl={postImageUrl}
           graph={graph}
+        />
+      ) : page.pageType === "insuranceCompanyProductPage" ? (
+        <InsuranceProduct
+          title={page.title}
+          description={page.description}
+          authors={page.authors}
+          parentTitle={page?.parent?.slug?.current}
+          readingTime={page.estimatedReadingTime}
+          updatedAt={page._updatedAt}
+          tocHeadings={page.headings}
+          body={page.body}
+          faq={page.faq}
+          imgUrl={postImageUrl}
+          petType={page.petType}
+          cta={page.cta}
+          prosCons={page.prosCons}
+          productOffering={page.productOffering}
+          productRating={page.productRating}
+          ratingMotivation={page.productRatingMotivation}
+          ratingParameters={page.ratingParameters}
+          companyLogo={page?.companyLogo}
+          graph={insuranceProductGraph(
+            currPath,
+            page._createdAt,
+            page._updatedAt,
+            page.metaTitle || page.title,
+            page.metaDescription || page.description,
+            page.faq,
+            page.prosCons.pros,
+            page.prosCons.cons,
+            jsonLdImages,
+            page.body,
+            page.productRating,
+            authorsMeta,
+            breadcrumbs
+          )}
+        />
+      ) : page.pageType === "insuranceCompanyPage" ? (
+        <InsuranceCompany
+          title={page.title}
+          description={page.description}
+          authors={page.authors}
+          parentTitle={page?.parent?.slug?.current}
+          readingTime={page.estimatedReadingTime}
+          updatedAt={page._updatedAt}
+          tocHeadings={page.headings}
+          body={page.body}
+          faq={page.faq}
+          imgUrl={postImageUrl}
+          prosCons={page.prosCons}
+          companyRating={page.companyRating}
+          ratingMotivation={page.ratingMotivation}
+          ratingParameters={page.ratingParameters}
+          companyLogo={page?.companyLogo}
+          companyCircleLogo={page?.companyCircleLogo}
+          graph={insuranceProductGraph(
+            currPath,
+            page._createdAt,
+            page._updatedAt,
+            page.metaTitle || page.title,
+            page.metaDescription || page.description,
+            page.faq,
+            page.prosCons.pros,
+            page.prosCons.cons,
+            jsonLdImages,
+            page.body,
+            page.productRating,
+            authorsMeta,
+            breadcrumbs
+          )}
+          companyAbout={page.companyAbout}
+          contactInfo={page.contactInfo}
+          companyProducts={page.companyProducts}
         />
       ) : page.pageType === "product" ? (
         <ProductType

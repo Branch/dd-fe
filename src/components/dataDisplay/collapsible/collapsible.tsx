@@ -13,6 +13,7 @@ interface ICollapsible {
   defaultOpen?: boolean;
   headerItem?: ReactNode;
   isTitleHeading?: boolean;
+  useBoldFont?: boolean;
 }
 export default function Collapsible({
   children,
@@ -22,6 +23,7 @@ export default function Collapsible({
   wrapperStyles,
   headerItem,
   isTitleHeading,
+  useBoldFont = true,
 }: ICollapsible) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
   return (
@@ -33,19 +35,21 @@ export default function Collapsible({
         {headerItem ? (
           <div className="flex items-center gap-2">
             {isTitleHeading ? (
-              <h2 className={oswald.className}>{title}</h2>
+              <h2 className={useBoldFont ? oswald.className : ""}>{title}</h2>
             ) : (
-              <span className={oswald.className}>{title}</span>
+              <span className={useBoldFont ? oswald.className : ""}>
+                {title}
+              </span>
             )}
             <span>{headerItem}</span>
           </div>
         ) : isTitleHeading ? (
-          <h2 className={oswald.className}>{title}</h2>
+          <h2 className={useBoldFont ? oswald.className : ""}>{title}</h2>
         ) : (
-          <span className={oswald.className}>{title}</span>
+          <span className={useBoldFont ? oswald.className : ""}>{title}</span>
         )}
 
-        {isOpen ? <ChevronUp /> : <ChevronDown />}
+        <div>{isOpen ? <ChevronUp /> : <ChevronDown />}</div>
       </div>
       <div
         className={`${isOpen ? "h-auto" : "h-0 overflow-hidden"} ${wrapperStyles}`}

@@ -349,6 +349,143 @@ export function authorGraph(
   };
   return graph;
 }
+export function insuranceProductGraph(
+  pagePath: string,
+  createdAt: string,
+  _updatedAt: string,
+  headline: string,
+  about: string,
+  faq: IFaq[],
+  pros: string[],
+  cons: string[],
+  shareImage: IJsonLdImage[],
+  reviewText: any[],
+  rating: number,
+  authors: IAuthor[],
+  breadcrumbs?: any[]
+) {
+  const bodyArrayToText = reviewText
+    .map((block: any) => {
+      // Extract text from each block's children
+      return block.children.map((child: any) => child.text).join("");
+    })
+    .join("\n"); // Optionally join blocks with a newline
+  const images = jsonImgArray(shareImage);
+  const graph: Graph = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Product",
+        "@id": `${pagePath}#product`,
+        category: "Försäkringar",
+        name: headline,
+        review: {
+          "@type": "Review",
+          dateCreated: createdAt,
+          dateModified: _updatedAt,
+          url: pagePath,
+          headline: headline,
+          image: images,
+          about: about,
+          ...(authors?.length > 0
+            ? {
+                author: authors?.map((a: any) => {
+                  return {
+                    "@type": "Person",
+                    name: a.name,
+                    url: a.url,
+                    worksFor: {
+                      "@id": a.worksFor,
+                    },
+                    knowsAbout: [
+                      {
+                        "@type": "Thing",
+                        name: "Husdjur",
+                        sameAs: [
+                          "https://sv.wikipedia.org/wiki/Husdjur",
+                          "https://sv.wikipedia.org/wiki/S%C3%A4llskapsdjur",
+                        ],
+                      },
+                      {
+                        "@type": "Thing",
+                        name: "Katt",
+                        sameAs: "https://sv.wikipedia.org/wiki/Katt",
+                      },
+                      {
+                        "@type": "Thing",
+                        name: "Hund",
+                        sameAs: "https://sv.wikipedia.org/wiki/Hund",
+                      },
+                      {
+                        "@type": "Thing",
+                        name: "Djurfoder",
+                        sameAs: "https://sv.wikipedia.org/wiki/Djurfoder",
+                      },
+                      {
+                        "@type": "Thing",
+                        name: "Veterinär",
+                        sameAs: [
+                          "https://sv.wikipedia.org/wiki/Veterin%C3%A4r",
+                          "https://sv.wikipedia.org/wiki/Veterin%C3%A4rmedicin",
+                        ],
+                      },
+                    ],
+                  };
+                }),
+              }
+            : null),
+          isPartOf: {
+            "@type": "WebPage",
+            "@id": `${pagePath}#product`,
+            url: process.env.BASE_URL,
+            name: process.env.SITENAME,
+            primaryImageOfPage: images,
+            inLanguage: "sv-SE",
+            breadcrumb: {
+              "@type": "BreadcrumbList",
+              itemListElement: breadcrumbs?.map((b: any, i: number) => {
+                return {
+                  "@type": "ListItem",
+                  position: i + 1,
+                  item: {
+                    "@type": "Thing",
+                    "@id": i !== 0 ? b.fullPath : process.env.BASE_URL,
+                    name: i !== 0 ? b.title : process.env.SITENAME,
+                  },
+                };
+              }),
+            },
+            isPartOf: websiteData,
+          },
+          reviewBody: bodyArrayToText,
+          reviewRating: {
+            "@type": "Rating",
+            ratingValue: rating,
+            bestRating: 5,
+            worstRating: 1,
+          },
+          positiveNotes: pros,
+          negativeNotes: cons,
+        },
+        subjectOf: {
+          "@type": "FAQPage",
+          mainEntity: faq?.map((faq: { question: string; answer: string }) => {
+            return {
+              "@type": "Question",
+              name: faq.question,
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: faq.answer,
+              },
+            };
+          }),
+        },
+        mainEntityOfPage: `${pagePath}#product`,
+      },
+    ],
+  };
+  return graph;
+}
 
 export function productGraph(
   pagePath: string,

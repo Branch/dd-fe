@@ -13,10 +13,13 @@ const urlFor = (source: SanityImageSource) =>
 export default function sanityImageBuilder(
   image: string,
   width = 1280,
-  height = 720
+  height = 720,
+  fit = false
 ) {
   const postImageUrl = image
-    ? urlFor(image)?.width(width).height(height).url()
+    ? fit
+      ? urlFor(image)?.width(width).fit("max").url()
+      : urlFor(image)?.width(width).height(height).url()
     : `${process.env.BASE_URL}/assets/images/share.webp`;
   return postImageUrl;
 }
