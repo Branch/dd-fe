@@ -168,9 +168,14 @@ export default async function InsuranceProduct({
         >
           Vad ingår?
         </h2>
-        <div className="relative overflow-auto mb-8">
+        <div className="relative overflow-auto">
           <InsuranceTable productOffering={productOffering} />
         </div>
+        {productOffering.length > 1 ? (
+          <div className="text-right md:hidden text-xs mt-1 mb-4 italic">
+            Scrolla för att se hela tabellen
+          </div>
+        ) : null}
         <div className="flex items-center justify-center">
           <BaseLink
             text={cta.ctaText}
@@ -179,11 +184,6 @@ export default async function InsuranceProduct({
             classNames="w-full md:w-[200px]"
           />
         </div>
-        {productOffering.length > 1 ? (
-          <div className="text-right md:hidden text-xs mt-2 italic">
-            Scrolla för att se hela tabellen
-          </div>
-        ) : null}
       </section>
       <section id="content" className="mt-8">
         <h2 id="omdöme" className={`${oswald.className} mt-12`}>
