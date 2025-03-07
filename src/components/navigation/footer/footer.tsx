@@ -84,7 +84,14 @@ const Footer = () => {
           </li>
         </FooterList>
       </div>
-      <div className="text-center text-xs mt-24 absolute left-0 right-0 mx-auto bottom-6">
+      <div className="text-xs container mt-12 text-center">
+        <strong>Disclaimer:</strong> Information och uppgifter på
+        djurdjungeln.se ska bara användas i informativt syfte och publiceras
+        därför med reservation för eventuella fel. Du som besökare godkänner att
+        djurdjungeln.se erhåller ersättning om/när du klickar på länkar och
+        annat marknadsföringsmaterial samt blir kund hos våra samarbetspartners.
+      </div>
+      <div className="text-center text-xs mt-12 absolute left-0 right-0 mx-auto bottom-6">
         © {new Date().getFullYear()} Djurdjungeln
       </div>
     </footer>
