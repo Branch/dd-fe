@@ -97,7 +97,12 @@ export default async function InsuranceProduct({
       markDefs: [],
       children: [{ text: "Betyg" }],
     },
-    ...tocHeadings,
+    {
+      _type: "block",
+      style: "normal",
+      markDefs: [],
+      children: [{ text: "Vanliga frågor" }],
+    },
   ];
   return (
     <article>
