@@ -5,7 +5,6 @@ import Collapsible from "@/components/dataDisplay/collapsible/collapsible";
 import Author from "@/components/navigation/author/author";
 import MobileToc from "@/components/navigation/toc/mobileToc";
 import { IAuthor, IBaseDocument } from "@/types/types";
-import { getPostDataById } from "@/utils/dataFetcher/getPageData";
 import { oswald } from "@/utils/fonts/fonts";
 import { PortableText } from "next-sanity";
 import Image from "next/image";
@@ -15,6 +14,7 @@ import RadarChart from "@/app/[...slug]/_pageTypes/insurance/productPage/radarCh
 import StarRating from "@/components/dataDisplay/starRating/starRating";
 import sanityImageBuilder from "@/utils/sanityImageBuilder";
 import ProductCard from "@/app/[...slug]/_pageTypes/insurance/companyPage/productCard/productCard";
+import { tryCatchFetch } from "@/utils/tryCatchFetch";
 
 export interface IInsuranceCompanyRatingParams {
   customerSatisfaction: number;
@@ -165,7 +165,10 @@ export default async function InsuranceCompany({
         </h2>
         <div className="flex flex-col md:flex-row gap-4 items-center justify-center">
           {companyProducts.map(async (p, i) => {
-            const pData = await getPostDataById(p.productLink._id || "");
+            const data = await tryCatchFetch(
+              `${process.env.BASE_URL}/api/page/metaData/id/${p.productLink._id}`
+            );
+            const pData = await data?.json();
             return (
               <ProductCard
                 key={i}
@@ -187,7 +190,10 @@ export default async function InsuranceCompany({
           Omdöme
         </h2>
         {authors?.map(async (a: IAuthor, i: number) => {
-          const authData = await getPostDataById(a._id);
+          const data = await tryCatchFetch(
+            `${process.env.BASE_URL}/api/page/metaData/id/${a._id}`
+          );
+          const authData = await data?.json();
           return (
             <Author
               styles="mb-4"

@@ -1,9 +1,9 @@
+/** @format */
+
 import { type SanityDocument } from "next-sanity";
-import { client } from "@/sanity/client";
 import FeedItem from "@/components/navigation/feedItem/feedItem";
-import { getPostDataById } from "@/utils/dataFetcher/getPageData";
-import { SEARCH_QUERY } from "@/sanity/queries/queries";
 import { Metadata } from "next";
+import { tryCatchFetch } from "@/utils/tryCatchFetch";
 export const metadata: Metadata = {
   title: "Djurdjungeln | Sök",
   metadataBase: new URL(process.env.BASE_URL || "http://localhost:3000"),
@@ -31,12 +31,10 @@ export default async function SearchPage({
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const queryString = searchParams.q;
-  const posts =
-    (queryString &&
-      (await client.fetch<SanityDocument[]>(SEARCH_QUERY, {
-        queryString,
-      }))) ||
-    [];
+  const res = await tryCatchFetch(
+    `${process.env.BASE_URL}/api/search/${queryString}`
+  );
+  const posts = await res?.json();
 
   const resultText = !queryString
     ? "Ange en sökterm och försök igen."
@@ -52,9 +50,15 @@ export default async function SearchPage({
       </h1>
       <div>
         {await Promise.all(
-          posts?.map(async (post, i: number) => {
-            const t = await getPostDataById(post._id);
-            const parent = await getPostDataById(post.parent._id);
+          posts?.map(async (post: SanityDocument, i: number) => {
+            const data = await tryCatchFetch(
+              `${process.env.BASE_URL}/api/page/metaData/id/${post._id}`
+            );
+            const t = await data?.json();
+            const d = await tryCatchFetch(
+              `${process.env.BASE_URL}/api/page/metaData/id/${post.parent._id}`
+            );
+            const parent = await d?.json();
             return (
               t?.path && (
                 <FeedItem

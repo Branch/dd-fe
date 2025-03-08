@@ -5,7 +5,6 @@ import Collapsible from "@/components/dataDisplay/collapsible/collapsible";
 import Author from "@/components/navigation/author/author";
 import MobileToc from "@/components/navigation/toc/mobileToc";
 import { IAuthor, IBaseDocument } from "@/types/types";
-import { getPostDataById } from "@/utils/dataFetcher/getPageData";
 import { oswald } from "@/utils/fonts/fonts";
 import { PortableText } from "next-sanity";
 import Image from "next/image";
@@ -16,6 +15,7 @@ import RadarChart from "@/app/[...slug]/_pageTypes/insurance/productPage/radarCh
 import StarRating from "@/components/dataDisplay/starRating/starRating";
 import BaseLink from "@/components/navigation/link/base/baseLink";
 import sanityImageBuilder from "@/utils/sanityImageBuilder";
+import { tryCatchFetch } from "@/utils/tryCatchFetch";
 export interface IProductOffer {
   title: string;
   description: string;
@@ -190,7 +190,10 @@ export default async function InsuranceProduct({
           Omdöme
         </h2>
         {authors?.map(async (a: IAuthor, i: number) => {
-          const authData = await getPostDataById(a._id);
+          const data = await tryCatchFetch(
+            `${process.env.BASE_URL}/api/page/metaData/id/${a._id}`
+          );
+          const authData = await data?.json();
           return (
             <Author
               styles="mb-4"

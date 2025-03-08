@@ -7,13 +7,13 @@ import ShareBar from "@/components/navigation/shareBar/shareBar";
 import DesktopToc from "@/components/navigation/toc/desktopToc";
 import MobileToc from "@/components/navigation/toc/mobileToc";
 import { IAuthor, IBaseDocument, ICard } from "@/types/types";
-import { getPostDataById } from "@/utils/dataFetcher/getPageData";
 import { oswald } from "@/utils/fonts/fonts";
 import { PortableText } from "next-sanity";
 import Image from "next/image";
 import SquareCard from "@/components/navigation/card/squareCard/squareCard";
 import JsonLd from "@/components/dataDisplay/jsonld/jsonld";
 import PageComponents from "@/components/dataDisplay/portableText/portableText";
+import { tryCatchFetch } from "@/utils/tryCatchFetch";
 
 interface ICategory extends IBaseDocument {
   popular: ICard[];
@@ -44,7 +44,10 @@ export default function CategoryType({
         className={`flex justify-between relative items-end ${!imgUrl ? "border-b border-djungleBlack-100/50 pb-6 mb-6" : ""}`}
       >
         {authors?.map(async (a: IAuthor, i: number) => {
-          const authData = await getPostDataById(a._id);
+          const data = await tryCatchFetch(
+            `${process.env.BASE_URL}/api/page/metaData/id/${a._id}`
+          );
+          const authData = await data?.json();
           return (
             <Author
               key={i}
@@ -74,7 +77,10 @@ export default function CategoryType({
             <section className="grid grid-cols-2 lg:grid-cols-5 py-4 items-center  gap-4">
               {Promise.all(
                 popular?.map(async (p, i) => {
-                  const pData = await getPostDataById(p?._id || "");
+                  const data = await tryCatchFetch(
+                    `${process.env.BASE_URL}/api/page/metaData/id/${p._id}`
+                  );
+                  const pData = await data?.json();
                   return pData?.path ? (
                     <SquareCard
                       key={i}
