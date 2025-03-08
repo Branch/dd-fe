@@ -16,7 +16,7 @@ export async function GET(
   );
   // Set custom headers to prevent Netlify from caching old responses
   const headers = new Headers({
-    "Cache-Control": "no-cache, public, max-age=0, must-revalidate",
+    "Cache-Control": "public, max-age=0, must-revalidate",
     "Netlify-CDN-Cache-Control":
       "public, max-age=3600, stale-while-revalidate=604800",
     "Netlify-Cache-ID": `search, ${params.query}`,
