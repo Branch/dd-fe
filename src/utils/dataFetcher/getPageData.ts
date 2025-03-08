@@ -1,10 +1,12 @@
+/** @format */
+
 import { pageTreeClient } from "@/sanity/pageTreeClient";
 
-export async function getPostDataById(id: string) {
+export async function getPostMetaDataById(id: string) {
   const data = await pageTreeClient.getPageMetadataById(id);
   return data;
 }
-export async function getPostDataByPath(path: string) {
+export async function getPostMetaDataByPath(path: string) {
   const data = await pageTreeClient.getPageMetadataByPath(path);
   return data;
 }

@@ -3,7 +3,10 @@
 import { pageTreeClient } from "@/sanity/pageTreeClient";
 import { NextResponse } from "next/server";
 
-export async function GET({}, { params }: { params: { id: string } }) {
+export async function GET(
+  _req: Request,
+  { params }: { params: { id: string } }
+) {
   const page = await pageTreeClient.getPageMetadataById(params.id);
   // Set custom headers to prevent Netlify from caching old responses
   const headers = new Headers({

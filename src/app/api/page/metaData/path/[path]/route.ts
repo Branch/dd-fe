@@ -3,7 +3,10 @@
 import { pageTreeClient } from "@/sanity/pageTreeClient";
 import { NextResponse } from "next/server";
 
-export async function GET({}, { params }: { params: { path: string } }) {
+export async function GET(
+  _req: Request,
+  { params }: { params: { path: string } }
+) {
   const path = `/${params.path.split(",").join("/")}`;
   const page = await pageTreeClient.getPageMetadataByPath(path);
   if (!page) {

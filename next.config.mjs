@@ -1,4 +1,8 @@
-/** @type {import('next').NextConfig} */
+/**
+ * @format
+ * @type {import('next').NextConfig}
+ */
+
 const nextConfig = {
   images: {
     deviceSizes: [640, 750, 828],
@@ -6,6 +10,10 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "cdn.sanity.io",
+      },
+      {
+        protocol: "http",
+        hostname: "localhost",
       },
     ],
     /* loader: "custom",

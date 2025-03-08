@@ -5,7 +5,10 @@ import { SEARCH_QUERY } from "@/sanity/queries/queries";
 import { SanityDocument } from "next-sanity";
 import { NextResponse } from "next/server";
 
-export async function GET({}, { params }: { params: { query: string } }) {
+export async function GET(
+  _req: Request,
+  { params }: { params: { query: string } }
+) {
   const results = await client.fetch<SanityDocument[]>(
     SEARCH_QUERY,
     { queryString: params.query },
