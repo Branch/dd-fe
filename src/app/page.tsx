@@ -66,6 +66,9 @@ export default async function IndexPage() {
   const latestPages = await tryCatchFetch(
     `${process.env.BASE_URL}/api/pages/latest`
   );
+  if (!latestPages) {
+    return null;
+  }
   const posts = await latestPages?.json();
   const latestCats = await tryCatchFetch(
     `${process.env.BASE_URL}/api/categories/latest`

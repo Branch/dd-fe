@@ -6,6 +6,9 @@ import { SanityDocument } from "next-sanity";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const allPages = await tryCatchFetch(`${process.env.BASE_URL}/api/pages/all`);
+  if (!allPages) {
+    return [];
+  }
   const pages = await allPages?.json();
   const result = await Promise.all(
     pages.map(async (p: SanityDocument) => {
