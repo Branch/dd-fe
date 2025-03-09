@@ -176,7 +176,7 @@ export default async function InsuranceProduct({
             Scrolla för att se hela tabellen
           </div>
         ) : null}
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center md:mt-4">
           <BaseLink
             text={cta.ctaText}
             url={cta.ctaUrl}

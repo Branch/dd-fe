@@ -163,7 +163,7 @@ export default async function InsuranceCompany({
         >
           Försäkringar
         </h2>
-        <div className="flex flex-col md:flex-row gap-4 items-center justify-center">
+        <div className="flex flex-col md:flex-row gap-4 justify-center">
           {companyProducts.map(async (p, i) => {
             const data = await tryCatchFetch(
               `${process.env.BASE_URL}/api/page/metaData/id/${p.productLink._id}`
