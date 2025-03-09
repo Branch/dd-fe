@@ -1,8 +1,10 @@
+/** @format */
+
 import Author from "@/components/navigation/author/author";
 import { IAuthor } from "@/types/types";
-import { getPostDataById } from "@/utils/dataFetcher/getPageData";
 import { oswald } from "@/utils/fonts/fonts";
 import sanityImageBuilder from "@/utils/sanityImageBuilder";
+import { tryCatchFetch } from "@/utils/tryCatchFetch";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -31,7 +33,10 @@ export default async function FeedItem({
   return (
     <article className="group border-b block border-djungleBlack-50 last:border-0 py-4 w-full">
       {authors?.map(async (a: IAuthor, i: number) => {
-        const aData = await getPostDataById(a._id);
+        const data = await tryCatchFetch(
+          `${process.env.BASE_URL}/api/page/metaData/id/${a._id}`
+        );
+        const aData = await data?.json();
         return aData ? (
           <Author
             key={i}

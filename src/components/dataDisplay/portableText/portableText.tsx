@@ -1,8 +1,8 @@
 /** @format */
 
-import { getPostDataById } from "@/utils/dataFetcher/getPageData";
 import { oswald } from "@/utils/fonts/fonts";
 import sanityImageBuilder from "@/utils/sanityImageBuilder";
+import { tryCatchFetch } from "@/utils/tryCatchFetch";
 import { PawPrint } from "lucide-react";
 import { PortableTextComponents } from "next-sanity";
 import Image from "next/image";
@@ -145,7 +145,10 @@ const PageComponents = ({
         );
       },
       internalLink: async ({ value, children }) => {
-        const refData = await getPostDataById(value.reference._ref);
+        const data = await tryCatchFetch(
+          `${process.env.BASE_URL}/api/page/metaData/id/${value.reference._ref}`
+        );
+        const refData = await data?.json();
         return refData?.path ? (
           <Link href={refData?.path}>{children}</Link>
         ) : (

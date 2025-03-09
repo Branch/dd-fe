@@ -1,18 +1,21 @@
-import { client } from "@/sanity/client";
+/** @format */
+
+import { tryCatchFetch } from "@/utils/tryCatchFetch";
 import { MetadataRoute } from "next";
 import { SanityDocument } from "next-sanity";
-import { getPostDataById } from "@/utils/dataFetcher/getPageData";
-
-const PAGES_QUERY = `*[defined(slug.current)
-]|order(_updatedAt desc){_id,_updatedAt}`;
-const options = { next: { revalidate: 30 } };
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const pages = await client.fetch<SanityDocument[]>(PAGES_QUERY, {}, options);
-
+  const allPages = await tryCatchFetch(`${process.env.BASE_URL}/api/pages/all`);
+  if (!allPages) {
+    return [];
+  }
+  const pages = await allPages?.json();
   const result = await Promise.all(
-    pages.map(async (p) => {
-      const pData = await getPostDataById(p._id);
+    pages.map(async (p: SanityDocument) => {
+      const data = await tryCatchFetch(
+        `${process.env.BASE_URL}/api/page/metaData/id/${p._id}`
+      );
+      const pData = await data?.json();
       return {
         url: `${process.env.BASE_URL}${pData?.path}` || "/",
         lastModified: new Date(p._updatedAt),

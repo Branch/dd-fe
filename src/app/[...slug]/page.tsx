@@ -1,12 +1,6 @@
 /** @format */
 
-import { type SanityDocument } from "next-sanity";
-import { client } from "@/sanity/client";
 import sanityImageBuilder from "@/utils/sanityImageBuilder";
-import {
-  getPostDataById,
-  getPostDataByPath,
-} from "@/utils/dataFetcher/getPageData";
 
 import { IAuthor } from "@/types/types";
 import { notFound } from "next/navigation";
@@ -14,15 +8,6 @@ import { PageMetadata } from "@q42/sanity-plugin-page-tree/next";
 import Breadcrumbs from "@/components/navigation/breadcrumbs/breadcrumbs";
 import { Metadata } from "next";
 import dynamic from "next/dynamic";
-import {
-  CAT_QUERY,
-  POST_QUERY,
-  AUTHOR_QUERY,
-  PRODUCT_CAT_QUERY,
-  PRODUCT_QUERY,
-  INSURANCE_PRODUCT_QUERY,
-  INSURANCE_COMPANY_QUERY,
-} from "@/sanity/queries/queries";
 import {
   aboutGraph,
   authorGraph,
@@ -40,43 +25,28 @@ import ProductType from "@/app/[...slug]/_pageTypes/product/product";
 import PromotedProductsFeed from "@/app/[...slug]/_pageTypes/promotedProductsFeed/promotedProductsFeed";
 import InsuranceProduct from "@/app/[...slug]/_pageTypes/insurance/productPage/insuranceProduct";
 import InsuranceCompany from "@/app/[...slug]/_pageTypes/insurance/companyPage/insuranceCompany";
-const options = { next: { revalidate: 3600 } };
-
-const getQueryByType = (type: string) => {
-  return type === "post"
-    ? POST_QUERY
-    : type === "category"
-      ? CAT_QUERY
-      : type === "author"
-        ? AUTHOR_QUERY
-        : type === "productCategory"
-          ? PRODUCT_CAT_QUERY
-          : type === "product"
-            ? PRODUCT_QUERY
-            : type === "insuranceCompanyProductPage"
-              ? INSURANCE_PRODUCT_QUERY
-              : type === "insuranceCompanyPage"
-                ? INSURANCE_COMPANY_QUERY
-                : POST_QUERY;
-};
+import { tryCatchFetch } from "@/utils/tryCatchFetch";
 
 export async function generateMetadata({
   params,
 }: {
   params: { slug: string[] };
 }): Promise<Metadata> {
-  const path = params.slug ? "/" + params.slug?.join("/") : "/";
-  const pageMeta = await getPostDataByPath(path);
+  const pageMeta = await tryCatchFetch(
+    `${process.env.BASE_URL}/api/page/metaData/path/${params.slug}`
+  );
   if (!pageMeta) {
     return notFound();
   }
-  const query = getQueryByType(pageMeta.type);
-  const page = await client.fetch<SanityDocument>(
-    query,
-    { id: pageMeta?._id },
-    options
+  const pageMetaData = await pageMeta?.json();
+  const p = await tryCatchFetch(
+    `${process.env.BASE_URL}/api/page/id/${pageMetaData?._id}/${pageMetaData?.type}`
   );
-  const pagePath = `${process.env.BASE_URL}${pageMeta?.path}`;
+  if (!p) {
+    return notFound();
+  }
+  const page = await p.json();
+  const pagePath = `${process.env.BASE_URL}${pageMetaData?.path}`;
   const src = sanityImageBuilder(page.image, 1200, 630);
   return {
     metadataBase: new URL(process.env.BASE_URL || "http://localhost:3000"),
@@ -104,12 +74,14 @@ export async function generateMetadata({
 }
 
 export default async function Page({ params }: { params: { slug: string[] } }) {
-  const path = params.slug ? "/" + params.slug?.join("/") : "/";
-  const pageMeta = await getPostDataByPath(path);
+  const pageMeta = await tryCatchFetch(
+    `${process.env.BASE_URL}/api/page/metaData/path/${params.slug}`
+  );
   if (!pageMeta) {
     return notFound();
   }
-  return <PageHandler pageMetadata={pageMeta} />;
+  const pageMetaData = await pageMeta.json();
+  return <PageHandler pageMetadata={pageMetaData} />;
 }
 export async function generateStaticParams() {
   return [];
@@ -119,12 +91,10 @@ interface IPageHandler {
 }
 
 async function PageHandler({ pageMetadata }: IPageHandler) {
-  const query = getQueryByType(pageMetadata.type);
-  const page = await client.fetch<SanityDocument>(
-    query,
-    { id: pageMetadata._id },
-    options
+  const p = await tryCatchFetch(
+    `${process.env.BASE_URL}/api/page/id/${pageMetadata?._id}/${pageMetadata?.type}`
   );
+  const page = await p?.json();
   // Add FAQ heading to TOC
   if (page.faq) {
     page.headings = page.headings
@@ -167,7 +137,10 @@ async function PageHandler({ pageMetadata }: IPageHandler) {
     page.breadcrumb.items
       .filter((i: any) => i !== null)
       .map(async (b: any) => {
-        const bData = await getPostDataById(b._id);
+        const bcData = await tryCatchFetch(
+          `${process.env.BASE_URL}/api/page/metaData/id/${b._id}`
+        );
+        const bData = await bcData?.json();
         return {
           ...b,
           fullPath: `${process.env.BASE_URL}${bData?.path}` || "",
@@ -177,7 +150,10 @@ async function PageHandler({ pageMetadata }: IPageHandler) {
 
   const authorsMeta = await Promise.all(
     page?.authors?.map(async (a: IAuthor) => {
-      const authData = await getPostDataById(a._id);
+      const aData = await tryCatchFetch(
+        `${process.env.BASE_URL}/api/page/metaData/id/${a._id}`
+      );
+      const authData = await aData?.json();
       return {
         name: a.fullName,
         url: `${process.env.BASE_URL}${authData?.path}` || "/",

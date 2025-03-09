@@ -1,15 +1,17 @@
+/** @format */
+
 import Author from "@/components/navigation/author/author";
 import ShareBar from "@/components/navigation/shareBar/shareBar";
 import DesktopToc from "@/components/navigation/toc/desktopToc";
 import MobileToc from "@/components/navigation/toc/mobileToc";
 import { IAuthor, IBaseDocument } from "@/types/types";
-import { getPostDataById } from "@/utils/dataFetcher/getPageData";
 import { oswald } from "@/utils/fonts/fonts";
 import { PortableText } from "next-sanity";
 import Image from "next/image";
 import FeedItem from "@/components/navigation/feedItem/feedItem";
 import JsonLd from "@/components/dataDisplay/jsonld/jsonld";
 import PageComponents from "@/components/dataDisplay/portableText/portableText";
+import { tryCatchFetch } from "@/utils/tryCatchFetch";
 
 interface IAuthorPage extends IBaseDocument {
   authorPages: any[];
@@ -39,7 +41,10 @@ export default async function AuthorType({
           className={`flex justify-between items-end ${!imgUrl ? "border-b border-djungleBlack-100/50 pb-6 mb-6" : ""}`}
         >
           {authors?.map(async (a: IAuthor, i: number) => {
-            const authData = await getPostDataById(a._id);
+            const data = await tryCatchFetch(
+              `${process.env.BASE_URL}/api/page/metaData/id/${a._id}`
+            );
+            const authData = await data?.json();
             return (
               <Author
                 key={i}
@@ -85,8 +90,14 @@ export default async function AuthorType({
         </h2>
         {await Promise.all(
           authorPages.map(async (post, i) => {
-            const t = await getPostDataById(post._id);
-            const parent = await getPostDataById(post._id);
+            const data = await tryCatchFetch(
+              `${process.env.BASE_URL}/api/page/metaData/id/${post._id}`
+            );
+            const t = await data?.json();
+            const d = await tryCatchFetch(
+              `${process.env.BASE_URL}/api/page/metaData/id/${post._id}`
+            );
+            const parent = await d?.json();
             return (
               t?.path && (
                 <FeedItem

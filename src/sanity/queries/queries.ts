@@ -2,6 +2,20 @@
 
 const crumbsFragment = `"breadcrumb": {
    "items": [
+     select(defined(parent->parent->parent->parent->parent->parent->) => {
+       "_id": parent->parent->parent->parent->parent->parent->_id,
+       "_type": parent->parent->parent->parent->parent->parent->_type,
+       "title": parent->parent->parent->parent->parent->parent->title,
+       "shortTitle": parent->parent->parent->parent->parent->parent->shortTitle,
+       "slug": parent->parent->parent->parent->parent->parent->slug.current
+     }),
+     select(defined(parent->parent->parent->parent->parent->) => {
+       "_id": parent->parent->parent->parent->parent->_id,
+       "_type": parent->parent->parent->parent->parent->_type,
+       "title": parent->parent->parent->parent->parent->title,
+       "shortTitle": parent->parent->parent->parent->parent->shortTitle,
+       "slug": parent->parent->parent->parent->parent->slug.current
+     }),
      select(defined(parent->parent->parent->parent->) => {
        "_id": parent->parent->parent->parent->_id,
        "_type": parent->parent->parent->parent->_type,
@@ -231,6 +245,8 @@ const INSURANCE_COMPANY_QUERY = `*[_id == $id][0]{
   },
   metaTitle, metaDescription, parent->, faq, _createdAt, _updatedAt, authors[]->, "estimatedReadingTime": round(length(pt::text(body)) / 5 / 200 )}`;
 
+const PAGES_QUERY = `*[defined(slug.current)
+]|order(_updatedAt desc){_id,_updatedAt}`;
 export {
   POST_QUERY,
   NAV_QUERY,
@@ -245,4 +261,5 @@ export {
   PROMOTED_PRODUCTS_QUERY,
   INSURANCE_PRODUCT_QUERY,
   INSURANCE_COMPANY_QUERY,
+  PAGES_QUERY,
 };

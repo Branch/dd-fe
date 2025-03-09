@@ -1,16 +1,15 @@
+/** @format */
+
 import { type SanityDocument } from "next-sanity";
-import { client } from "@/sanity/client";
 import Image from "next/image";
 import BaseLink from "@/components/navigation/link/base/baseLink";
 import FeedItem from "@/components/navigation/feedItem/feedItem";
 import { Graph } from "schema-dts";
-const options = { next: { revalidate: 30 } };
-import { getPostDataById } from "@/utils/dataFetcher/getPageData";
-import { POSTS_CATS_QUERY, LATEST_CATS_QUERY } from "@/sanity/queries/queries";
 import { oswald } from "@/utils/fonts/fonts";
 import Slider from "@/components/navigation/slider/slider";
 import { websiteData } from "@/utils/jsonld/jsonld";
 import { Metadata } from "next";
+import { tryCatchFetch } from "@/utils/tryCatchFetch";
 
 export const metadata: Metadata = {
   title: `${process.env.SITENAME} - Guide & råd för husdjursägare`,
@@ -64,19 +63,23 @@ export default async function IndexPage() {
     ],
   };
 
-  const posts = await client.fetch<SanityDocument[]>(
-    POSTS_CATS_QUERY,
-    {},
-    options
+  const latestPages = await tryCatchFetch(
+    `${process.env.BASE_URL}/api/pages/latest`
   );
-  const cats = await client.fetch<SanityDocument[]>(
-    LATEST_CATS_QUERY,
-    {},
-    options
+  if (!latestPages) {
+    return null;
+  }
+  const posts = await latestPages?.json();
+  const latestCats = await tryCatchFetch(
+    `${process.env.BASE_URL}/api/categories/latest`
   );
+  const cats = await latestCats?.json();
   const cardsData = await Promise.all(
-    cats.map(async (cat) => {
-      const c = await getPostDataById(cat._id);
+    cats.map(async (cat: SanityDocument) => {
+      const cData = await tryCatchFetch(
+        `${process.env.BASE_URL}/api/page/metaData/id/${cat._id}`
+      );
+      const c = await cData?.json();
       return {
         title: cat.shortTitle || cat.title,
         image: cat.image,
@@ -158,9 +161,15 @@ export default async function IndexPage() {
         </h2>
         <div>
           {await Promise.all(
-            posts.map(async (post, i) => {
-              const t = await getPostDataById(post._id);
-              const parent = await getPostDataById(post.parent._id);
+            posts.map(async (post: SanityDocument, i: number) => {
+              const data = await tryCatchFetch(
+                `${process.env.BASE_URL}/api/page/metaData/id/${post._id}`
+              );
+              const t = await data?.json();
+              const d = await tryCatchFetch(
+                `${process.env.BASE_URL}/api/page/metaData/id/${post.parent._id}`
+              );
+              const parent = await d?.json();
               return (
                 t?.path && (
                   <FeedItem

@@ -7,25 +7,26 @@ import ShareBar from "@/components/navigation/shareBar/shareBar";
 import DesktopToc from "@/components/navigation/toc/desktopToc";
 import MobileToc from "@/components/navigation/toc/mobileToc";
 import { IAuthor, IBaseDocument, ICard } from "@/types/types";
-import { getPostDataById } from "@/utils/dataFetcher/getPageData";
 import { oswald } from "@/utils/fonts/fonts";
-import { PortableText, SanityDocument } from "next-sanity";
+import { PortableText } from "next-sanity";
 import Image from "next/image";
 import SquareCard from "@/components/navigation/card/squareCard/squareCard";
 import JsonLd from "@/components/dataDisplay/jsonld/jsonld";
 import PageComponents from "@/components/dataDisplay/portableText/portableText";
-import { client } from "@/sanity/client";
-import { ALL_PRODUCT_PAGES_QUERY } from "@/sanity/queries/queries";
 import getPageDescendants from "@/utils/getPageDecendants";
 import ProductCard from "@/components/navigation/card/productCard/productCard";
 import { ChevronDown } from "lucide-react";
+import { tryCatchFetch } from "@/utils/tryCatchFetch";
 
 interface ICategory extends IBaseDocument {
   popular: ICard[];
 }
 
 const getNestedPages = async (pageId: string) => {
-  const posts = await client.fetch<SanityDocument[]>(ALL_PRODUCT_PAGES_QUERY);
+  const prods = await tryCatchFetch(
+    `${process.env.BASE_URL}/api/pages/products/all`
+  );
+  const posts = await prods?.json();
   // Get nested products
   const nestedPages = getPageDescendants(posts, pageId, "product");
   return nestedPages;
@@ -57,7 +58,10 @@ export default async function ProductCategoryType({
         className={`flex justify-between relative items-end ${!imgUrl ? "border-b border-djungleBlack-100/50 pb-6 mb-6" : ""}`}
       >
         {authors?.map(async (a: IAuthor, i: number) => {
-          const authData = await getPostDataById(a._id);
+          const data = await tryCatchFetch(
+            `${process.env.BASE_URL}/api/page/metaData/id/${a._id}`
+          );
+          const authData = await data?.json();
           return (
             <Author
               key={i}
@@ -87,7 +91,10 @@ export default async function ProductCategoryType({
             <section className="grid grid-cols-2 lg:grid-cols-5 py-4 gap-4">
               {Promise.all(
                 popular?.map(async (p, i) => {
-                  const pData = await getPostDataById(p?._id || "");
+                  const data = await tryCatchFetch(
+                    `${process.env.BASE_URL}/api/page/metaData/id/${p._id}`
+                  );
+                  const pData = await data?.json();
                   return pData?.path ? (
                     <SquareCard
                       key={i}
@@ -108,7 +115,10 @@ export default async function ProductCategoryType({
         <div className="my-12">
           <div className="grid grid-cols-2 md:grid-cols-4 pt-4 gap-4">
             {productsWithinCategory?.map(async (p, i) => {
-              const pData = await getPostDataById(p?._id || "");
+              const data = await tryCatchFetch(
+                `${process.env.BASE_URL}/api/page/metaData/id/${p._id}`
+              );
+              const pData = await data?.json();
               return pData?.path ? (
                 <ProductCard
                   key={i}
