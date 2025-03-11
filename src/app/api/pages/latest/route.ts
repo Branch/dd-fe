@@ -15,7 +15,7 @@ export async function GET() {
   const headers = new Headers({
     "Cache-Control": "public, max-age=0, must-revalidate",
     "Netlify-CDN-Cache-Control":
-      "public, max-age=14400, stale-while-revalidate=604800",
+      "public, max-age=3600, stale-while-revalidate=604800",
     "Netlify-Cache-ID": `latestPages`,
     "Cache-Tag": `latestPages`,
   });
