@@ -26,6 +26,7 @@ import PromotedProductsFeed from "@/app/[...slug]/_pageTypes/promotedProductsFee
 import InsuranceProduct from "@/app/[...slug]/_pageTypes/insurance/productPage/insuranceProduct";
 import InsuranceCompany from "@/app/[...slug]/_pageTypes/insurance/companyPage/insuranceCompany";
 import { tryCatchFetch } from "@/utils/tryCatchFetch";
+import BaseToaster from "@/components/toasters/base/baseToaster";
 
 export async function generateMetadata({
   params,
@@ -89,11 +90,13 @@ export async function generateStaticParams() {
 interface IPageHandler {
   pageMetadata: PageMetadata;
 }
+export const revalidate = 3600;
 
 async function PageHandler({ pageMetadata }: IPageHandler) {
   const p = await tryCatchFetch(
     `${process.env.BASE_URL}/api/page/id/${pageMetadata?._id}/${pageMetadata?.type}`
   );
+
   const page = await p?.json();
   // Add FAQ heading to TOC
   if (page.faq) {
@@ -177,6 +180,15 @@ async function PageHandler({ pageMetadata }: IPageHandler) {
   );
   return (
     <>
+      {page?.toaster?.internalUrl || page?.toaster?.externalUrl ? (
+        <BaseToaster
+          title={page?.toaster?.title}
+          buttonText={page?.toaster?.buttonText}
+          description={page?.toaster?.description}
+          internalUrl={page?.toaster?.internalUrl}
+          externalUrl={page?.toaster?.externalUrl}
+        />
+      ) : null}
       <Breadcrumbs items={breadcrumbs} />
       {page.pageType === "post" ? (
         <PostType

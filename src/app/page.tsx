@@ -10,6 +10,7 @@ import Slider from "@/components/navigation/slider/slider";
 import { websiteData } from "@/utils/jsonld/jsonld";
 import { Metadata } from "next";
 import { tryCatchFetch } from "@/utils/tryCatchFetch";
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: `${process.env.SITENAME} - Guide & råd för husdjursägare`,

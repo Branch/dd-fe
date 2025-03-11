@@ -1,5 +1,14 @@
 /** @format */
 
+const toasterFragment = `
+"toaster": {
+  "title": toasterTitle,
+  "description": toasterDescription,
+  "buttonText": toasterButtonText,
+  "externalUrl": externalToasterLink,
+  "internalUrl": internalToasterLink[]->
+},`;
+
 const crumbsFragment = `"breadcrumb": {
    "items": [
      select(defined(parent->parent->parent->parent->parent->parent->) => {
@@ -54,6 +63,7 @@ const crumbsFragment = `"breadcrumb": {
    ],
  },`;
 const POST_QUERY = `*[_id == $id][0]{
+  ${toasterFragment}
   ${crumbsFragment}
  title, shortTitle, image, body[]{
  ...,
@@ -65,6 +75,7 @@ const POST_QUERY = `*[_id == $id][0]{
 // Reading time estimate: https://www.sanity.io/schemas/word-count-and-reading-time-estimation-for-groq-and-portable-text-7470eab7
 
 const CAT_QUERY = `*[_id == $id][0]{
+  ${toasterFragment}
   ${crumbsFragment}
  title, shortTitle, image, body[]{
  ...,
@@ -75,6 +86,7 @@ const CAT_QUERY = `*[_id == $id][0]{
 },description, "pageType":_type, metaTitle, metaDescription, parent->, faq, _createdAt, _updatedAt, _updatedAt, authors[]->, popular[]->, "estimatedReadingTime": round(length(pt::text(body)) / 5 / 200 ), "headings": body[length(style) == 2 && string::startsWith(style, "h2")]}`;
 
 const PRODUCT_CAT_QUERY = `*[_id == $id][0]{
+  ${toasterFragment}
   ${crumbsFragment}
  title, shortTitle, image, body[]{
  ...,
@@ -85,6 +97,7 @@ const PRODUCT_CAT_QUERY = `*[_id == $id][0]{
 },description, "pageType":_type, metaTitle, metaDescription, parent->, faq, _createdAt, _updatedAt, _updatedAt, authors[]->, popularProducts[]->, "estimatedReadingTime": round(length(pt::text(body)) / 5 / 200 ), "headings": body[length(style) == 2 && string::startsWith(style, "h2")]}`;
 
 const AUTHOR_QUERY = `*[_id == $id][0]{
+  ${toasterFragment}
   ${crumbsFragment}
  "posts": *[_type in ["post", "category"] && $id in authors[]._ref]|order(_updatedAt desc)[0..2]{
     parent->,
@@ -143,6 +156,7 @@ const PROMOTED_PRODUCTS_QUERY = `*[
     ]|order(_updatedAt desc){_id,parent{_ref},title,shortTitle,slug,description,price,discountedPrice,rating,brand,image,_updatedAt, _type}`;
 
 const PRODUCT_QUERY = `*[_id == $id][0]{
+    ${toasterFragment}
     ${crumbsFragment}
    title, shortTitle, image, body[]{
    ...,
@@ -152,6 +166,7 @@ const PRODUCT_QUERY = `*[_id == $id][0]{
        },
   },description, "pageType":_type, productImages[], price, discountedPrice, discountCode, ctaUrl,ctaButtonText,discountText,isPromoted, brand, rating, inStock, metaTitle, metaDescription, parent->, faq, _createdAt, _updatedAt, authors[]->, "estimatedReadingTime": round(length(pt::text(body)) / 5 / 200 ), "headings": body[length(style) == 2 && string::startsWith(style, "h2")]}`;
 const INSURANCE_PRODUCT_QUERY = `*[_id == $id][0]{
+    ${toasterFragment}
     ${crumbsFragment}
    title, shortTitle, image, body[]{
    ...,
@@ -192,6 +207,7 @@ const INSURANCE_PRODUCT_QUERY = `*[_id == $id][0]{
   },
   productRating, petType, aboutCompany, metaTitle, metaDescription, parent->, faq, _createdAt, _updatedAt, authors[]->, "estimatedReadingTime": round(length(pt::text(body)) / 5 / 200 ), "headings": body[length(style) == 2 && string::startsWith(style, "h2")]}`;
 const INSURANCE_COMPANY_QUERY = `*[_id == $id][0]{
+    ${toasterFragment}
     ${crumbsFragment}
    title, shortTitle, image, body[]{
    ...,

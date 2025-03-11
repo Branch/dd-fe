@@ -25,6 +25,11 @@ const PageComponents = ({
           <span>{children}</span>
         </li>
       ),
+      number: ({ children }: any) => (
+        <li>
+          <span>{children}</span>
+        </li>
+      ),
     },
     block: {
       blockquote: ({ children }) => (
