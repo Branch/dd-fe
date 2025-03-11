@@ -7,7 +7,6 @@ import MobileToc from "@/components/navigation/toc/mobileToc";
 import { IAuthor, IBaseDocument } from "@/types/types";
 import { oswald } from "@/utils/fonts/fonts";
 import { PortableText } from "next-sanity";
-import Image from "next/image";
 import JsonLd from "@/components/dataDisplay/jsonld/jsonld";
 import PageComponents from "@/components/dataDisplay/portableText/portableText";
 import BaseLink from "@/components/navigation/link/base/baseLink";
