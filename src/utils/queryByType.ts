@@ -3,6 +3,7 @@
 import {
   AUTHOR_QUERY,
   CAT_QUERY,
+  DISCOUNT_PAGE_QUERY,
   INSURANCE_COMPANY_QUERY,
   INSURANCE_PRODUCT_QUERY,
   POST_QUERY,
@@ -25,5 +26,7 @@ export const getQueryByType = (type: string) => {
               ? INSURANCE_PRODUCT_QUERY
               : type === "insuranceCompanyPage"
                 ? INSURANCE_COMPANY_QUERY
-                : POST_QUERY;
+                : type === "discountPage"
+                  ? DISCOUNT_PAGE_QUERY
+                  : POST_QUERY;
 };

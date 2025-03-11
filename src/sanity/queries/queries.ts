@@ -263,6 +263,25 @@ const INSURANCE_COMPANY_QUERY = `*[_id == $id][0]{
 
 const PAGES_QUERY = `*[defined(slug.current)
 ]|order(_updatedAt desc){_id,_updatedAt}`;
+const DISCOUNT_PAGE_QUERY = `*[_id == $id][0]{
+  ${toasterFragment}
+  ${crumbsFragment}
+  "discountTable": {
+    "columns": table.columns,
+    "rows": table.rows[]{
+      "cells": cells[]{
+        "text": text,
+        "url": url
+      }
+    }
+  },
+ title, shortTitle, image, body[]{
+ ...,
+ markDefs[]{ 
+     ..., 
+     _type == "internalLink" => { "href": "/"+ @.reference-> slug.current },
+     },
+},description, "pageType":_type, metaTitle, metaDescription, parent->, faq, _createdAt, _updatedAt, authors[]->, "estimatedReadingTime": round(length(pt::text(body)) / 5 / 200 ), "headings": body[length(style) == 2 && string::startsWith(style, "h2")]}`;
 export {
   POST_QUERY,
   NAV_QUERY,
@@ -278,4 +297,5 @@ export {
   INSURANCE_PRODUCT_QUERY,
   INSURANCE_COMPANY_QUERY,
   PAGES_QUERY,
+  DISCOUNT_PAGE_QUERY,
 };

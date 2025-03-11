@@ -9,6 +9,9 @@ export async function GET(
 ) {
   const page = await pageTreeClient.getPageMetadataById(params.id);
   // Set custom headers to prevent Netlify from caching old responses
+  if (process.env.NODE_ENV === "development") {
+    return new NextResponse(JSON.stringify(page));
+  }
   const headers = new Headers({
     "Cache-Control": "public, max-age=0, must-revalidate",
     "Netlify-CDN-Cache-Control":

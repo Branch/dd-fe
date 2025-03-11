@@ -27,6 +27,7 @@ import InsuranceProduct from "@/app/[...slug]/_pageTypes/insurance/productPage/i
 import InsuranceCompany from "@/app/[...slug]/_pageTypes/insurance/companyPage/insuranceCompany";
 import { tryCatchFetch } from "@/utils/tryCatchFetch";
 import BaseToaster from "@/components/toasters/base/baseToaster";
+import DiscountPage from "@/app/[...slug]/_pageTypes/discountPage/discountPage";
 
 export async function generateMetadata({
   params,
@@ -213,6 +214,22 @@ async function PageHandler({ pageMetadata }: IPageHandler) {
           faq={page.faq}
           imgUrl={postImageUrl}
           graph={graph}
+        />
+      ) : page.pageType === "discountPage" ? (
+        <DiscountPage
+          title={page.title}
+          shortTitle={page.shortTitle}
+          description={page.description}
+          authors={page.authors}
+          parentTitle={page?.parent?.slug?.current}
+          readingTime={page.estimatedReadingTime}
+          updatedAt={page._updatedAt}
+          tocHeadings={page.headings}
+          body={page.body}
+          faq={page.faq}
+          imgUrl={postImageUrl}
+          graph={graph}
+          table={page?.discountTable}
         />
       ) : page.pageType === "category" ? (
         <CategoryType

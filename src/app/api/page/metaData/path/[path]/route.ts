@@ -9,11 +9,15 @@ export async function GET(
 ) {
   const path = `/${params.path.split(",").join("/")}`;
   const page = await pageTreeClient.getPageMetadataByPath(path);
+
   if (!page) {
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }
     );
+  }
+  if (process.env.NODE_ENV === "development") {
+    return new NextResponse(JSON.stringify(page));
   }
   const headers = new Headers({
     "Cache-Control": "public, max-age=0, must-revalidate",
