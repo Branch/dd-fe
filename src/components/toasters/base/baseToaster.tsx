@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import BaseButton from "@/components/inputs/button/base/baseButton";
 import { X } from "lucide-react";
-import { tryCatchFetch } from "@/utils/tryCatchFetch";
 
 export interface IBaseToaster {
   title: string;
