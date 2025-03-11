@@ -27,7 +27,7 @@ export default function BaseToaster({
   useEffect(() => {
     setTimeout(() => {
       toggleVisibility(true);
-    }, 30000);
+    }, 1);
   }, []);
   return isVisible ? (
     <motion.div
@@ -44,13 +44,19 @@ export default function BaseToaster({
         <X />
       </BaseButton>
       <div className="container flex flex-col gap-4">
-        <div className={`text-xl font-bold ${oswald.className}`}>{title}</div>
-        <p>{description}</p>
+        {title && (
+          <div
+            className={`text-xl font-bold ${oswald.className} ${!description ? "text-center" : "text-left"}`}
+          >
+            {title}
+          </div>
+        )}
+        {description && <p>{description}</p>}
         {externalUrl || internalUrl ? (
           <BaseLink
             text={buttonText}
             url={(externalUrl ? externalUrl : internalUrl) as string}
-            classNames="w-[200px] mx-auto"
+            classNames="w-full md:w-[200px] mx-auto"
             rel={externalUrl ? "noopener noreferrer nofollow sponsored" : ""}
           />
         ) : null}
