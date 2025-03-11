@@ -27,7 +27,7 @@ export default function BaseToaster({
   useEffect(() => {
     setTimeout(() => {
       toggleVisibility(true);
-    }, 1);
+    }, 30000);
   }, []);
   return isVisible ? (
     <motion.div
