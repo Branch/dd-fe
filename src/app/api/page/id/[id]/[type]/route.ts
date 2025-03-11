@@ -13,9 +13,13 @@ export async function GET(
     params: { id: string; type: string };
   }
 ) {
-  const page = await client.fetch<SanityDocument>(getQueryByType(params.type), {
-    id: params.id,
-  });
+  const page = await client.fetch<SanityDocument>(
+    getQueryByType(params.type),
+    {
+      id: params.id,
+    },
+    { next: { revalidate: 30 } }
+  );
   // Set custom headers to prevent Netlify from caching old responses
   const headers = new Headers({
     "Cache-Control": "public, max-age=0, must-revalidate",

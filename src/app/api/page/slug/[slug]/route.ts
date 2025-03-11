@@ -15,9 +15,13 @@ export async function GET(
 ) {
   const slug = `/${params.slug.split(",").join("/")}`;
   const tplType = params.type;
-  const page = await client.fetch<SanityDocument>(getQueryByType(tplType), {
-    slug,
-  });
+  const page = await client.fetch<SanityDocument>(
+    getQueryByType(tplType),
+    {
+      slug,
+    },
+    { next: { revalidate: 30 } }
+  );
   const headers = new Headers({
     "Cache-Control": "public, max-age=0, must-revalidate",
     "Netlify-CDN-Cache-Control":

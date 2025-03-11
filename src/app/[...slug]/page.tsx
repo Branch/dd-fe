@@ -178,6 +178,15 @@ async function PageHandler({ pageMetadata }: IPageHandler) {
     page?.parent?.title,
     breadcrumbs
   );
+  let internalToasterPath = undefined;
+  if (page?.toaster?.internalUrl) {
+    const data = await tryCatchFetch(
+      `${process.env.BASE_URL}/api/page/metaData/id/${page.toaster.internalUrl}`
+    );
+    const internalData = await data?.json();
+    internalToasterPath = internalData.path;
+  }
+
   return (
     <>
       {page?.toaster?.internalUrl || page?.toaster?.externalUrl ? (
@@ -185,7 +194,7 @@ async function PageHandler({ pageMetadata }: IPageHandler) {
           title={page?.toaster?.title}
           buttonText={page?.toaster?.buttonText}
           description={page?.toaster?.description}
-          internalUrl={page?.toaster?.internalUrl}
+          internalUrl={internalToasterPath}
           externalUrl={page?.toaster?.externalUrl}
         />
       ) : null}

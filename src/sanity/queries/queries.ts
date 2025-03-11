@@ -6,7 +6,7 @@ const toasterFragment = `
   "description": toasterDescription,
   "buttonText": toasterButtonText,
   "externalUrl": externalToasterLink,
-  "internalUrl": internalToasterLink[]->
+  "internalUrl": internalToasterLink->_id
 },`;
 
 const crumbsFragment = `"breadcrumb": {
