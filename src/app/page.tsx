@@ -81,12 +81,14 @@ export default async function IndexPage() {
         `${process.env.BASE_URL}/api/page/metaData/id/${cat._id}`
       );
       const c = await cData?.json();
-      return {
-        title: cat.shortTitle || cat.title,
-        image: cat.image,
-        description: cat.description,
-        slug: c?.path || "",
-      };
+      if (c) {
+        return {
+          title: cat.shortTitle || cat.title,
+          image: cat.image,
+          description: cat.description,
+          slug: c?.path || "",
+        };
+      }
     })
   );
   return (

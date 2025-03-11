@@ -8,7 +8,13 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   const page = await pageTreeClient.getPageMetadataById(params.id);
-  // Set custom headers to prevent Netlify from caching old responses
+
+  if (!page) {
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
   if (process.env.NODE_ENV === "development") {
     return new NextResponse(JSON.stringify(page));
   }
