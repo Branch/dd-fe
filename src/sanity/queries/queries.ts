@@ -267,8 +267,8 @@ const DISCOUNT_PAGE_QUERY = `*[_id == $id][0]{
   ${toasterFragment}
   ${crumbsFragment}
   "discountTable": {
-    "columns": table.columns,
-    "rows": table.rows[]{
+    "columns": discountTable.columns,
+    "rows": discountTable.rows[]{
       "cells": cells[]{
         "text": text,
         "url": url

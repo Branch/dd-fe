@@ -90,34 +90,53 @@ export default async function DiscountPage({
           {table ? (
             <section>
               <h2 id="rabattkoder">Rabattkoder</h2>
-              <table>
-                <thead>
-                  <tr>
-                    {table.columns.map((column, i) => (
-                      <th key={i}>{column.title}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {table.rows.map((row, i) => (
-                    <tr key={i}>
-                      {row.cells.map((cell, j) => (
-                        <td key={j}>
-                          {cell.url ? (
-                            <BaseLink
-                              rel="nofollow noreferrer noopener sponsored"
-                              text={"Till butiken"}
-                              url={cell.url}
-                            />
-                          ) : (
-                            cell.text
-                          )}
-                        </td>
+              <div className="relative overflow-auto">
+                <table className="!w-[800px] md:!w-full border-collapse table-fixed">
+                  <thead>
+                    <tr>
+                      {table.columns.map((column, i) => (
+                        <th
+                          scope="col"
+                          className="first:sticky first:bg-djungleBeige border border-djungleBlack-50 first:w-[20%] first:left-0 !p-4"
+                          key={i}
+                        >
+                          {column.title}
+                        </th>
                       ))}
+                      <th
+                        scope="col"
+                        className="border border-djungleBlack-50"
+                      ></th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {table.rows.map((row, i) => (
+                      <tr key={i}>
+                        {row.cells.map((cell, j) => (
+                          <td
+                            className={`${j === 0 ? "sticky left-0 border" : ""} !p-4 border border-djungleBlack-50 bg-djungleGreen-50`}
+                            key={j}
+                          >
+                            {cell.url ? (
+                              <BaseLink
+                                rel="nofollow noreferrer noopener sponsored"
+                                text={"Till butiken"}
+                                url={cell.url}
+                                classNames="block"
+                              />
+                            ) : (
+                              cell.text
+                            )}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <div className="md:hidden text-xs italic text-right">
+                Scrolla för att se hela tabellen
+              </div>
             </section>
           ) : null}
           {Array.isArray(body) && (
