@@ -7,6 +7,14 @@ import { NextResponse } from "next/server";
 
 // Used for sitemap, shouldnt be cached
 export async function GET() {
-  const allPages = await client.fetch<SanityDocument[]>(PAGES_QUERY);
-  return new NextResponse(JSON.stringify(allPages));
+  const allPages = await client.fetch<SanityDocument[]>(
+    PAGES_QUERY,
+    {},
+    { next: { revalidate: 0 }, cache: "no-store" }
+  );
+  return new NextResponse(JSON.stringify(allPages), {
+    headers: {
+      "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+    },
+  });
 }
