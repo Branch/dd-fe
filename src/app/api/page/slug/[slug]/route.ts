@@ -20,7 +20,7 @@ export async function GET(
     {
       slug,
     },
-    { next: { revalidate: 30 } }
+    { next: { revalidate: 0 }, cache: "no-store" }
   );
   if (process.env.NODE_ENV === "development") {
     return new NextResponse(JSON.stringify(page));
