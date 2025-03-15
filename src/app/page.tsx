@@ -108,7 +108,7 @@ export default async function IndexPage() {
             att hjälpa djurägare att göra välgrundade val och säkerställa det
             bästa för deras pälsiga följeslagare.
           </p>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid md:grid-cols-2 gap-4">
             <BaseLink text={"Om oss"} url={"/om-djurdjungeln"} />
           </div>
         </div>
@@ -135,8 +135,123 @@ export default async function IndexPage() {
           />
         </div>
       </div>
+      <div className="mx-auto mt-16 lg:mt-52">
+        <h2
+          className={`text-4xl text-center mb-4 font-bold ${oswald.className}`}
+        >
+          Några av våra samarbetspartners
+        </h2>
+        <div className="w-full inline-flex flex-nowrap">
+          <ul className="flex items-center justify-center md:justify-start [&_li]:mx-8 md:[&_li]:mx-24 [&_img]:max-w-none animate-loop-scroll">
+            <li>
+              <Image
+                src={"/assets/images/partners/firstvet.png"}
+                alt={""}
+                width={200}
+                height={50}
+                quality={100}
+                priority
+              />
+            </li>
+            <li>
+              <Image
+                className="mt-3"
+                src={"/assets/images/partners/hedvig-logo.png"}
+                alt={""}
+                width={150}
+                height={50}
+                quality={100}
+                priority
+              />
+            </li>
+            <li>
+              <Image
+                src={"/assets/images/partners/lassie.png"}
+                alt={""}
+                width={130}
+                height={50}
+                quality={100}
+                priority
+              />
+            </li>
+            <li>
+              <Image
+                src={"/assets/images/partners/petson.png"}
+                alt={""}
+                width={150}
+                height={50}
+                quality={100}
+                priority
+              />
+            </li>
+            <li>
+              <Image
+                src={"/assets/images/partners/vetzoo.png"}
+                alt={""}
+                width={180}
+                height={50}
+                quality={100}
+                priority
+              />
+            </li>
+          </ul>
+          <ul className="flex items-center justify-center md:justify-start [&_li]:mx-8 md:[&_li]:mx-24 [&_img]:max-w-none animate-loop-scroll">
+            <li>
+              <Image
+                src={"/assets/images/partners/firstvet.png"}
+                alt={""}
+                width={200}
+                height={50}
+                quality={100}
+                priority
+              />
+            </li>
+            <li>
+              <Image
+                className="mt-3"
+                src={"/assets/images/partners/hedvig-logo.png"}
+                alt={""}
+                width={150}
+                height={50}
+                quality={100}
+                priority
+              />
+            </li>
+            <li>
+              <Image
+                src={"/assets/images/partners/lassie.png"}
+                alt={""}
+                width={130}
+                height={50}
+                quality={100}
+                priority
+              />
+            </li>
+            <li>
+              <Image
+                src={"/assets/images/partners/petson.png"}
+                alt={""}
+                width={150}
+                height={50}
+                quality={100}
+                priority
+              />
+            </li>
+            <li>
+              <Image
+                src={"/assets/images/partners/vetzoo.png"}
+                alt={""}
+                width={180}
+                height={50}
+                quality={100}
+                priority
+              />
+            </li>
+          </ul>
+        </div>
+      </div>
       <section className="bg-djungleOrange-200">
-        <div className="container mt-12 md:mt-48 py-12 md:py-24">
+        <div className="container mt-12 md:mt-32 py-12 md:py-24">
           <h2 className={`text-4xl font-bold ${oswald.className}`}>
             Därför kan du lita på oss
           </h2>

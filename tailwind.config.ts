@@ -29,11 +29,16 @@ const config: Config = {
     },
     extend: {
       animation: {
+        "loop-scroll": "loop-scroll 20s linear infinite",
         wiggle: "wiggle 2s ease-in-out infinite",
         border: "border 4s linear infinite",
         borderFast: "border 1s linear infinite",
       },
       keyframes: {
+        "loop-scroll": {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(-100%)" },
+        },
         border: {
           to: { "--border-angle": "360deg" },
         },
