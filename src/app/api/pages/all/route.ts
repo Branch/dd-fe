@@ -10,7 +10,7 @@ export async function GET() {
   const allPages = await client.fetch<SanityDocument[]>(
     PAGES_QUERY,
     {},
-    { next: { revalidate: 0 }, cache: "no-store" }
+    { cache: "no-store" }
   );
   return new NextResponse(JSON.stringify(allPages), {
     headers: {

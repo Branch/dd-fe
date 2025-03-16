@@ -9,7 +9,7 @@ export async function GET() {
   const cats = await client.fetch<SanityDocument[]>(
     LATEST_CATS_QUERY,
     {},
-    { next: { revalidate: 3600 } }
+    { cache: "no-store" }
   );
 
   const headers = new Headers({

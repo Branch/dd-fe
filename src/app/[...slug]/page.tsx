@@ -4,7 +4,6 @@ import sanityImageBuilder from "@/utils/sanityImageBuilder";
 
 import { IAuthor } from "@/types/types";
 import { notFound } from "next/navigation";
-import { PageMetadata } from "@q42/sanity-plugin-page-tree/next";
 import Breadcrumbs from "@/components/navigation/breadcrumbs/breadcrumbs";
 import { Metadata } from "next";
 import dynamic from "next/dynamic";
@@ -42,7 +41,7 @@ export async function generateMetadata({
   }
   const pageMetaData = await pageMeta?.json();
   const p = await tryCatchFetch(
-    `${process.env.BASE_URL}/api/page/id/${pageMetaData?._id}/${pageMetaData?.type}`
+    `${process.env.BASE_URL}/api/page/id/${pageMetaData?._id}/${pageMetaData?._type}`
   );
   if (!p) {
     return notFound();
@@ -89,13 +88,17 @@ export async function generateStaticParams() {
   return [];
 }
 interface IPageHandler {
-  pageMetadata: PageMetadata;
+  pageMetadata: {
+    _id: string;
+    _type: string;
+    path?: string;
+  };
 }
 export const revalidate = 3600;
 
 async function PageHandler({ pageMetadata }: IPageHandler) {
   const p = await tryCatchFetch(
-    `${process.env.BASE_URL}/api/page/id/${pageMetadata?._id}/${pageMetadata?.type}`
+    `${process.env.BASE_URL}/api/page/id/${pageMetadata?._id}/${pageMetadata?._type}`
   );
 
   const page = await p?.json();

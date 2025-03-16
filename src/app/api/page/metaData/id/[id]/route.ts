@@ -1,20 +1,22 @@
 /** @format */
 
-import { pageTreeClient } from "@/sanity/pageTreeClient";
+import { client } from "@/sanity/client";
+import { PAGE_META_BY_ID } from "@/sanity/queries/queries";
+import { SanityDocument } from "next-sanity";
 import { NextResponse } from "next/server";
 
 export async function GET(
   _req: Request,
   { params }: { params: { id: string } }
 ) {
-  const page = await pageTreeClient.getPageMetadataById(params.id);
+  const page = await client.fetch<SanityDocument>(
+    PAGE_META_BY_ID,
+    {
+      id: params.id,
+    },
+    { cache: "no-store" }
+  );
 
-  if (!page) {
-    return NextResponse.json(
-      { error: "Internal Server Error" },
-      { status: 500 }
-    );
-  }
   if (process.env.NODE_ENV === "development") {
     return new NextResponse(JSON.stringify(page));
   }

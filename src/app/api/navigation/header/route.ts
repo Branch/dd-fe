@@ -9,7 +9,7 @@ export async function GET() {
   const nav = await client.fetch<SanityDocument>(
     NAV_QUERY,
     {},
-    { next: { revalidate: 3600 } }
+    { cache: "no-store" }
   );
 
   const headers = new Headers({

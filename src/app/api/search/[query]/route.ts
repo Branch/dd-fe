@@ -12,7 +12,7 @@ export async function GET(
   const results = await client.fetch<SanityDocument[]>(
     SEARCH_QUERY,
     { queryString: params.query },
-    { next: { revalidate: 3600 } }
+    { cache: "no-store" }
   );
   // Set custom headers to prevent Netlify from caching old responses
   const headers = new Headers({

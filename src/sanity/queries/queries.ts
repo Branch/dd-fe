@@ -263,6 +263,46 @@ const INSURANCE_COMPANY_QUERY = `*[_id == $id][0]{
 
 const PAGES_QUERY = `*[defined(slug.current)
 ]|order(_updatedAt desc){_id,_updatedAt}`;
+const PAGE_META_BY_ID = `
+*[_id == $id][0]{
+_type,
+  "path": "/" + array::join(
+    array::compact([
+      parent->parent->parent->parent->slug.current,
+      parent->parent->parent->slug.current,
+      parent->parent->slug.current,
+      parent->slug.current,
+      slug.current
+    ]),
+    "/"
+)}
+`;
+const PAGE_META_BY_PATH = `*[
+  "/" + array::join(
+    array::compact([
+      parent->parent->parent->parent->slug.current,
+      parent->parent->parent->slug.current,
+      parent->parent->slug.current,
+      parent->slug.current,
+      slug.current
+    ]),
+    "/"
+  ) == $path
+][0] {
+  _id,
+  _type,
+  "path": "/" + array::join(
+    array::compact([
+      parent->parent->parent->parent->slug.current,
+      parent->parent->parent->slug.current,
+      parent->parent->slug.current,
+      parent->slug.current,
+      slug.current
+    ]),
+    "/"
+  )
+}
+`;
 const DISCOUNT_PAGE_QUERY = `*[_id == $id][0]{
   ${toasterFragment}
   ${crumbsFragment}
@@ -298,4 +338,6 @@ export {
   INSURANCE_COMPANY_QUERY,
   PAGES_QUERY,
   DISCOUNT_PAGE_QUERY,
+  PAGE_META_BY_ID,
+  PAGE_META_BY_PATH,
 };

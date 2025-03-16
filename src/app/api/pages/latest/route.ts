@@ -9,7 +9,7 @@ export async function GET() {
   const posts = await client.fetch<SanityDocument[]>(
     POSTS_CATS_QUERY,
     {},
-    { next: { revalidate: 0 }, cache: "no-store" }
+    { cache: "no-store" }
   );
 
   const headers = new Headers({
