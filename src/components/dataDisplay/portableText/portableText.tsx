@@ -1,6 +1,7 @@
 /** @format */
 
 import { oswald } from "@/utils/fonts/fonts";
+import isExternalUrl from "@/utils/isExternalUrl";
 import sanityImageBuilder from "@/utils/sanityImageBuilder";
 import { tryCatchFetch } from "@/utils/tryCatchFetch";
 import { PawPrint } from "lucide-react";
@@ -121,7 +122,14 @@ const PageComponents = ({
       button: ({ value }) => {
         const isSponsored = value.isSponsored;
         const style = value.style;
-        return (
+        return isExternalUrl(value.url) ? (
+          <Link
+            className={`${style === "primary" ? "bg-djungleGreen !text-white hover:bg-djungleGreen/90" : "!bg-transparent border-2 border-djungleGreen !text-djungleGreen hover:!bg-djungleGreen-50"} flex !no-underline items-center justify-center gap-2 text-xl px-4 py-2 rounded-md my-4 w-full md:w-1/2 text-center mx-auto font-bold`}
+            href={value.url}
+          >
+            {value.text}
+          </Link>
+        ) : (
           <a
             href={value.url}
             target="_blank"
