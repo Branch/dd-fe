@@ -3,7 +3,7 @@
 import { tryCatchFetch } from "@/utils/tryCatchFetch";
 import { MetadataRoute } from "next";
 import { SanityDocument } from "next-sanity";
-
+export const dynamic = "force-dynamic";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const allPages = await tryCatchFetch(`${process.env.BASE_URL}/api/pages/all`);
   if (!allPages) {
