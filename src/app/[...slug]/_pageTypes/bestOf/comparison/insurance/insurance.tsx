@@ -1,5 +1,6 @@
 /** @format */
 
+import Row from "@/app/[...slug]/_pageTypes/bestOf/comparison/table/row";
 import {
   IProductOffer,
   IProductOffering,
@@ -8,19 +9,28 @@ import {
 import Table from "@/app/[...slug]/_pageTypes/insurance/productPage/insuranceTable/table/table";
 import BaseTd from "@/app/[...slug]/_pageTypes/insurance/productPage/insuranceTable/td/base/baseTd";
 import BaseTh from "@/app/[...slug]/_pageTypes/insurance/productPage/insuranceTable/th/base/baseTh";
-import { Shield, ShieldBan, ShieldPlus } from "lucide-react";
+import { ShieldBan, Shield, ShieldPlus } from "lucide-react";
 
-interface InsuranceTableProps {
-  productOffering: IProductOffering[];
+interface IInsuranceComparison {
+  bestProducts: {
+    title: string;
+    reference: {
+      productOffering: IProductOffering[];
+      _id: string;
+    };
+  }[];
 }
 
-export default function InsuranceTable({
-  productOffering,
-}: InsuranceTableProps) {
-  console.log("offers", productOffering);
-  const insuranceProductTiers = productOffering.length > 1;
+export default function InsuranceComparison({
+  bestProducts,
+}: IInsuranceComparison) {
+  const insuranceProductTiers = bestProducts.length > 1;
+  const allProds = bestProducts.flatMap((bp) => bp.reference.productOffering);
+  console.log("all", allProds);
+  // TODO: Implement comparison of multiple products
+
   // Extract all subProductTitles (assumed to be the same across items)
-  const subProducts = productOffering.map((po) => po.subProduct);
+  const subProducts = allProds.map((po) => po.subProduct);
   const subProductTitles: { title: string; description: string }[] = Array.from(
     new Map(
       subProducts.map((sp) => [
@@ -49,7 +59,7 @@ export default function InsuranceTable({
             scope="row"
             className="sticky text-left pl-4 border border-djungleBlack-50 md:text-xl w-[23%] md:w-auto left-0 bg-djungleBeige"
           >
-            Försäkringsnivå
+            Försäkring
           </th>
           {subProductTitles.map(({ title, description }, i) => {
             return (
@@ -98,7 +108,7 @@ export default function InsuranceTable({
   ) : (
     <Table>
       <tbody>
-        {productOffering.map(({ subProduct }: { subProduct: ISubProduct }) => {
+        {allProds.map(({ subProduct }: { subProduct: ISubProduct }) => {
           return subProduct.subProductOffer.map(
             ({ offer }: { offer: IProductOffer }, i: number) => {
               return (

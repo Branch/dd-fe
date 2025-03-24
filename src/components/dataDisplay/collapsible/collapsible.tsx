@@ -29,7 +29,7 @@ export default function Collapsible({
   return (
     <div className={`py-4 ${styles}`}>
       <div
-        className="text-xl cursor-pointer font-bold flex items-center justify-between"
+        className="text-xl cursor-pointer font-bold flex justify-between"
         onClick={() => setIsOpen(!isOpen)}
       >
         {headerItem ? (
@@ -49,7 +49,7 @@ export default function Collapsible({
           <span className={useBoldFont ? oswald.className : ""}>{title}</span>
         )}
 
-        <div>{isOpen ? <ChevronUp /> : <ChevronDown />}</div>
+        <div className="">{isOpen ? <ChevronUp /> : <ChevronDown />}</div>
       </div>
       <div
         className={`${isOpen ? "h-auto" : "h-0 overflow-hidden"} ${wrapperStyles}`}

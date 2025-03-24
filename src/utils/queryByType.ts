@@ -9,6 +9,7 @@ import {
   POST_QUERY,
   PRODUCT_CAT_QUERY,
   PRODUCT_QUERY,
+  BEST_OF_PAGE,
 } from "@/sanity/queries/queries";
 
 export const getQueryByType = (type: string) => {
@@ -28,5 +29,7 @@ export const getQueryByType = (type: string) => {
                 ? INSURANCE_COMPANY_QUERY
                 : type === "discountPage"
                   ? DISCOUNT_PAGE_QUERY
-                  : POST_QUERY;
+                  : type === "bestOfPage"
+                    ? BEST_OF_PAGE
+                    : POST_QUERY;
 };

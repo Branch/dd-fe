@@ -206,6 +206,26 @@ const INSURANCE_PRODUCT_QUERY = `*[_id == $id][0]{
     }
   },
   productRating, petType, aboutCompany, metaTitle, metaDescription, parent->, faq, _createdAt, _updatedAt, authors[]->, "estimatedReadingTime": round(length(pt::text(body)) / 5 / 200 ), "headings": body[length(style) == 2 && string::startsWith(style, "h2")]}`;
+
+const BEST_OF_PAGE = `*[_id == $id][0]{
+    ${toasterFragment}
+    ${crumbsFragment}
+   title, shortTitle, image, body[]{
+   ...,
+   markDefs[]{ 
+       ..., 
+       _type == "internalLink" => { "href": "/"+ @.reference-> slug.current },
+       },
+  },description, "pageType":_type,
+  bestProducts[]{
+    title,
+    reference->{
+      _id,
+      productOffering
+    }
+  },
+  metaTitle, metaDescription, parent->, faq, _createdAt, _updatedAt, authors[]->, "estimatedReadingTime": round(length(pt::text(body)) / 5 / 200 ), "headings": body[length(style) == 2 && string::startsWith(style, "h2")]}`;
+
 const INSURANCE_COMPANY_QUERY = `*[_id == $id][0]{
     ${toasterFragment}
     ${crumbsFragment}
@@ -340,4 +360,5 @@ export {
   DISCOUNT_PAGE_QUERY,
   PAGE_META_BY_ID,
   PAGE_META_BY_PATH,
+  BEST_OF_PAGE,
 };

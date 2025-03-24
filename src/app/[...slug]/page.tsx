@@ -27,6 +27,7 @@ import InsuranceCompany from "@/app/[...slug]/_pageTypes/insurance/companyPage/i
 import { tryCatchFetch } from "@/utils/tryCatchFetch";
 import BaseToaster from "@/components/toasters/base/baseToaster";
 import DiscountPage from "@/app/[...slug]/_pageTypes/discountPage/discountPage";
+import BestOf from "@/app/[...slug]/_pageTypes/bestOf/bestOf";
 
 export async function generateMetadata({
   params,
@@ -100,8 +101,8 @@ async function PageHandler({ pageMetadata }: IPageHandler) {
   const p = await tryCatchFetch(
     `${process.env.BASE_URL}/api/page/id/${pageMetadata?._id}/${pageMetadata?._type}`
   );
-
   const page = await p?.json();
+  console.log("ppp", page, pageMetadata);
   // Add FAQ heading to TOC
   if (page.faq) {
     page.headings = page.headings
@@ -377,6 +378,21 @@ async function PageHandler({ pageMetadata }: IPageHandler) {
             authorsMeta,
             breadcrumbs
           )}
+        />
+      ) : page.pageType === "bestOfPage" ? (
+        <BestOf
+          title={page.title}
+          description={page.description}
+          authors={page.authors}
+          parentTitle={page?.parent?.slug?.current}
+          readingTime={page.estimatedReadingTime}
+          updatedAt={page._updatedAt}
+          tocHeadings={page.headings}
+          body={page.body}
+          faq={page.faq}
+          imgUrl={postImageUrl}
+          graph={graph}
+          bestProducts={page?.bestProducts}
         />
       ) : page.pageType === "insuranceCompanyPage" ? (
         <InsuranceCompany
