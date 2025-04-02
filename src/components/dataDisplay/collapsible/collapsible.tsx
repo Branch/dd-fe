@@ -13,6 +13,7 @@ interface ICollapsible {
   defaultOpen?: boolean;
   headerItem?: ReactNode;
   isTitleHeading?: boolean;
+  titleHeadingLevel?: "h2" | "h3";
   useBoldFont?: boolean;
 }
 export default function Collapsible({
@@ -23,9 +24,21 @@ export default function Collapsible({
   wrapperStyles,
   headerItem,
   isTitleHeading,
+  titleHeadingLevel = "h2",
   useBoldFont = true,
 }: ICollapsible) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
+  const DynamicHeading = ({
+    as: Tag = "h2",
+    children,
+    className,
+  }: {
+    as: "h2" | "h3";
+    children: ReactNode;
+    className?: string;
+  }) => {
+    return <Tag className={`${className} !m-0 !p-0 !text-lg`}>{children}</Tag>;
+  };
   return (
     <div className={`py-4 ${styles}`}>
       <div
@@ -35,7 +48,12 @@ export default function Collapsible({
         {headerItem ? (
           <div className="flex items-center gap-2">
             {isTitleHeading ? (
-              <h2 className={useBoldFont ? oswald.className : ""}>{title}</h2>
+              <DynamicHeading
+                as={titleHeadingLevel}
+                className={useBoldFont ? oswald.className : ""}
+              >
+                {title}
+              </DynamicHeading>
             ) : (
               <span className={useBoldFont ? oswald.className : ""}>
                 {title}
@@ -44,7 +62,12 @@ export default function Collapsible({
             <span>{headerItem}</span>
           </div>
         ) : isTitleHeading ? (
-          <h2 className={useBoldFont ? oswald.className : ""}>{title}</h2>
+          <DynamicHeading
+            as={titleHeadingLevel}
+            className={useBoldFont ? oswald.className : ""}
+          >
+            {title}
+          </DynamicHeading>
         ) : (
           <span className={useBoldFont ? oswald.className : ""}>{title}</span>
         )}

@@ -367,7 +367,7 @@ export function insuranceProductGraph(
   const bodyArrayToText = reviewText
     .map((block: any) => {
       // Extract text from each block's children
-      return block.children.map((child: any) => child.text).join("");
+      return block?.children?.map((child: any) => child.text).join("");
     })
     .join("\n"); // Optionally join blocks with a newline
   const images = jsonImgArray(shareImage);

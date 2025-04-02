@@ -24,10 +24,10 @@ export default function ProductCard({
   return (
     <div className="bg-white w-full flex flex-col justify-between md:w-[300px] border-djungleBlue-50 border shadow-sm p-4 rounded-lg">
       <div>
-        <h2 className={`text-center font-bold text-xl`}>{title}</h2>
+        <h3 className={`text-center font-bold text-xl`}>{title}</h3>
         <p className="my-4">{description}</p>
         <ul className="ml-6">
-          {pros.map((pro, i) => (
+          {pros?.map((pro, i) => (
             <li
               key={i}
               className="before:content-['✔'] before:text-green-500 before:text-sm my-2 flex relative before:absolute before:-left-5"

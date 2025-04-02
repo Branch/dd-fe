@@ -97,6 +97,8 @@ export default function PostType({
                       key={i}
                       title={faq.question}
                       styles="bg-djungleGreen-100/50 rounded-md mb-2 px-4"
+                      isTitleHeading
+                      titleHeadingLevel="h3"
                     >
                       <p className="!mb-0 mt-2">{faq.answer}</p>
                     </Collapsible>

@@ -13,10 +13,10 @@ import { tryCatchFetch } from "@/utils/tryCatchFetch";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: `${process.env.SITENAME} - Guide & råd för husdjursägare`,
+  title: `${process.env.SITENAME} - Guide & råd för hund- och kattägare`,
   metadataBase: new URL(process.env.BASE_URL || "http://localhost:3000"),
   description:
-    "Djurdjungeln är en heltäckande webbplats dedikerad till att hjälpa djurägare att ge sina husdjur den bästa möjliga vården och omsorgen. Oavsett om du är en erfaren djurägare eller just tänkt skaffa ditt första husdjur, kan du hitta all nödvändig information på djurdjungeln.se.",
+    "Djurdjungeln är en heltäckande webbplats dedikerad till att hjälpa hund- och kattägare att ge sina husdjur den bästa möjliga vården och omsorgen.",
   applicationName: process.env.SITENAME,
   publisher: process.env.SITENAME,
   robots:
@@ -103,10 +103,10 @@ export default async function IndexPage() {
             Allt för dig och dina djur.
           </h1>
           <p>
-            Djurdjungeln är din bästa resurs för allt kring husdjur. Vi erbjuder
-            expertrecensioner om foder, leksaker och tillbehör. Vi strävar efter
-            att hjälpa djurägare att göra välgrundade val och säkerställa det
-            bästa för deras pälsiga följeslagare.
+            Djurdjungeln är din bästa resurs för allt som rör hundar och katter.
+            Vi erbjuder expertrecensioner om foder, leksaker och tillbehör. Vi
+            strävar efter att hjälpa djurägare att göra välgrundade val och
+            säkerställa det bästa för deras fyrbenta vänner.
           </p>
           <div className="grid md:grid-cols-2 gap-4">
             <BaseLink text={"Om oss"} url={"/om-djurdjungeln"} />
@@ -257,11 +257,11 @@ export default async function IndexPage() {
           </h2>
           <p className="mt-4">
             Djurdjungeln.se är en av Sveriges ledande sajter inom jämförelse av
-            husdjursprodukter. Alla recensioner skrivs av erfarna djurägare där
-            vår samlade erfarenhet överskrider 50 år! Våra recensioner baseras
-            på egna upplevelser och tester som vi gjort. Vi strävar alltid efter
-            att erbjuda våra besökare unika, innehållsrika och opartiska
-            jämförelser.
+            hund- och kattprodukter. Alla recensioner skrivs av erfarna
+            djurägare där vår samlade erfarenhet överskrider 50 år! Våra
+            recensioner baseras på egna upplevelser och tester som vi gjort. Vi
+            strävar alltid efter att erbjuda våra besökare unika, innehållsrika
+            och opartiska jämförelser.
           </p>
           <h3 className={`text-3xl mt-12 mb-4 font-bold ${oswald.className}`}>
             Populära kategorier

@@ -164,7 +164,7 @@ export default async function InsuranceCompany({
           Försäkringar
         </h2>
         <div className="flex flex-col md:flex-row gap-4 justify-center">
-          {companyProducts.map(async (p, i) => {
+          {companyProducts?.map(async (p, i) => {
             const data = await tryCatchFetch(
               `${process.env.BASE_URL}/api/page/metaData/id/${p.productLink._id}`
             );
@@ -360,17 +360,21 @@ export default async function InsuranceCompany({
             >
               {faqHeading}
             </h2>
-            {faq.map((faq: { question: string; answer: string }, i: number) => {
-              return (
-                <Collapsible
-                  key={i}
-                  title={faq.question}
-                  styles="bg-djungleGreen-100/50 rounded-md mb-2 px-4"
-                >
-                  <p className="!mb-0 mt-2">{faq.answer}</p>
-                </Collapsible>
-              );
-            })}
+            {faq?.map(
+              (faq: { question: string; answer: string }, i: number) => {
+                return (
+                  <Collapsible
+                    key={i}
+                    title={faq.question}
+                    styles="bg-djungleGreen-100/50 rounded-md mb-2 px-4"
+                    isTitleHeading
+                    titleHeadingLevel="h3"
+                  >
+                    <p className="!mb-0 mt-2">{faq.answer}</p>
+                  </Collapsible>
+                );
+              }
+            )}
           </>
         ) : null}
       </section>

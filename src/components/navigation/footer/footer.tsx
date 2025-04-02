@@ -64,7 +64,7 @@ const Footer = () => {
             Djurdjungeln är en oberoende hemsida byggd och underhållen av
             passionerade djurälskare som är dedikerade till att tillhandahålla
             pålitlig, djupgående information. Vi erbjuder allt ifrån tips på
-            djurnamn till recensioner och förslag på foder, leksaker och
+            hundnamn till recensioner och förslag på foder, leksaker och
             tillbehör till dig och dina husdjur.
           </li>
           <li className="text-sm">
