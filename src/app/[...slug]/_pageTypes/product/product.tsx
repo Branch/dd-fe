@@ -49,30 +49,29 @@ export default function ProductType({
       <JsonLd graph={graph} />
       <section className="flex flex-col-reverse md:grid md:grid-cols-2 gap-4 md:gap-8">
         <div>
-          <div className="hidden md:block">
-            <h1 className={`text-4xl font-bold ${oswald.className}`}>
-              {title}
-            </h1>
-            <div className="text-djungleBlack/60 text-sm uppercase mt-2">
-              {brand}
-            </div>
-            {discountPrice && discountPrice > 0 ? (
-              <>
-                <div className="text-3xl font-bold mt-4">
-                  {discountPrice} kr
-                </div>
-                <div className="font-bold text-sm">
-                  <span className="line-through">{price} kr</span>
-                  <span className="text-[#FF0000] ml-2">
-                    -{Math.round(((price - discountPrice) / price) * 100)}%
-                  </span>
-                </div>
-              </>
-            ) : (
-              <div className="text-3xl font-bold mt-4">{price} kr</div>
-            )}
+          <h1 className={`text-4xl font-bold ${oswald.className}`}>{title}</h1>
+          <div className="text-djungleBlack/60 text-sm uppercase mt-2">
+            {brand}
           </div>
-          <p className="md:mt-4">{description}</p>
+          {discountPrice && discountPrice > 0 ? (
+            <>
+              <div className="text-3xl font-bold mt-1 md:mt-4">
+                {discountPrice} kr
+              </div>
+              <div className="font-bold text-sm">
+                <span className="line-through">{price} kr</span>
+                <span className="text-[#FF0000] ml-2">
+                  -{Math.round(((price - discountPrice) / price) * 100)}%
+                </span>
+              </div>
+            </>
+          ) : (
+            <div className="text-3xl font-bold mt-1 md:mt-4">{price} kr</div>
+          )}
+          <div className="mt-2 md:hidden">
+            <BaseCarousel images={sliderImages} />
+          </div>
+          <p className="mt-4">{description}</p>
           <a
             href={ctaUrl}
             target="_blank"
@@ -121,30 +120,7 @@ export default function ProductType({
             )}
           </Collapsible>
         </div>
-        <div>
-          <div className="md:hidden mb-2">
-            <h1 className={`text-4xl font-bold ${oswald.className}`}>
-              {title}
-            </h1>
-            <div className="text-djungleBlack/60 text-sm uppercase mt-2">
-              {brand}
-            </div>
-            {discountPrice && discountPrice > 0 ? (
-              <>
-                <div className="text-3xl font-bold mt-1">
-                  {discountPrice} kr
-                </div>
-                <div className="font-bold text-sm">
-                  <span className="line-through">{price} kr</span>
-                  <span className="text-[#FF0000] ml-2">
-                    -{Math.round(((price - discountPrice) / price) * 100)}%
-                  </span>
-                </div>
-              </>
-            ) : (
-              <div className="text-3xl font-bold mt-1">{price} kr</div>
-            )}
-          </div>
+        <div className="hidden md:block">
           <BaseCarousel images={sliderImages} />
         </div>
       </section>
@@ -165,6 +141,8 @@ export default function ProductType({
                       key={i}
                       title={faq.question}
                       styles="bg-djungleGreen-100/50 rounded-md mb-2 px-4"
+                      isTitleHeading
+                      titleHeadingLevel="h3"
                     >
                       <p className="!mb-0 mt-2">{faq.answer}</p>
                     </Collapsible>
