@@ -359,10 +359,10 @@ export default async function BestOf({
           />
         </div>
       </section>
-      <i className="text-xs text-right block mt-1">
+      <i className="text-xs text-right lg:hidden block mt-1">
         Scrolla för att se hela tabellen
       </i>
-      <section id="content" className="prose">
+      <section id="content" className="prose mt-8">
         {Array.isArray(body) && (
           <PortableText
             value={body}

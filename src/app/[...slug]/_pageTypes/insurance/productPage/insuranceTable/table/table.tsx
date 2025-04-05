@@ -6,7 +6,7 @@ interface IInsuraceProductTable {
 }
 export default function Table({ children }: IInsuraceProductTable) {
   return (
-    <table className="w-[800px] md:w-[1000px] border-collapse mt-4 table-fixed">
+    <table className="w-[800px] md:w-[1080px] border-collapse mt-4 table-fixed">
       {children}
     </table>
   );
