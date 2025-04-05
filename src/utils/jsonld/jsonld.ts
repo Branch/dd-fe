@@ -1,6 +1,9 @@
 /** @format */
 
+import { IBestProduct } from "@/app/[...slug]/_pageTypes/bestOf/bestOf";
 import { IAuthor, IFaq } from "@/types/types";
+import sanityImageBuilder from "@/utils/sanityImageBuilder";
+import { tryCatchFetch } from "@/utils/tryCatchFetch";
 import { Graph } from "schema-dts";
 
 const publisher = {
@@ -287,6 +290,148 @@ export function aboutGraph(
             }),
           },
           isPartOf: websiteData,
+        },
+      },
+    ],
+  };
+  return graph;
+}
+
+export async function bestOfGraph(
+  pagePath: string,
+  headline: string,
+  authors: IAuthor[],
+  shareImage: IJsonLdImage[],
+  recommendedProducts: IBestProduct[],
+  faq: IFaq[],
+  breadcrumbs?: any[]
+) {
+  const prods = await Promise.all(
+    recommendedProducts?.map(async (product: IBestProduct) => {
+      const prodData = await tryCatchFetch(
+        `${process.env.BASE_URL}/api/page/metaData/id/${product.reference._id}`
+      );
+      const prod = await prodData?.json();
+      const prodImage = {
+        url: sanityImageBuilder(product.reference.image, 1200, 630) as string,
+        width: 1200,
+        height: 630,
+      };
+      return {
+        ...product,
+        url: prod.path,
+        image: jsonImgArray([prodImage]),
+        rating:
+          product.tableValues.reduce(
+            (sum, value) => sum + value.tableValueRating,
+            0
+          ) / product.tableValues.length,
+      };
+    })
+  );
+  const images = jsonImgArray(shareImage);
+  const graph: Graph = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Guide",
+        "@id": `${pagePath}#guide`,
+        url: pagePath,
+        headline: headline,
+        name: headline,
+        image: images,
+        hasPart: prods?.map((product: any) => {
+          return {
+            "@type": "Recommendation",
+            name: product.title,
+            ...(authors?.length > 0
+              ? {
+                  author: authors?.map((a: any) => {
+                    return {
+                      "@type": "Person",
+                      name: a.name,
+                      url: a.url,
+                      worksFor: {
+                        "@id": a.worksFor,
+                      },
+                    };
+                  }),
+                }
+              : null),
+            itemReviewed: {
+              "@type": "Product",
+              name: product.title,
+              image: product.image,
+              offers: {
+                "@type": "Offer",
+                url: `${process.env.BASE_URL}${product.url}`,
+                price: product?.reference?.price
+                  ? product?.reference?.discountedPrice
+                    ? product?.reference?.discountedPrice
+                    : product?.reference?.price
+                  : 0,
+                priceCurrency: "SEK",
+                availability: "https://schema.org/InStock",
+              },
+            },
+            reviewBody: product.text,
+            reviewRating: {
+              "@type": "Rating",
+              ratingValue: product.rating.toFixed(1),
+              bestRating: 5,
+              worstRating: 1,
+            },
+          };
+        }),
+        ...(authors?.length > 0
+          ? {
+              author: authors?.map((a: any) => {
+                return {
+                  "@type": "Person",
+                  name: a.name,
+                  url: a.url,
+                  worksFor: {
+                    "@id": a.worksFor,
+                  },
+                };
+              }),
+            }
+          : null),
+        isPartOf: {
+          "@type": "WebPage",
+          "@id": `${pagePath}#page`,
+          url: process.env.BASE_URL,
+          name: process.env.SITENAME,
+          primaryImageOfPage: images,
+          inLanguage: "sv-SE",
+          breadcrumb: {
+            "@type": "BreadcrumbList",
+            itemListElement: breadcrumbs?.map((b: any, i: number) => {
+              return {
+                "@type": "ListItem",
+                position: i + 1,
+                item: {
+                  "@type": "Thing",
+                  "@id": i !== 0 ? b.fullPath : process.env.BASE_URL,
+                  name: i !== 0 ? b.title : process.env.SITENAME,
+                },
+              };
+            }),
+          },
+          isPartOf: websiteData,
+        },
+        subjectOf: {
+          "@type": "FAQPage",
+          mainEntity: faq?.map((faq: { question: string; answer: string }) => {
+            return {
+              "@type": "Question",
+              name: faq.question,
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: faq.answer,
+              },
+            };
+          }),
         },
       },
     ],

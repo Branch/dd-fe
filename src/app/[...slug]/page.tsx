@@ -11,6 +11,7 @@ import {
   aboutGraph,
   authorGraph,
   baseGraph,
+  bestOfGraph,
   insuranceProductGraph,
   productGraph,
 } from "@/utils/jsonld/jsonld";
@@ -102,7 +103,6 @@ async function PageHandler({ pageMetadata }: IPageHandler) {
     `${process.env.BASE_URL}/api/page/id/${pageMetadata?._id}/${pageMetadata?._type}`
   );
   const page = await p?.json();
-  console.log("ppp", page, pageMetadata);
   // Add FAQ heading to TOC
   if (page.faq) {
     page.headings = page.headings
@@ -391,8 +391,30 @@ async function PageHandler({ pageMetadata }: IPageHandler) {
           body={page.body}
           faq={page.faq}
           imgUrl={postImageUrl}
-          graph={graph}
+          graph={await bestOfGraph(
+            currPath,
+            page.metaTitle || page.title,
+            authorsMeta,
+            jsonLdImages,
+            page?.bestProducts,
+            page.faq,
+            breadcrumbs
+          )}
+          promotedRefTitle={page?.bestProduct?.reference?.title}
           bestProducts={page?.bestProducts}
+          promotedPros={page?.bestProduct?.pros}
+          promotedCtaUrl={page?.bestProduct?.ctaUrl}
+          promotedText={page?.bestProduct?.text}
+          promotedTitle={page?.bestProduct?.title}
+          promotedRefId={page?.bestProduct?.reference?._id}
+          promotedRefImage={page?.bestProduct?.reference?.image}
+          promotedDiscountedPrice={
+            page?.bestProduct?.reference?.discountedPrice
+          }
+          promotedPrice={page?.bestProduct?.reference?.price}
+          tableHeaders={page?.bestProductTableHeaders}
+          comparisonHeadline={page?.comparionsHeadline}
+          comparisonTableHeadline={page?.comparisonTableHeadline}
         />
       ) : page.pageType === "insuranceCompanyPage" ? (
         <InsuranceCompany

@@ -1,123 +1,91 @@
 /** @format */
 
-import Row from "@/app/[...slug]/_pageTypes/bestOf/comparison/table/row";
 import {
-  IProductOffer,
-  IProductOffering,
-  ISubProduct,
-} from "@/app/[...slug]/_pageTypes/insurance/productPage/insuranceProduct";
+  IBestProduct,
+  ITableHeader,
+} from "@/app/[...slug]/_pageTypes/bestOf/bestOf";
 import Table from "@/app/[...slug]/_pageTypes/insurance/productPage/insuranceTable/table/table";
 import BaseTd from "@/app/[...slug]/_pageTypes/insurance/productPage/insuranceTable/td/base/baseTd";
 import BaseTh from "@/app/[...slug]/_pageTypes/insurance/productPage/insuranceTable/th/base/baseTh";
-import { ShieldBan, Shield, ShieldPlus } from "lucide-react";
-
+import sanityImageBuilder from "@/utils/sanityImageBuilder";
+import { tryCatchFetch } from "@/utils/tryCatchFetch";
+import Image from "next/image";
+import Link from "next/link";
 interface IInsuranceComparison {
-  bestProducts: {
-    title: string;
-    reference: {
-      productOffering: IProductOffering[];
-      _id: string;
-    };
-  }[];
+  headers: ITableHeader[];
+  bestProducts: IBestProduct[];
+  comparisonTableHeadline: string;
 }
 
 export default function InsuranceComparison({
   bestProducts,
+  headers,
+  comparisonTableHeadline,
 }: IInsuranceComparison) {
-  const insuranceProductTiers = bestProducts.length > 1;
-  const allProds = bestProducts.flatMap((bp) => bp.reference.productOffering);
-  console.log("all", allProds);
-  // TODO: Implement comparison of multiple products
-
-  // Extract all subProductTitles (assumed to be the same across items)
-  const subProducts = allProds.map((po) => po.subProduct);
-  const subProductTitles: { title: string; description: string }[] = Array.from(
-    new Map(
-      subProducts.map((sp) => [
-        sp.subProductTitle,
-        { title: sp.subProductTitle, description: sp.subProductDescription },
-      ])
-    ).values()
-  );
-
-  const productOfferTitles: { title: string; description: string }[] =
-    Array.from(
-      new Map(
-        subProducts.flatMap((sp) =>
-          sp.subProductOffer.map((o) => [
-            o.offer.title, // Key (ensures uniqueness)
-            { title: o.offer.title, description: o.offer.description }, // Value
-          ])
-        )
-      ).values()
-    );
-  return insuranceProductTiers ? (
+  return (
     <Table>
       <thead>
         <tr>
           <th
             scope="row"
-            className="sticky text-left pl-4 border border-djungleBlack-50 md:text-xl w-[23%] md:w-auto left-0 bg-djungleBeige"
+            className="text-left pl-4 border border-djungleBlack-50 md:text-xl w-[15%] lg:w-[15%] left-0 bg-djungleBeige"
           >
-            Försäkring
+            {comparisonTableHeadline}
           </th>
-          {subProductTitles.map(({ title, description }, i) => {
+          {bestProducts.map(async ({ title, reference }, i) => {
+            const prodImg = sanityImageBuilder(
+              reference.companyLogo ? reference.companyLogo : reference.image,
+              1200,
+              630,
+              Boolean(reference.companyLogo)
+            );
+            const prodData = await tryCatchFetch(
+              `${process.env.BASE_URL}/api/page/metaData/id/${reference._id}`
+            );
+            const prod = await prodData?.json();
             return (
               <th
                 scope="col"
-                className="text-center align-top border border-djungleBlack-50 bg-djungleGreen-50 px-8 py-6"
+                className="text-center  w-[20%] align-top border border-djungleBlack-50 bg-djungleGreen-50 px-8 py-6"
                 key={i}
               >
                 <div className="flex gap-2 items-center justify-center mb-2">
-                  <div className="-mb-1">{title}</div>
-                  {i === 0 ? (
-                    <ShieldBan />
-                  ) : i === 1 ? (
-                    <Shield />
-                  ) : (
-                    <ShieldPlus />
-                  )}
+                  <div className="-mb-1">
+                    {prodImg && (
+                      <Image
+                        src={prodImg}
+                        width={100}
+                        height={100}
+                        alt={""}
+                        className={`${!reference.companyLogo ? "rounded-lg" : "rounded-none"} mb-2 mx-auto`}
+                      />
+                    )}
+                    <Link
+                      href={prod.path}
+                      className="underline text-djungleBlue hover:text-djungleBlue/80 duration-200"
+                    >
+                      {title}
+                    </Link>
+                  </div>
                 </div>
-                <div className="font-normal text-sm italic">{description}</div>
               </th>
             );
           })}
         </tr>
       </thead>
       <tbody>
-        {productOfferTitles.map(({ title, description }, i) => {
+        {headers.map(({ title, description }, i) => {
           return (
             <tr key={i} className="even:bg-djungleGreen-50/30">
-              <BaseTh isSticky title={title} description={description} />
-              {subProductTitles.map(({ title: subTitle }, y) => {
-                // Find matching subProduct
-                const subProduct = subProducts.find(
-                  (sp) => sp.subProductTitle === subTitle
+              <BaseTh title={title} description={description} />
+              {bestProducts.map(({ tableValues }, y) => {
+                return (
+                  <BaseTd key={y}>
+                    <div>{tableValues[i].tableValue}</div>
+                  </BaseTd>
                 );
-                // Find matching offer
-                const offer = subProduct?.subProductOffer.find(
-                  (o) => o.offer.title === title
-                );
-                return <BaseTd key={y}>{offer?.offer?.value || "-"}</BaseTd>;
               })}
             </tr>
-          );
-        })}
-      </tbody>
-    </Table>
-  ) : (
-    <Table>
-      <tbody>
-        {allProds.map(({ subProduct }: { subProduct: ISubProduct }) => {
-          return subProduct.subProductOffer.map(
-            ({ offer }: { offer: IProductOffer }, i: number) => {
-              return (
-                <tr key={i} className="odd:bg-djungleGreen-50/60">
-                  <BaseTh title={offer.title} description={offer.description} />
-                  <BaseTd>{offer.value}</BaseTd>
-                </tr>
-              );
-            }
           );
         })}
       </tbody>

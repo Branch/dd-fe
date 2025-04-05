@@ -1,6 +1,5 @@
 /** @format */
 
-import Row from "@/app/[...slug]/_pageTypes/bestOf/comparison/table/row";
 import { ReactNode } from "react";
 
 interface IComparisonTable {

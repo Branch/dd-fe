@@ -217,11 +217,47 @@ const BEST_OF_PAGE = `*[_id == $id][0]{
        _type == "internalLink" => { "href": "/"+ @.reference-> slug.current },
        },
   },description, "pageType":_type,
-  bestProducts[]{
+  comparionsHeadline,
+  comparisonTableHeadline,
+  bestProduct{
     title,
+    text,
     reference->{
       _id,
-      productOffering
+      image,
+      price,
+      discountedPrice,
+      title,
+    },
+    pros[],
+    ctaUrl{
+      url,
+      text
+    }
+  },
+  bestProductTableHeaders[]{
+    title,
+    description
+  },
+  bestProducts[]{
+    title,
+    intro,
+    reference->{
+      _id,
+      image,
+      companyLogo,
+      price,
+      discountedPrice,
+    },
+    text,
+    ctaUrl{
+      url,
+      text
+    },
+    pros[],
+    tableValues[]{
+      tableValue,
+      tableValueRating
     }
   },
   metaTitle, metaDescription, parent->, faq, _createdAt, _updatedAt, authors[]->, "estimatedReadingTime": round(length(pt::text(body)) / 5 / 200 ), "headings": body[length(style) == 2 && string::startsWith(style, "h2")]}`;

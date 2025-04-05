@@ -17,7 +17,6 @@ interface InsuranceTableProps {
 export default function InsuranceTable({
   productOffering,
 }: InsuranceTableProps) {
-  console.log("offers", productOffering);
   const insuranceProductTiers = productOffering.length > 1;
   // Extract all subProductTitles (assumed to be the same across items)
   const subProducts = productOffering.map((po) => po.subProduct);

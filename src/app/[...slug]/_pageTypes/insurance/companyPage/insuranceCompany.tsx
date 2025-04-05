@@ -156,37 +156,45 @@ export default async function InsuranceCompany({
         </div>
         <div></div>
       </section>
-      <section className="mb-20 md:mt-4">
+      {companyProducts && companyProducts.length > 0 ? (
+        <section className="mb-20 md:mt-4">
+          <h2
+            className={`text-3xl mb-8 text-center font-bold ${oswald.className}`}
+            id="forsäkringar"
+          >
+            Försäkringar
+          </h2>
+          <div className="flex flex-col md:flex-row gap-4 justify-center">
+            {companyProducts?.map(async (p, i) => {
+              const data = await tryCatchFetch(
+                `${process.env.BASE_URL}/api/page/metaData/id/${p.productLink._id}`
+              );
+              const pData = await data?.json();
+              return (
+                <ProductCard
+                  key={i}
+                  title={p.title}
+                  description={p.description}
+                  pros={p.productLink.prosCons.pros}
+                  cta={p.productLink.cta}
+                  readMore={{
+                    text: "Läs mer",
+                    url: pData?.path || "",
+                  }}
+                />
+              );
+            })}
+          </div>
+        </section>
+      ) : null}
+      <section
+        id="content"
+        className={`${companyProducts && companyProducts.length > 0 ? "mt-8" : "mt-0"}`}
+      >
         <h2
-          className={`text-3xl mb-8 text-center font-bold ${oswald.className}`}
-          id="forsäkringar"
+          id="omdöme"
+          className={`${oswald.className} ${companyProducts && companyProducts.length > 0 ? "mt-12" : "mt-0"}`}
         >
-          Försäkringar
-        </h2>
-        <div className="flex flex-col md:flex-row gap-4 justify-center">
-          {companyProducts?.map(async (p, i) => {
-            const data = await tryCatchFetch(
-              `${process.env.BASE_URL}/api/page/metaData/id/${p.productLink._id}`
-            );
-            const pData = await data?.json();
-            return (
-              <ProductCard
-                key={i}
-                title={p.title}
-                description={p.description}
-                pros={p.productLink.prosCons.pros}
-                cta={p.productLink.cta}
-                readMore={{
-                  text: "Läs mer",
-                  url: pData?.path || "",
-                }}
-              />
-            );
-          })}
-        </div>
-      </section>
-      <section id="content" className="mt-8">
-        <h2 id="omdöme" className={`${oswald.className} mt-12`}>
           Omdöme
         </h2>
         {authors?.map(async (a: IAuthor, i: number) => {
