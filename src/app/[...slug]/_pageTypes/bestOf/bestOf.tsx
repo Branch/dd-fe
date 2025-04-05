@@ -175,12 +175,12 @@ export default async function BestOf({
             </h3>
           </Link>
           <p className="text-center text-sm">{promotedText}</p>
-          <ul className="grid grid-cols-2 my-4">
+          <ul className="flex flex-col my-4 gap-4 pr-8">
             {promotedPros.map((pro, i) => {
               return (
                 <li
                   key={i}
-                  className="before:content-['👍'] before:pr-4 text-sm"
+                  className="before:content-['👍'] before:pr-4 text-sm flex"
                 >
                   {pro}
                 </li>
@@ -310,12 +310,12 @@ export default async function BestOf({
                       <p className="mt-4">{text}</p>
                     </div>
                     <div>
-                      <ul className="my-6">
+                      <ul className="my-6 flex flex-col gap-4 pr-8">
                         {pros.map((p, y) => {
                           return (
                             <li
                               key={y}
-                              className="before:content-['👍'] before:pr-4 text-sm"
+                              className="before:content-['👍'] before:pr-4 text-sm flex"
                             >
                               {p}
                             </li>
