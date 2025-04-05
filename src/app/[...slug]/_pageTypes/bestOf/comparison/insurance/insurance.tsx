@@ -49,7 +49,7 @@ export default function InsuranceComparison({
                 className="text-center  w-[20%] align-top border border-djungleBlack-50 bg-djungleGreen-50 px-8 py-6"
                 key={i}
               >
-                <div className="flex gap-2 items-center justify-center mb-2">
+                <div className="flex gap-2 items-center justify-center">
                   <div className="-mb-1">
                     {prodImg && (
                       <Image
