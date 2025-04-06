@@ -17,6 +17,7 @@ import Link from "next/link";
 import ShareBar from "@/components/navigation/shareBar/shareBar";
 import InsuranceComparison from "@/app/[...slug]/_pageTypes/bestOf/comparison/insurance/insurance";
 import StarRating from "@/components/dataDisplay/starRating/starRating";
+import MonthAndYear from "@/utils/monthAndYear";
 export interface ITableValue {
   tableValueRating: number;
   tableValue: string;
@@ -87,6 +88,7 @@ export default async function BestOf({
   comparisonHeadline,
   comparisonTableHeadline,
 }: IBestOf) {
+  const topListHeading = `Topplista: ${title} för ${MonthAndYear()}`;
   tocHeadings = [
     {
       _type: "block",
@@ -98,7 +100,7 @@ export default async function BestOf({
       _type: "block",
       style: "normal",
       markDefs: [],
-      children: [{ text: `Topplista: ${title} ${new Date().getFullYear()}` }],
+      children: [{ text: topListHeading }],
     },
     {
       _type: "block",
@@ -223,11 +225,11 @@ export default async function BestOf({
       </section>
       <section>
         <h2
-          id={`Topplista: ${title} ${new Date().getFullYear()}`
-            .toLowerCase()
-            .replace(/\s/g, "-")}
+          id={topListHeading.toLowerCase().replace(/\s/g, "-")}
           className={`text-4xl font-bold text-center mt-12 mb-4 ${oswald.className}`}
-        >{`Topplista: ${title} ${new Date().getFullYear()}`}</h2>
+        >
+          {topListHeading}
+        </h2>
         <ul>
           {bestProducts.map(
             async (
