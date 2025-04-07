@@ -135,7 +135,7 @@ const LATEST_CATS_QUERY = `*[
 ]|order(_updatedAt desc)[0...10]{_id, title, shortTitle, image, description}`;
 
 const POSTS_CATS_QUERY = `*[
-    _type in ["post", "category", "product", "productCategory", "dogYearCalculator", "insuranceCompanyPage", "insuranceCompanyProductPage", "discountPage"]
+    _type in ["post", "category", "product", "productCategory", "dogYearCalculator", "insuranceCompanyPage", "insuranceCompanyProductPage", "discountPage", "bestOfPage"]
     && defined(slug.current)
   ]|order(_updatedAt desc)[0...10]{_id, title, shortTitle, slug, _updatedAt, description, image, parent->, authors[]->}`;
 
