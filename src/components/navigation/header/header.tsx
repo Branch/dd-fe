@@ -13,9 +13,26 @@ import MobileHeader from "@/components/navigation/header/mobile/mobileHeader";
 
 export default function Header({ sections }: { sections: any[] }) {
   const [isHovered, setIsHovered] = useState(-1);
+  const [hasScrolled, setHasScrolled] = useState(false);
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      setHasScrolled(scrollPosition > 0);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const campaingsDefaultEffect =
+    "[background:linear-gradient(45deg,#FEFBE6,#FEFBE6,#FEFBE6)_padding-box,conic-gradient(from_var(--border-angle),#357829,#357829,#357829,#E5F4CC,#357829)_border-box]";
+  const campaingsHoverEffect =
+    "[background:linear-gradient(45deg,#ffffff,#ffffff,#ffffff)_padding-box,conic-gradient(from_var(--border-angle),#357829,#357829,#357829,#E5F4CC,#357829)_border-box]";
+
   return (
     <header
-      className={`py-3 relative ${isHovered >= 0 ? "bg-white" : "bg-transparent"}`}
+      className={`py-3 sticky top-0 z-50 duration-200 bg-background ${isHovered >= 0 ? "bg-white" : ""} ${hasScrolled ? "bg-white shadow-md" : ""}`}
     >
       <nav className="container flex justify-between items-center">
         <Link href={"/"} className="mr-24">
@@ -122,7 +139,7 @@ export default function Header({ sections }: { sections: any[] }) {
         <div className="flex gap-4 items-center justify-center">
           <Link
             href="/kampanjer"
-            className={`font-bold ${isHovered === -1 ? "[background:linear-gradient(45deg,#FEFBE6,#FEFBE6,#FEFBE6)_padding-box,conic-gradient(from_var(--border-angle),#357829,#357829,#357829,#E5F4CC,#357829)_border-box]" : "z-50 [background:linear-gradient(45deg,#ffffff,#ffffff,#ffffff)_padding-box,conic-gradient(from_var(--border-angle),#357829,#357829,#357829,#E5F4CC,#357829)_border-box]"} rounded-full border-transparent animate-border py-2 px-4 border-2 shadow-md hover:animate-borderFast`}
+            className={`font-bold ${isHovered === -1 ? (hasScrolled ? campaingsHoverEffect : campaingsDefaultEffect) : campaingsHoverEffect} rounded-full border-transparent animate-border py-2 px-4 border-2 shadow-md hover:animate-borderFast`}
           >
             Kampanjer
           </Link>

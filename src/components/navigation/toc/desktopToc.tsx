@@ -1,3 +1,5 @@
+/** @format */
+
 "use client";
 
 import { useHeadsObserver } from "@/hooks/hooks";
@@ -14,7 +16,7 @@ export default function DesktopToc({ headings, styles }: IToc) {
   }, [activeId]);
   return (
     <aside
-      className={`hidden md:block p-4 md:sticky md:top-4 md:mt-[165px] md:self-start md:col-span-2 ${styles}`}
+      className={`hidden md:block p-4 md:sticky md:top-20 md:mt-[165px] md:self-start md:col-span-2 ${styles}`}
     >
       <nav>
         <header>
