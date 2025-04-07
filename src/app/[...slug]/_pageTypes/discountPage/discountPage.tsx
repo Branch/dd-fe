@@ -87,7 +87,7 @@ export default async function DiscountPage({
         </div>
         {tocHeadings?.length > 0 && <MobileToc headings={tocHeadings} />}
         <div id="content" className="prose">
-          {table ? (
+          {table?.columns?.length > 0 ? (
             <section>
               <h2 id="rabattkoder">Rabattkoder</h2>
               <div className="relative overflow-auto">
