@@ -28,7 +28,7 @@ export default function InsuranceComparison({
         <tr>
           <th
             scope="row"
-            className="text-left pl-4 border border-djungleBlack-50 md:text-xl w-[15%] lg:w-[15%] left-0 bg-djungleBeige"
+            className="text-left sticky pl-4 border border-djungleBlack-50 md:text-xl w-[15vw] left-0 bg-djungleBeige"
           >
             {comparisonTableHeadline}
           </th>
@@ -46,7 +46,7 @@ export default function InsuranceComparison({
             return (
               <th
                 scope="col"
-                className="text-center  w-[20%] align-top border border-djungleBlack-50 bg-djungleGreen-50 px-8 py-6"
+                className="text-center w-[20%] align-top border border-djungleBlack-50 bg-djungleGreen-50 px-8 py-6"
                 key={i}
               >
                 <div className="flex gap-2 items-center justify-center">
@@ -77,7 +77,7 @@ export default function InsuranceComparison({
         {headers.map(({ title, description }, i) => {
           return (
             <tr key={i} className="even:bg-djungleGreen-50/30">
-              <BaseTh title={title} description={description} />
+              <BaseTh isSticky title={title} description={description} />
               {bestProducts.map(({ tableValues }, y) => {
                 return (
                   <BaseTd key={y}>
