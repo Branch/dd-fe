@@ -479,7 +479,7 @@ async function PageHandler({ pageMetadata }: IPageHandler) {
             jsonLdImages,
             page.brand,
             page?.parent?.title,
-            page.price,
+            page?.discountedPrice || page.price,
             Boolean(page.inStock),
             page.rating,
             breadcrumbs
