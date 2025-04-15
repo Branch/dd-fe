@@ -16,7 +16,7 @@ export default function BaseTh({
   return (
     <th
       scope="row"
-      className={`border bg-djungleBeige border-djungleBlack-50 px-4 text-left ${isSticky ? "sticky left-0" : ""}`}
+      className={`border bg-djungleBeige border-djungleBlack-50 px-4 text-left ${isSticky ? "md:sticky md:left-0" : ""}`}
     >
       <Collapsible
         title={title}

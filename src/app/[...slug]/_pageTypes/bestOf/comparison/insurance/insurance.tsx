@@ -23,12 +23,12 @@ export default function InsuranceComparison({
   comparisonTableHeadline,
 }: IInsuranceComparison) {
   return (
-    <Table>
+    <Table noOfColumns={bestProducts.length}>
       <thead>
         <tr>
           <th
             scope="row"
-            className="text-left sticky pl-4 border border-djungleBlack-50 md:text-xl w-[40vw] lg:w-[15vw] left-0 bg-djungleBeige"
+            className="text-left md:sticky pl-4 w-[150px] md:w-[200px] border border-djungleBlack-50 md:text-xl left-0 bg-djungleBeige"
           >
             {comparisonTableHeadline}
           </th>
@@ -46,7 +46,7 @@ export default function InsuranceComparison({
             return (
               <th
                 scope="col"
-                className="text-center w-[70vw] lg:w-[20%] align-top border border-djungleBlack-50 bg-djungleGreen-50 px-8 py-6"
+                className="text-center align-top border border-djungleBlack-50 bg-djungleGreen-50 px-8 py-6"
                 key={i}
               >
                 <div className="flex gap-2 items-center justify-center">

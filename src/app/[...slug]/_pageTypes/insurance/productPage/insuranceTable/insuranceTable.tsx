@@ -41,12 +41,12 @@ export default function InsuranceTable({
       ).values()
     );
   return insuranceProductTiers ? (
-    <Table>
+    <Table noOfColumns={productOffering.length}>
       <thead>
         <tr>
           <th
             scope="row"
-            className="sticky text-left pl-4 border border-djungleBlack-50 md:text-xl w-[23%] md:w-auto left-0 bg-djungleBeige"
+            className="md:sticky text-left pl-4 border border-djungleBlack-50 md:text-xl w-[20%] md:w-auto left-0 bg-djungleBeige"
           >
             Försäkringsnivå
           </th>
