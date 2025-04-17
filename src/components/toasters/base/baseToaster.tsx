@@ -58,6 +58,7 @@ export default function BaseToaster({
             url={(externalUrl ? externalUrl : internalUrl) as string}
             classNames="w-full md:w-[200px] mx-auto"
             rel={externalUrl ? "noopener noreferrer nofollow sponsored" : ""}
+            forceExternal={Boolean(externalUrl && externalUrl?.length > 0)}
           />
         ) : null}
       </div>
