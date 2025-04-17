@@ -155,6 +155,26 @@ export default async function IndexPage() {
             </li>
             <li>
               <Image
+                src={"/assets/images/partners/sveland.png"}
+                alt={""}
+                width={200}
+                height={50}
+                quality={100}
+                priority
+              />
+            </li>
+            <li>
+              <Image
+                src={"/assets/images/partners/kattkompaniet.png"}
+                alt={""}
+                width={200}
+                height={50}
+                quality={100}
+                priority
+              />
+            </li>
+            <li>
+              <Image
                 className="mt-3"
                 src={"/assets/images/partners/hedvig-logo.png"}
                 alt={""}
@@ -199,6 +219,26 @@ export default async function IndexPage() {
             <li>
               <Image
                 src={"/assets/images/partners/firstvet.png"}
+                alt={""}
+                width={200}
+                height={50}
+                quality={100}
+                priority
+              />
+            </li>
+            <li>
+              <Image
+                src={"/assets/images/partners/sveland.png"}
+                alt={""}
+                width={200}
+                height={50}
+                quality={100}
+                priority
+              />
+            </li>
+            <li>
+              <Image
+                src={"/assets/images/partners/kattkompaniet.png"}
                 alt={""}
                 width={200}
                 height={50}
@@ -271,9 +311,9 @@ export default async function IndexPage() {
           </div>
         </div>
       </section>
-      <section className="grid mt-56 container sm:grid-flow-col sm:gap-12 mb-20 relative">
+      <section className="grid mt-36 lg:mt-52 container sm:grid-flow-col sm:gap-12 mb-20 relative">
         <h2
-          className={`text-4xl font-bold sm:sticky sm:top-4 sm:self-start ${oswald.className}`}
+          className={`text-4xl font-bold sm:sticky sm:top-24 lg:top-24 sm:self-start ${oswald.className}`}
         >
           Senaste nytt
         </h2>
