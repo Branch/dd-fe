@@ -331,6 +331,7 @@ export default async function BestOf({
                         design="primary"
                         url={ctaUrl.url}
                         classNames="w-full block lg:w-auto lg:px-12"
+                        rel="nofollow noreferrer sponsored noopener"
                       />
                       <BaseLink
                         text={"Läs mer"}
