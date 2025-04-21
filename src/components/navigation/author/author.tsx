@@ -44,16 +44,25 @@ export default function Author({
       ) : null}
       {size !== "small" ? (
         <div className="flex flex-col ml-2">
-          {slug ? (
-            <Link
-              href={slug}
-              className="underline !text-djungleBlack text-md mb-1"
-            >
-              {name}
-            </Link>
-          ) : (
-            <span className="text-md mb-1">{name}</span>
-          )}
+          <div className="flex gap-1 items-center">
+            {slug ? (
+              <Link
+                href={slug}
+                className="underline !text-djungleBlack text-md mb-1"
+              >
+                {name}
+              </Link>
+            ) : (
+              <span className="text-md mb-1">{name}</span>
+            )}
+            <Image
+              className="mb-1"
+              src={"/assets/icons/checkbox.svg"}
+              alt={""}
+              width={15}
+              height={15}
+            />
+          </div>
 
           <div className="flex flex-col md:flex-row text-xs">
             {categorySlug ? (

@@ -107,10 +107,11 @@ export default function ProductType({
             </Collapsible>
           ) : null}
           <Collapsible
+            defaultOpen
             isTitleHeading
-            wrapperStyles="[&>h3:first-child]:mt-4"
+            wrapperStyles="[&>h3:first-child]:mt-4 [&>p:first-child]:mt-4"
             title="Produktbeskrivning"
-            styles={`bg-transparent product-description ${discountCode ? "border-b" : "border-y mt-4"}`}
+            styles={`bg-transparent mb-4 product-description ${discountCode ? "border-b" : "border-y mt-4"}`}
           >
             {Array.isArray(body) && (
               <PortableText
