@@ -49,7 +49,7 @@ export default function AdtractionProduct({ value }: { value: any }) {
             </div>
           </div>
         ) : (
-          <div className="text-xl font-bold mt-1 md:mt-4">
+          <div className="text-xl font-bold mt-1 md:mt-4 mb-2">
             {formatPrice(value.price)}
           </div>
         )}
