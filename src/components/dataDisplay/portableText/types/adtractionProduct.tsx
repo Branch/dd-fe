@@ -1,13 +1,11 @@
 /** @format */
 "use client";
 import formatPrice from "@/utils/formatPrice";
-import { ShoppingCart } from "lucide-react";
+import { CheckCircle, CircleX, ShoppingCart, Truck } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
 export default function AdtractionProduct({ value }: { value: any }) {
-  const [showFullDescription, setShowFullDescription] = useState(false);
   return (
-    <div className="bg-white rounded-md border pr-4 py-4 grid grid-cols-3 my-4">
+    <div className="bg-white rounded-md border pr-4 py-4 grid grid-cols-3 my-4 gap-4 pl-4 lg:pl-0">
       <div className="col-span-1 relative h-full w-full">
         <Image
           src={value.imageUrl}
@@ -18,25 +16,9 @@ export default function AdtractionProduct({ value }: { value: any }) {
       </div>
       <div className="col-span-2">
         <div className="!text-md font-bold">{value.name}</div>
-        <div
-          className={`text-xs relative block overflow-y-clip text-djungleBlack ${showFullDescription ? "h-auto mb-2" : "h-[30px]"}`}
-        >
-          {value.description}
-          {!showFullDescription && (
-            <div className="h-[50px] w-full absolute bottom-0 left-0 bg-gradient-to-t from-white to-transparent"></div>
-          )}
-        </div>
-        {!showFullDescription && (
-          <button
-            onClick={() => setShowFullDescription(!showFullDescription)}
-            className="underline text-xs"
-          >
-            Läs mer
-          </button>
-        )}
         {value.price !== value.originalPrice ? (
           <div className="mb-2">
-            <div className="font-bold text-md mt-1">
+            <div className="font-bold text-md">
               <span>{formatPrice(value.price)}</span>
               <span className="text-[#FF0000] ml-2 text-xs">
                 -
@@ -49,18 +31,41 @@ export default function AdtractionProduct({ value }: { value: any }) {
             </div>
           </div>
         ) : (
-          <div className="text-xl font-bold mt-1 md:mt-4 mb-2">
+          <div className="text-xl font-bold my-2">
             {formatPrice(value.price)}
           </div>
         )}
-        <a
-          href={value.trackingUrl ? value.trackingUrl : value.productUrl}
-          target="_blank"
-          rel="noopener noreferrer nofollow sponsored"
-          className="border-2 inline-flex gap-2 items-center !font-bold hover:bg-djungleBlue hover:!text-white text-sm border-djungleBlue !no-underline text-djungleBlue px-4 py-2 rounded-full"
-        >
-          Köp hos VetZoo <ShoppingCart size={14} className="mb-1" />
-        </a>
+        <div className="text-sm flex flex-col gap-2 justify-center mb-2 text-djungleBlack">
+          <div className="flex gap-2 items-center">
+            {value.inStock ? (
+              <div className="flex gap-2 items-center">
+                <CheckCircle className="text-green-500 mb-[2px]" size={14} />
+                <div>I lager</div>
+              </div>
+            ) : (
+              <div className="flex gap-2 items-center">
+                <CircleX className="text-red-500 mb-[2px]" size={14} />
+                <div> Ej i lager</div>
+              </div>
+            )}
+          </div>
+          {value.price > 499 && (
+            <div className="text-sm font-bold text-djungleBlack flex gap-2 items-center">
+              <Truck size={14} className="mb-[2px]" />
+              <div>Gratis frakt</div>
+            </div>
+          )}
+        </div>
+        <div className="flex gap-2">
+          <a
+            href={value.trackingUrl ? value.trackingUrl : value.productUrl}
+            target="_blank"
+            rel="noopener noreferrer nofollow sponsored"
+            className="border-2 flex w-full justify-center lg:w-auto text-center gap-2 items-center !font-bold lg:hover:bg-djungleBlue hover:!text-white text-sm border-djungleBlue !no-underline text-djungleBlue px-4 py-2 rounded-full"
+          >
+            Köp hos VetZoo <ShoppingCart size={14} />
+          </a>
+        </div>
       </div>
     </div>
   );
