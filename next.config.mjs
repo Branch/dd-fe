@@ -28,6 +28,10 @@ const nextConfig = {
         protocol: "http",
         hostname: "localhost",
       },
+      {
+        protocol: "https",
+        hostname: "get.musti.media",
+      },
     ],
     /* loader: "custom",
     loaderFile: "./src/sanity/imageLoader.ts", */

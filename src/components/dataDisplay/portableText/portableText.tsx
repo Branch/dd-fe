@@ -8,7 +8,7 @@ import { PawPrint } from "lucide-react";
 import { PortableTextComponents } from "next-sanity";
 import Image from "next/image";
 import Link from "next/link";
-
+import AdtractionProduct from "./types/adtractionProduct";
 type PageComponent = {
   updatedAt: string;
 };
@@ -61,6 +61,9 @@ const PageComponents = ({
       h4: ({ children }) => <h4 className={oswald.className}>{children}</h4>,
     },
     types: {
+      csvProductReference: ({ value }) => {
+        return <AdtractionProduct value={value} />;
+      },
       image: ({ value }) => {
         const image = value.asset;
         const src = sanityImageBuilder(image);
