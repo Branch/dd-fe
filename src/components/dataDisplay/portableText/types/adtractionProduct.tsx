@@ -61,7 +61,7 @@ export default function AdtractionProduct({ value }: { value: any }) {
             href={value.trackingUrl ? value.trackingUrl : value.productUrl}
             target="_blank"
             rel="noopener noreferrer nofollow sponsored"
-            className="border-2 flex w-full justify-center lg:w-auto text-center gap-2 items-center !font-bold lg:hover:bg-djungleBlue hover:!text-white text-sm border-djungleBlue !no-underline text-djungleBlue px-4 py-2 rounded-full"
+            className="border-2 flex w-full justify-center lg:w-auto text-center gap-2 items-center !font-bold lg:hover:bg-djungleBlue lg:hover:!text-white text-sm border-djungleBlue !no-underline text-djungleBlue px-4 py-2 rounded-full"
           >
             Köp hos VetZoo <ShoppingCart size={14} />
           </a>
