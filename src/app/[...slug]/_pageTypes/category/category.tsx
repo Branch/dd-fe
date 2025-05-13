@@ -74,7 +74,7 @@ export default function CategoryType({
             <h2 className={`${oswald.className} font-bold text-3xl`}>
               Populärt inom {shortTitle || title}
             </h2>
-            <section className="grid grid-cols-1 lg:grid-cols-3 py-4 gap-x-4 gap-y-8">
+            <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 py-4 gap-x-4 gap-y-8">
               {Promise.all(
                 [...popular]
                   .sort((a, b) =>
