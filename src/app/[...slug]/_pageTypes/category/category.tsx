@@ -74,23 +74,28 @@ export default function CategoryType({
             <h2 className={`${oswald.className} font-bold text-3xl`}>
               Populärt inom {shortTitle || title}
             </h2>
-            <section className="grid grid-cols-2 lg:grid-cols-5 py-4 items-center  gap-4">
+            <section className="grid grid-cols-1 lg:grid-cols-3 py-4 gap-x-4 gap-y-8">
               {Promise.all(
-                popular?.map(async (p, i) => {
-                  const data = await tryCatchFetch(
-                    `${process.env.BASE_URL}/api/page/metaData/id/${p._id}`
-                  );
-                  const pData = await data?.json();
-                  return pData?.path ? (
-                    <SquareCard
-                      key={i}
-                      title={p.shortTitle || p.title}
-                      image={p.image}
-                      slug={pData.path}
-                      description={p.description}
-                    />
-                  ) : null;
-                })
+                [...popular]
+                  .sort((a, b) =>
+                    (b._updatedAt || "").localeCompare(a._updatedAt || "")
+                  )
+                  .map(async (p, i) => {
+                    const data = await tryCatchFetch(
+                      `${process.env.BASE_URL}/api/page/metaData/id/${p._id}`
+                    );
+                    const pData = await data?.json();
+                    return pData?.path ? (
+                      <SquareCard
+                        key={i}
+                        title={p.shortTitle || p.title}
+                        image={p.image}
+                        slug={pData.path}
+                        description={p.description}
+                        authors={p.authors}
+                      />
+                    ) : null;
+                  })
               )}
             </section>
           </div>

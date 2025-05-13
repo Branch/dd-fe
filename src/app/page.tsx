@@ -303,10 +303,10 @@ export default async function IndexPage() {
             strävar alltid efter att erbjuda våra besökare unika, innehållsrika
             och opartiska jämförelser.
           </p>
-          <h3 className={`text-3xl mt-12 mb-4 font-bold ${oswald.className}`}>
+          <h2 className={`text-3xl mt-12 mb-4 font-bold ${oswald.className}`}>
             Populära kategorier
-          </h3>
-          <div className="-mb-32 md:-mb-60">
+          </h2>
+          <div className="-mb-32 md:-mb-30">
             <Slider cards={cardsData} />
           </div>
         </div>

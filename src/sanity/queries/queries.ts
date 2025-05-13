@@ -83,7 +83,15 @@ const CAT_QUERY = `*[_id == $id][0]{
      ..., 
      _type == "internalLink" => { "href": "/"+ @.reference-> slug.current },
      },
-},description, "pageType":_type, metaTitle, metaDescription, parent->, faq, _createdAt, _updatedAt, _updatedAt, authors[]->, popular[]->, "estimatedReadingTime": round(length(pt::text(body)) / 5 / 200 ), "headings": body[length(style) == 2 && string::startsWith(style, "h2")]}`;
+},description, "pageType":_type, metaTitle, metaDescription, parent->, faq, _createdAt, _updatedAt, _updatedAt, authors[]->, popular[]->{
+  _id,
+  title,
+  shortTitle,
+  image,
+  description,
+  authors[]->,
+  _updatedAt
+}, "estimatedReadingTime": round(length(pt::text(body)) / 5 / 200 ), "headings": body[length(style) == 2 && string::startsWith(style, "h2")]}`;
 
 const PRODUCT_CAT_QUERY = `*[_id == $id][0]{
   ${toasterFragment}

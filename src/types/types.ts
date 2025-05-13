@@ -22,6 +22,7 @@ export interface IFaq {
 
 export interface ICard {
   _id?: string;
+  _updatedAt?: string;
   title: string;
   shortTitle?: string;
   image: string;
@@ -32,6 +33,7 @@ export interface ICard {
   price?: number;
   discountPrice?: number;
   rating?: number;
+  authors?: IAuthor[];
 }
 
 export interface IBaseDocument {

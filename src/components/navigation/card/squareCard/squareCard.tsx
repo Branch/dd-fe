@@ -1,13 +1,17 @@
+/** @format */
+
 import { ICard } from "@/types/types";
 import { oswald } from "@/utils/fonts/fonts";
 import Link from "next/link";
 import Image from "next/image";
 import sanityImageBuilder from "@/utils/sanityImageBuilder";
+import Author from "@/components/navigation/author/author";
 export default function SquareCard({
   title,
   image,
   slug,
   design = "base",
+  authors,
 }: ICard) {
   const imgSrc = sanityImageBuilder(image);
   if (!imgSrc) return null;
@@ -15,23 +19,26 @@ export default function SquareCard({
     design === "base" ? (
       <Link
         href={slug}
-        className="aspect-square hover:scale-[101%] duration-200 relative shadow-xl rounded-md"
+        className="hover:scale-[101%] duration-200 rounded-md flex flex-col gap-2"
       >
         <Image
           src={imgSrc}
           priority
-          fill
           alt={title}
-          className="object-cover rounded-md"
+          width={200}
+          height={100}
+          className="rounded-md w-full object-contain"
         />
-        <div className="px-4 w-full z-10 absolute bottom-8 text-white">
-          <div
-            className={`font-black truncate uppercase text-2xl first-letter:capitalize ${oswald.className}`}
-          >
-            {title}
-          </div>
+        <div
+          className={`font-black text-2xl first-letter:capitalize ${oswald.className}`}
+        >
+          {title}
         </div>
-        <div className="h-3/4 w-full rounded-md absolute bottom-0 bg-gradient-to-t from-djungleBlack"></div>
+        <div className="flex flex-col gap-2">
+          {authors?.map((author, i) => (
+            <Author key={i} name={author.fullName} headshot={author.headshot} />
+          ))}
+        </div>
       </Link>
     ) : (
       <Link href={slug} className="hover:underline duration-200 relative">
