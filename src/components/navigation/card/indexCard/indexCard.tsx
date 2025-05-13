@@ -21,11 +21,11 @@ export default function IndexCard({ title, image, slug, description }: ICard) {
           className="object-cover rounded-md"
         />
         <div className="px-4 z-10  w-full absolute bottom-10 text-white">
-          <div
+          <h3
             className={`font-black uppercase break-all text-2xl first-letter:capitalize ${oswald.className}`}
           >
             {title}
-          </div>
+          </h3>
           <p className="line-clamp-2 my-2">{description}</p>
         </div>
         <div className="h-3/4 w-full rounded-md absolute bottom-0 bg-gradient-to-t from-djungleBlack"></div>
