@@ -101,56 +101,58 @@ export default function CategoryType({
           </div>
         </div>
       ) : null}
-      <article className="grid grid-cols-1 md:grid-cols-7 gap-4">
-        <section className="md:col-span-5">
-          {imgUrl && (
-            <Image
-              src={imgUrl}
-              alt={title}
-              priority
-              sizes="(max-width: 768px) 100vw, 33vw"
-              className="aspect-video rounded-xl w-full my-4"
-              width="1280"
-              height="720"
-            />
-          )}
-          {tocHeadings?.length > 0 && <MobileToc headings={tocHeadings} />}
-          <div id="content" className="prose">
-            {Array.isArray(body) && (
-              <PortableText
-                value={body}
-                components={PageComponents({ updatedAt })}
+      {Array.isArray(body) && body.length > 0 ? (
+        <article className="grid grid-cols-1 md:grid-cols-7 gap-4">
+          <section className="md:col-span-5">
+            {imgUrl && (
+              <Image
+                src={imgUrl}
+                alt={title}
+                priority
+                sizes="(max-width: 768px) 100vw, 33vw"
+                className="aspect-video rounded-xl w-full my-4"
+                width="1280"
+                height="720"
               />
             )}
-            {faq && faq.length > 0 ? (
-              <>
-                <h2
-                  className={oswald.className}
-                  id={faqHeading.toLowerCase().replace(/\s/g, "-")}
-                >
-                  {faqHeading}
-                </h2>
-                {faq.map(
-                  (faq: { question: string; answer: string }, i: number) => {
-                    return (
-                      <Collapsible
-                        key={i}
-                        title={faq.question}
-                        styles="bg-djungleGreen-100/50 rounded-md mb-2 px-4"
-                        isTitleHeading
-                        titleHeadingLevel="h3"
-                      >
-                        <p className="!mb-0 mt-2">{faq.answer}</p>
-                      </Collapsible>
-                    );
-                  }
-                )}
-              </>
-            ) : null}
-          </div>
-        </section>
-        <DesktopToc headings={tocHeadings} styles="!mt-0" />
-      </article>
+            {tocHeadings?.length > 0 && <MobileToc headings={tocHeadings} />}
+            <div id="content" className="prose">
+              {Array.isArray(body) && (
+                <PortableText
+                  value={body}
+                  components={PageComponents({ updatedAt })}
+                />
+              )}
+              {faq && faq.length > 0 ? (
+                <>
+                  <h2
+                    className={oswald.className}
+                    id={faqHeading.toLowerCase().replace(/\s/g, "-")}
+                  >
+                    {faqHeading}
+                  </h2>
+                  {faq.map(
+                    (faq: { question: string; answer: string }, i: number) => {
+                      return (
+                        <Collapsible
+                          key={i}
+                          title={faq.question}
+                          styles="bg-djungleGreen-100/50 rounded-md mb-2 px-4"
+                          isTitleHeading
+                          titleHeadingLevel="h3"
+                        >
+                          <p className="!mb-0 mt-2">{faq.answer}</p>
+                        </Collapsible>
+                      );
+                    }
+                  )}
+                </>
+              ) : null}
+            </div>
+          </section>
+          <DesktopToc headings={tocHeadings} styles="!mt-0" />
+        </article>
+      ) : null}
     </article>
   );
 }
