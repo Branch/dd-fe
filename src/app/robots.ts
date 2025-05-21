@@ -1,3 +1,5 @@
+/** @format */
+
 import { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
@@ -8,20 +10,8 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
       },
       {
-        userAgent: "CCBot",
-        disallow: "/",
-      },
-      {
-        userAgent: "GPTBot",
-        disallow: "/",
-      },
-      {
-        userAgent: "anthropic-ai",
-        disallow: "/",
-      },
-      {
-        userAgent: "ChatGPT-User",
-        disallow: "/",
+        userAgent: "OAI-SearchBot",
+        allow: "/",
       },
     ],
     sitemap: `${process.env.BASE_URL}/sitemap.xml`,
