@@ -87,6 +87,9 @@ ul {
   article #content h3 {
     @apply text-2xl mb-4 pt-3 font-bold;
   }
+  article #content h4 {
+    @apply text-xl mb-4 pt-3 font-bold;
+  }
   article #content p {
     @apply mb-4;
   }
