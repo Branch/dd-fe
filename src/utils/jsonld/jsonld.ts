@@ -676,6 +676,33 @@ export function productGraph(
             : "https://schema.org/SoldOut",
           itemCondition: "https://schema.org/NewCondition",
           url: pagePath,
+          shippingDetails: {
+            "@type": "OfferShippingDetails",
+            shippingRate: {
+              "@type": "MonetaryAmount",
+              value: price >= 499 ? 0 : 39,
+              currency: "SEK",
+            },
+            shippingDestination: {
+              "@type": "DefinedRegion",
+              addressCountry: "SE",
+            },
+            deliveryTime: {
+              "@type": "ShippingDeliveryTime",
+              handlingTime: {
+                "@type": "QuantitativeValue",
+                minValue: 0,
+                maxValue: 1,
+                unitCode: "DAY",
+              },
+              transitTime: {
+                "@type": "QuantitativeValue",
+                minValue: 1,
+                maxValue: 4,
+                unitCode: "DAY",
+              },
+            },
+          },
         },
         subjectOf: {
           "@type": "FAQPage",
