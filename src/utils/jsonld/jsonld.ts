@@ -709,6 +709,7 @@ export function productGraph(
             returnPolicyCategory:
               "https://schema.org/MerchantReturnFiniteReturnWindow",
             merchantReturnDays: 30,
+            refundType: "https://schema.org/FullRefund",
             itemCondition: "https://schema.org/NewCondition",
             returnMethod: "https://schema.org/ReturnByMail",
             returnFees: "https://schema.org/FreeReturn",
