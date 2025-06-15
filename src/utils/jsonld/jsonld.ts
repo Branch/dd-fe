@@ -703,6 +703,17 @@ export function productGraph(
               },
             },
           },
+          hasMerchantReturnPolicy: {
+            "@type": "MerchantReturnPolicy",
+            applicableCountry: "SE",
+            returnPolicyCategory:
+              "https://schema.org/MerchantReturnFiniteReturnWindow",
+            merchantReturnDays: 30,
+            itemCondition: "https://schema.org/NewCondition",
+            returnMethod: "https://schema.org/ReturnByMail",
+            returnFees: "https://schema.org/FreeReturn",
+            returnLabelSource: "https://schema.org/ReturnLabelInBox",
+          },
         },
         subjectOf: {
           "@type": "FAQPage",
