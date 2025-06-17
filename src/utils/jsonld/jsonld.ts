@@ -647,7 +647,9 @@ export function productGraph(
   price: number,
   isAvailable: boolean,
   rating: number,
-  breadcrumbs?: any[]
+  sku: string,
+  breadcrumbs?: any[],
+  gtin13?: string
 ) {
   const images = jsonImgArray(shareImage);
   const graph: Graph = {
@@ -662,6 +664,8 @@ export function productGraph(
           ratingValue: rating,
           reviewCount: 1,
         },
+        sku: sku,
+        ...(gtin13 ? { gtin13: gtin13 } : {}),
         category: productCategory,
         url: pagePath,
         name: productName,

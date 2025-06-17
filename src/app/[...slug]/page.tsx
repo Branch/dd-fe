@@ -191,7 +191,6 @@ async function PageHandler({ pageMetadata }: IPageHandler) {
     const internalData = await data?.json();
     internalToasterPath = internalData.path;
   }
-
   return (
     <>
       {page?.toaster?.internalUrl || page?.toaster?.externalUrl ? (
@@ -482,7 +481,9 @@ async function PageHandler({ pageMetadata }: IPageHandler) {
             page?.discountedPrice || page.price,
             Boolean(page.inStock),
             page.rating,
-            breadcrumbs
+            page.sku,
+            breadcrumbs,
+            page?.ean
           )}
           ctaUrl={page.ctaUrl}
           ctaButtonText={page.ctaButtonText}
