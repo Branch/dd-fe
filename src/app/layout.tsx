@@ -11,6 +11,7 @@ const CookieConsentCmp = dynamic(
   () => import("@/components/navigation/cookieConsent/cookieConsent"),
   { ssr: false }
 );
+import GlobalPopup from "@/components/popup/GlobalPopup";
 
 export default async function RootLayout({
   children,
@@ -56,6 +57,7 @@ export default async function RootLayout({
         {children}
         <Footer />
         <CookieConsentCmp />
+        <GlobalPopup />
       </body>
     </html>
   );
