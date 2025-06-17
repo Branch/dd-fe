@@ -12,6 +12,7 @@ const CookieConsentCmp = dynamic(
   { ssr: false }
 );
 import GlobalPopup from "@/components/popup/GlobalPopup";
+import PreFooter from "@/components/navigation/preFooter/preFooter";
 
 export default async function RootLayout({
   children,
@@ -55,6 +56,7 @@ export default async function RootLayout({
       <body className={`${istok.className} overflow-x-clip`}>
         <Header sections={navSections} />
         {children}
+        <PreFooter />
         <Footer />
         <CookieConsentCmp />
         <GlobalPopup />
