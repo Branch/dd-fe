@@ -8,7 +8,7 @@ import Image from "next/image";
 const Footer = () => {
   return (
     <footer className="bg-djungleBlack mt-16 text-white py-24 relative">
-      <div className="text-center text-sm mb-12 px-4">
+      <div className="text-center text-sm mb-12 px-4 hidden">
         <h2 className="text-lg font-bold">
           Har du testat vår AI-assistent? 🤖
         </h2>
