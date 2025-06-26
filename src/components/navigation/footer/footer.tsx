@@ -8,6 +8,19 @@ import Image from "next/image";
 const Footer = () => {
   return (
     <footer className="bg-djungleBlack mt-16 text-white py-24 relative">
+      <div className="text-center text-sm mb-12 px-4">
+        <h2 className="text-lg font-bold">
+          Har du testat vår AI-assistent? 🤖
+        </h2>
+        <p className="mt-2 mb-4">
+          Den hjälper dig att hitta rätt produkt för ditt husdjur, baserat på
+          din egen produktbeskrivning.
+          <br />
+        </p>
+        <a href="/produktguide" className="underline">
+          Testa den här!
+        </a>
+      </div>
       <div className="grid md:grid-flow-col auto-cols-fr container gap-12">
         <FooterList title={"Länkar"}>
           <li className="text-sm">

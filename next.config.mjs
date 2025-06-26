@@ -32,6 +32,14 @@ const nextConfig = {
         protocol: "https",
         hostname: "get.musti.media",
       },
+      {
+        protocol: "https",
+        hostname: "vetapotek.se",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn11.bigcommerce.com",
+      },
     ],
     /* loader: "custom",
     loaderFile: "./src/sanity/imageLoader.ts", */
