@@ -192,6 +192,7 @@ export default function ChatComponent() {
               );
             }
             return products?.products?.map((p, i) => {
+              const longDescription = p.description.length > 400;
               let retailerImage = ``;
               let buyText = "Köp här";
               if (p.trackingUrl.includes("vetzoo")) {
@@ -238,8 +239,22 @@ export default function ChatComponent() {
                           />
                         )}
                       </div>
-
                       <div className="font-bold">{p?.name}</div>
+                      <p
+                        className={`italic text-sm my-2 ${longDescription ? "h-[100px] overflow-clip relative before:w-full before:h-24 before:absolute before:bottom-0 before:bg-gradient-to-t before:from-white before:via-white/60 before:to-transparent" : ""}`}
+                      >
+                        {p?.description}
+                      </p>
+                      {longDescription && (
+                        <a
+                          href={p?.trackingUrl}
+                          target="_blank"
+                          rel="nofollow noreferrer sponsored"
+                          className="text-djungleBlue not-italic underline -mt-2 z-10 relative block"
+                        >
+                          Läs mer
+                        </a>
+                      )}
                       <div>
                         {p?.price !== p?.originalPrice ? (
                           <div>
