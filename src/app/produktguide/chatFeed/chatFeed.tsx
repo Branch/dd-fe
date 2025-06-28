@@ -214,28 +214,30 @@ export default function ChatComponent() {
                     className={`w-3/4 rounded-lg lg:w-2/3 bg-white shadow-md rounded-bl-none p-4`}
                   >
                     <div className="bot-reply">
-                      {p?.imageUrl && !imageErrors.has(p.imageUrl) ? (
-                        <Image
-                          quality={100}
-                          priority
-                          className="w-full md:w-auto mb-2 max-h-[100px]"
-                          src={p.imageUrl}
-                          alt={p.name}
-                          width={100}
-                          height={100}
-                          onError={() => handleImageError(p.imageUrl)}
-                        />
-                      ) : (
-                        <Image
-                          quality={100}
-                          priority
-                          className="w-full md:w-auto mb-2 max-h-[100px]"
-                          src={retailerImage}
-                          alt={buyText}
-                          width={100}
-                          height={100}
-                        />
-                      )}
+                      <div className="relative h-[100px] lg:h-[200px]">
+                        {p?.imageUrl && !imageErrors.has(p.imageUrl) ? (
+                          <Image
+                            quality={100}
+                            priority
+                            fill
+                            objectFit="contain"
+                            className="mb-2"
+                            src={p.imageUrl}
+                            alt={p.name}
+                            onError={() => handleImageError(p.imageUrl)}
+                          />
+                        ) : (
+                          <Image
+                            quality={100}
+                            priority
+                            fill
+                            objectFit="contain"
+                            className="mb-2"
+                            src={retailerImage}
+                            alt={buyText}
+                          />
+                        )}
+                      </div>
 
                       <div className="font-bold">{p?.name}</div>
                       <div>
