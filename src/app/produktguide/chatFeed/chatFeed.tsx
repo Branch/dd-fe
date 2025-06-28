@@ -192,20 +192,22 @@ export default function ChatComponent() {
               );
             }
             return products?.products?.map((p, i) => {
-              const longDescription = p.description.length > 400;
               let retailerImage = ``;
-              let retailer = "Köp här";
+              let buyText = "Köp här";
               if (p.trackingUrl.includes("vetzoo")) {
                 retailerImage = `/assets/images/partners/vetzoo.png`;
-                retailer = "VetZoo";
+                buyText = "Köp hos VetZoo";
               } else if (p.trackingUrl.includes("firstvet")) {
                 retailerImage = `/assets/images/partners/firstvet.png`;
-                retailer = "FirstVet";
+                buyText = "Köp hos FirstVet";
               } else if (p.trackingUrl.includes("vetapotek")) {
                 retailerImage = `/assets/images/partners/vetapotek.png`;
-                retailer = "Vetapotek";
+                buyText = "Köp hos Vetapotek";
               }
-
+              const trackingUrl = p?.trackingUrl.replace(
+                "&epi",
+                "&epi2=ai-chat&epi"
+              );
               return (
                 <div key={i} className={`flex justify-start`}>
                   <div
@@ -229,28 +231,13 @@ export default function ChatComponent() {
                           priority
                           className="w-full md:w-auto mb-2 max-h-[100px]"
                           src={retailerImage}
-                          alt={retailer}
+                          alt={buyText}
                           width={100}
                           height={100}
                         />
                       )}
 
                       <div className="font-bold">{p?.name}</div>
-                      <p
-                        className={`italic text-sm my-2 ${longDescription ? "h-[100px] overflow-clip relative before:w-full before:h-24 before:absolute before:bottom-0 before:bg-gradient-to-t before:from-white before:via-white/60 before:to-transparent" : ""}`}
-                      >
-                        {p?.description}
-                      </p>
-                      {longDescription && (
-                        <a
-                          href={p?.trackingUrl}
-                          target="_blank"
-                          rel="nofollow noreferrer sponsored"
-                          className="text-djungleBlue not-italic underline -mt-2 z-10 relative block"
-                        >
-                          Läs mer
-                        </a>
-                      )}
                       <div>
                         {p?.price !== p?.originalPrice ? (
                           <div>
@@ -277,12 +264,20 @@ export default function ChatComponent() {
                         )}
                       </div>
                       <a
-                        href={p?.trackingUrl}
+                        href={trackingUrl}
                         target="_blank"
                         rel="noopener noreferrer nofollow sponsored"
                         className="border-2 mt-4 flex w-full justify-center lg:w-auto text-center gap-2 items-center !font-bold bg-djungleBlue !text-white text-sm border-djungleBlue !no-underline lg:hover:!text-djungleBlue lg:hover:bg-white px-4 py-2 duration-200 rounded-full"
                       >
-                        Köp hos {retailer} <ShoppingCart size={14} />
+                        {buyText} <ShoppingCart size={14} />
+                      </a>
+                      <a
+                        href={trackingUrl}
+                        target="_blank"
+                        rel="noopener noreferrer nofollow sponsored"
+                        className="flex w-full justify-center lg:w-auto text-center gap-2 items-center !font-bold !text-djungleBlue text-sm !no-underline px-4 py-2 duration-200"
+                      >
+                        Läs mer
                       </a>
                     </div>
                   </div>
